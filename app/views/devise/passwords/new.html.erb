@@ -1,0 +1,20 @@
+<div style="box-sizing: border-box;width: auto;margin: auto;max-width: 1080px;padding: 50px 34px 100px 34px;" class="layout vertical">
+  <h2 style="text-align:center;">Forgot your password?</h2>
+
+  <div class="layout horizontal center-justified">
+    <div style="width:350px;">
+      <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+        <%= devise_error_messages! %>
+
+
+        <%= f.email_field :email, autofocus: true, placeholder: "Email" %>
+
+        <div class="layout horizontal center-justified">
+          <div class="submit-container2">
+            <%= f.submit "Send password reset" %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

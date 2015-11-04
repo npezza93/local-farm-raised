@@ -1,0 +1,36 @@
+<div style="box-sizing: border-box;width: auto;margin: auto;max-width: 1080px;padding: 50px 34px 100px 34px;" class="layout vertical">
+  <div id="wrap">
+    <%= form_tag orders_path, method: :get do %>
+      <%= text_field_tag :search, params[:search], id: "search", autofocus: true, placeholder: "Search order number" %>
+      <input id="search_submit" type="submit">
+    <% end %>
+  </div>
+
+  <h2 style="text-align:center;">Orders</h2>
+  <div class="layout horizontal center-justified">
+    <table>
+      <thead>
+        <tr>
+          <th>Order Number</th>
+          <th>First name</th>
+          <th>Last name</th>
+          <th>Quantity</th>
+          <th>Order date</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @orders.each do |order| %>
+          <tr style="text-align:center;">
+            <td><%= link_to (sprintf '%07d', order.id), order %></td>
+            <td><%= order.address.first_name %></td>
+            <td><%= order.address.last_name %></td>
+            <td><%= order.count_items %></td>
+            <td><%= order.created_at.in_time_zone("Eastern Time (US & Canada)").strftime("%-m/%-d/%Y %l:%M %P") %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  <%= will_paginate @orders %>
+</div>

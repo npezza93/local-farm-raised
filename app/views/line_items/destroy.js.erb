@@ -1,0 +1,4 @@
+$("#cart-peek").html("<%= j render @cart %><% if !@cart.line_items.empty? %><div class='layout horizontal center-justified' style='margin-top:40px;'><div class='submit-container3'><%= j button_to 'Checkout', new_order_path, method: :get %></div></div><% end %>");
+$("#small-cart-link").html("Cart (<%= j @cart.count_items %>)");
+
+$("#order-summary").html("<%= j render @cart %>");

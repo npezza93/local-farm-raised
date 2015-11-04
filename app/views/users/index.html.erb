@@ -1,0 +1,20 @@
+<div style="box-sizing: border-box;width: auto;margin: auto;max-width: 1080px;padding: 50px 34px 100px 34px;" class="layout vertical">
+  <h2 style="text-align:center;">Users</h2>
+
+  <table class="layout horizontal center-justified" style="border-collapse:collapse;padding-bottom:30px;">
+    <% @users.each do |user| %>
+      <tr>
+        <td style="padding:12px;text-align:end;border-right: 1px solid #333;"><%= user.email %></td>
+        <td style="padding:12px;">
+          <% if user.admin %>
+            <%= button_to "Revoke admin priviliges", admin_path(user), method: :put, id: "adminify" %>
+          <% else %>
+            <%= button_to "Grant admin priviliges", admin_path(user), method: :put, id: "adminify" %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+
+  <%= will_paginate @users %>
+</div>

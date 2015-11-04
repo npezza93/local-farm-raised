@@ -1,0 +1,34 @@
+<div style="box-sizing: border-box;width: auto;margin: auto;max-width: 1080px;padding: 50px 34px 100px 34px;" class="layout vertical">
+
+<div id="wrap">
+  <%= form_tag products_path, method: :get do %>
+    <%= text_field_tag :search, params[:search], id: "search", autofocus: true, placeholder: "What're we looking for?" %>
+    <input id="search_submit" type="submit">
+  <% end %>
+</div>
+
+
+
+  <% @products.each_slice(2).to_a.each do |product_chunk| %>
+    <div class="layout horizontal center-justified" style="margin-bottom:1.5%;">
+      <% product_chunk.each do |product| %>
+        <%= link_to product, { style: "position:relative;width: 47%;"} do %>
+          <div class="layout vertical start-justified" style="margin:2%;">
+            <%= image_tag product.image_url(:thumb), style: "width:100%;", class: "layout center-justified vertical" %>
+          </div>
+
+          <div class="layout vertical center-justified product_overlay">
+            <p class="layout horizontal center-justified" style="color:#333;font-weight:800;">
+              <%= product.title %>
+            </p>
+
+            <p class="layout horizontal center-justified" style="color:#333;font-size:11px;margin-top:-15px;">
+              <%= number_to_currency(product.price) %>
+            </p>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  <% end %>
+  <%= will_paginate @products %>
+</div>

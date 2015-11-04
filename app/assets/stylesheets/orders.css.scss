@@ -1,0 +1,85 @@
+// Place all the styles related to the Orders controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+#order_email, #order_first_name, #order_last_name, #order_street_address1,  #order_street_address2, #order_city, #order_state, #order_zipcode, #order_phone_number, #line_item_quantity, #user_email, #user_password, #user_password_confirmation, #user_current_password, #email, #first_name, #last_name, #street_address1, #street_address2, #city, #zipcode, #phone_number, #state, #card_number, #card_code, #card_month, #card_year, #address_first_name, #address_last_name, #address_street_address1,  #address_street_address2, #address_city, #address_state, #address_zipcode, #address_phone_number {
+  padding: 8px 10px;
+  border: 1px solid #ddd;
+  box-shadow: 0 0 0 1px rgba(0,0,0,0);
+  -webkit-transition: all .2s ease-out;
+  transition: all .2s ease-out;
+  width: 100%;
+  box-sizing: border-box;
+  border-radius: 4px;
+  font-size: 1em;
+  outline: none;
+
+  &:focus {
+    border-color: #42b1ff;
+    box-shadow: 0 0 0 1px #42b1ff;
+  }
+}
+#user_email, #user_password, #user_password_confirmation, #user_current_password, #card_code {
+  margin-top: .5em;
+}
+#line_item_quantity{
+  width:20%;
+}
+#fn-container {
+  margin-right: 2%;
+  width: 49%;
+  position: relative;
+  float: left;
+}
+#ln-container {
+  width: 49%;
+  position: relative;
+  float: left;
+}
+#address_street_address1,  #address_street_address2, #address_phone_number, #order_street_address1,  #order_street_address2, #order_phone_number, #street_address1, #street_address2, #phone_number {
+  margin-top: .5em;
+}
+#city-container {
+  margin-right: 2%;
+  width: 42%;
+  margin-top: .5em;
+  position: relative;
+  float: left;
+}
+#state-container {
+  width: 24%;
+  position: relative;
+  margin-right: 2%;
+  float: left;
+  margin-top: .5em;
+}
+
+#order_state, #address_state {
+  height:34px;
+}
+#zip-container {
+  width: 30%;
+  position: relative;
+  float: left;
+  margin-top: .5em;
+}
+#submit-order {
+  font-size: 12px;
+  line-height: normal;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-align: center;
+  padding: 11px 0;
+  margin: 0px auto 0px auto;
+  box-shadow: none;
+  float: none;
+  border-radius: 25px;
+  color: #fff;
+  width: 150px;
+  background: #222;
+  margin-top: 30px;
+  border: none;
+  font-weight: 500;
+  text-decoration: none;
+}

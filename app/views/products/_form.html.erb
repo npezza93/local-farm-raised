@@ -1,0 +1,42 @@
+<%= form_for(@product) do |f| %>
+  <% if @product.errors.any? %>
+    <div id="error_explanation">
+      <ul>
+      <% @product.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+
+
+<div style="box-sizing: border-box;width: auto;margin: auto;max-width: 1080px;padding: 50px 34px 100px 34px;" class="layout horizontal center-justified">
+  <div class="layout vertical center center-justified" style="width: 48.5%;margin-right:1.5%;">
+    <%= f.file_field :image, style: "width:200px;" %>
+    <%= f.text_field :remote_image_url, placeholder: "or image URL", id: "product-price-field", style: "width:190px;" %>
+  </div>
+
+  <div style="width: 48.5%;margin-left:1.5%;">
+    <%= f.text_field :title, placeholder: "Title", id: "product-title-field" %>
+
+    <p>
+      <%= f.text_field :price, placeholder: "Price", id: "product-price-field" %>
+    </p>
+
+    <p>
+      <%= f.text_area :description, placeholder: "Description", id:"product-desc-field" %>
+    </p>
+
+  </div>
+
+</div>
+
+<div class="layout horizontal center-justified">
+  <div class="submit-container1">
+    <%= f.submit %>
+  </div>
+</div>
+
+<% end %>

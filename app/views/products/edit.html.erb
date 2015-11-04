@@ -1,0 +1,10 @@
+<div class="layout horizontal center-justified flex">
+  <%= link_to @product, {style: "margin-top: 50px;", id: "back-to-home"} do %>
+    <span class="back-arrow">←</span>
+    Back to Product
+  <% end %>
+</div>
+
+<h2 class="layout horizontal center-justified">Editing product</h1>
+
+<%= render 'form' %>
