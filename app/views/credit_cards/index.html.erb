@@ -1,0 +1,38 @@
+<div style="box-sizing: border-box;width: auto;margin: auto;max-width: 1080px;padding: 50px 34px 100px 34px;" class="layout vertical">
+  <div style="width:100%;" class="layout horizontal center-justified">
+    <div>
+
+      <h2 style="text-align:center;">Add Credit Card</h2>
+
+      <div class="layout vertical">
+        <paper-item toggles class="layout horizontal around-justified" style="font-weight:500;">
+          <span style="text-align:center;width:39px;"></span>
+          <span style="text-align:center;width:200px;margin:0;">Brand</span>
+          <span style="text-align:center;width:100px;margin:0;">Last 4</span>
+          <span style="text-align:center;width:150px;margin:0;">Expiration</span>
+          <span style="text-align:center;width:50px;margin:0;"></span>
+        </paper-item>
+
+        <% @credit_cards.each do |credit_card| %>
+        <paper-item class="layout horizontal around-justified">
+          <span class="layout vertical center-center;" style="text-align:center;"><%= image_tag credit_card.brand.downcase.strip.tr(" ", "") + ".png", style: "height:27px;" %></span>
+          <span style="text-align:center;width:200px;margin:0;"><%= credit_card.brand %></span>
+          <span style="text-align:center;width:100px;margin:0;"><%= credit_card.last4 %></span>
+          <span style="text-align:center;width:150px;margin:0;"><%= credit_card.exp_month %>/<%= credit_card.exp_year %></span>
+          <span style="text-align:center;width:50px;margin:0;">
+              <%= link_to user_credit_card_path(@user, credit_card), method: :delete, data: { confirm: 'Are you sure?' } do %>
+                <i class="fa fa-trash-o"></i>
+              <% end %>
+          </span>
+        </paper-item>
+
+
+        <% end %>
+      </div>
+      <div class="layout horizontal center-justified" style="width:100%;">
+        <%= link_to 'New Credit card', new_user_credit_card_path(@user), id: "submit-order", style: "margin-right:10px;margin-left:0;" %>
+      </div>
+
+    </div>
+  </div>
+</div>
