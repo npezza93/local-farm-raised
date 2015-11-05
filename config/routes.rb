@@ -1,11 +1,12 @@
 Rails.application.routes.draw do
   resources :users, only: [:index] do
     resources :addresses, except: [:show]
+    resources :credit_cards, except: [:show, :edit, :update]
   end
   get 'users/settings', to: 'users#settings', as: "settings"
   put 'users/:id', to: "users#admin", as: "admin"
 
-  devise_for :users
+  devise_for :users, controllers: { registrations: "registrations" }
 
   resources :orders
   resources :line_items, only: [:create, :update, :destroy]

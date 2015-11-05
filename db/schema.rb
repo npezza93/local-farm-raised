@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151103032256) do
+ActiveRecord::Schema.define(version: 20151105011129) do
 
   create_table "addresses", force: :cascade do |t|
     t.string   "first_name"
@@ -34,6 +34,19 @@ ActiveRecord::Schema.define(version: 20151103032256) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "credit_cards", force: :cascade do |t|
+    t.integer  "user_id"
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.string   "stripe_customer_card_token"
+    t.string   "last4"
+    t.string   "brand"
+    t.string   "exp_month"
+    t.string   "exp_year"
+  end
+
+  add_index "credit_cards", ["user_id"], name: "index_credit_cards_on_user_id"
+
   create_table "line_items", force: :cascade do |t|
     t.integer  "product_id"
     t.integer  "cart_id"
@@ -50,15 +63,16 @@ ActiveRecord::Schema.define(version: 20151103032256) do
   create_table "orders", force: :cascade do |t|
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
-    t.string   "stripe_charge_token"
-    t.string   "stripe_card_token"
     t.boolean  "refund",              default: false
     t.string   "refund_token"
     t.integer  "address_id"
     t.integer  "user_id"
+    t.integer  "credit_card_id"
+    t.string   "stripe_charge_token"
   end
 
   add_index "orders", ["address_id"], name: "index_orders_on_address_id"
+  add_index "orders", ["credit_card_id"], name: "index_orders_on_credit_card_id"
   add_index "orders", ["user_id"], name: "index_orders_on_user_id"
 
   create_table "products", force: :cascade do |t|
@@ -84,6 +98,7 @@ ActiveRecord::Schema.define(version: 20151103032256) do
     t.datetime "created_at",                             null: false
     t.datetime "updated_at",                             null: false
     t.boolean  "admin",                  default: false
+    t.string   "stripe_customer_token"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

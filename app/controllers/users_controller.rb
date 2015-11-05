@@ -1,7 +1,10 @@
 class UsersController < ApplicationController
+  include CurrentCart
+  before_action :set_cart
+
   before_filter :auth_user, except: [:settings]
   before_action :set_user, only: [:admin]
-  
+
   # GET /users
   # GET /users.json
   def index

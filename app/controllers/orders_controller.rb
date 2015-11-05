@@ -2,6 +2,8 @@ class OrdersController < ApplicationController
   include CurrentCart
   before_action :set_order, only: [:show, :edit, :update, :destroy]
   before_action :set_cart, only: [:new, :create]
+  before_filter :sign_in_if_not, only: :new
+  before_filter :authenticate_user
 
   # GET /orders
   # GET /orders.json
@@ -24,7 +26,6 @@ class OrdersController < ApplicationController
       redirect_to store_url, notice: "Your cart is empty"
       return
     end
-
     @order = Order.new
   end
 
@@ -87,6 +88,18 @@ class OrdersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def order_params
-      params.require(:order).permit(:stripe_card_token, :address_id, :user_id)
+      params.require(:order).permit(:credit_card_id, :address_id, :user_id)
+    end
+
+    def sign_in_if_not
+      if !user_signed_in?
+        redirect_to new_user_session_url
+      end
+    end
+
+    def authenticate_user
+      if !user_signed_in?
+        redirect_to root_url, notice: "You're not authorized to view this page"
+      end
     end
 end

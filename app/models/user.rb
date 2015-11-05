@@ -4,6 +4,15 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  after_create :create_stripe_customer
+
   has_many :addresses
+  has_many :credit_cards
   has_many :orders
+
+  def create_stripe_customer
+    customer = Stripe::Customer.create(email: email)
+    self.stripe_customer_token = customer.id
+    save!
+  end
 end

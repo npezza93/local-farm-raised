@@ -41,7 +41,7 @@ gem 'spring',        group: :development
 
 gem 'carrierwave'
 gem 'polymer-rails'
-gem 'polymer-elements-rails', git: 'git://github.com/npezza93/polymer-elements-rails.git'
+gem 'polymer-elements-rails', git: 'git://github.com/npezza93/polymer-elements-rails.git', :branch => "updated-polymer"
 gem 'font-awesome-rails'
 
 gem 'rmagick'

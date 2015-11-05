@@ -1,4 +1,7 @@
 class AddressesController < ApplicationController
+  include CurrentCart
+  before_action :set_cart
+
   before_action :set_address, only: [:edit, :update, :destroy]
   before_action :set_user
   before_filter :auth_address_book
@@ -70,10 +73,10 @@ class AddressesController < ApplicationController
 
     def auth_address_book
       unless @user = current_user
-        redirect_to store_url
+        redirect_to store_url, notice: "You're not authorized to view this page"
       end
     end
-    
+
     # Never trust parameters from the scary internet, only allow the white list through.
     def address_params
       params.require(:address).permit(:first_name, :last_name, :street_address1, :street_address2, :city, :state, :zipcode, :phone_number, :user_id)

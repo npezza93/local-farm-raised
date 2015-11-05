@@ -2,6 +2,8 @@ class Order < ActiveRecord::Base
   has_many :line_items, dependent: :destroy
   belongs_to :address
   belongs_to :user
+  belongs_to :credit_card
+  validates_presence_of :credit_card_id, :address_id
 
   def add_line_items_from_cart(cart)
     cart.line_items.each do |item|
@@ -28,7 +30,11 @@ class Order < ActiveRecord::Base
 
   def save_with_payment
     if valid?
-      charge = Stripe::Charge.create(amount: (total_price*100).to_i, description: user.email, currency: "usd", card: stripe_card_token)
+      customer = Stripe::Customer.retrieve(user.stripe_customer_token)
+      customer.default_source = credit_card.stripe_customer_card_token
+      customer.save
+
+      charge = Stripe::Charge.create(amount: (total_price*100).to_i, description: user.email, currency: "usd", customer: user.stripe_customer_token)
       self.stripe_charge_token = charge.id
       save!
     end
