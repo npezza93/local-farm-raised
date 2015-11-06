@@ -13,91 +13,90 @@
 <body>
 
 </body class="fullbleed layout vertical">
+  <paper-drawer-panel>
+    <div drawer style="background-color:#f7f7f7;">
+       <paper-toolbar class="tall">
+         <% if user_signed_in? %>
+             <div id="user-name" class="middle"><%= current_user.email %></div>
+         <% end %>
+       </paper-toolbar>
+       <%= render 'users/user_links' %>
+   </div>
 
-  <div style="width:100%;height:174px;background-color:#3c9;" class="layout horizontal center-justified">
-    <div class="layout vertical center-justified">
-      <%= link_to root_path do %>
-        <%= image_tag "logo.png" %>
-      <% end %>
-    </div>
-  </div>
-
-  <div id="login">
-    <% if user_signed_in? %>
-      <div class="layout vertical">
-        <span id="user-name"><%= current_user.email %></span>
-        <div class="layout horizontal center">
-          <%= link_to 'Settings', settings_path, id: "user-profile" %> |
-          <%= link_to "Logout", destroy_user_session_path, method: :delete , id: "logout-user" %>
-        </div>
-      </div>
-    <% else %>
-      <div class="layout horizontal center">
-        <%= link_to "Login", new_user_session_path, id: "login-user" %> | <%= link_to "Sign up", new_user_registration_path, id: "signup-link" %>
-      </div>
-    <% end %>
-  </div>
-
-  <% if @cart %>
-    <div id="small-cart-container">
-      <div id="small-cart-link">Cart (<%= @cart.count_items %>)</div>
-    </div>
-
-    <div id="cart-peek">
-        <%= render @cart %>
-
-        <% if !@cart.line_items.empty? %>
-          <div class="layout horizontal center-justified" style="margin-top:40px;">
-            <div class="submit-container3">
-              <%= button_to "Checkout", new_order_path, method: :get %>
+    <div main style="overflow:scroll;">
+        <paper-toolbar class="tall" style="background-color:#3c9;">
+          <div class="middle layout horizontal center-justified" style="width:100%;">
+            <div class="layout vertical center-justified">
+              <%= link_to root_path do %>
+                <%= image_tag "logo.png" %>
+              <% end %>
             </div>
           </div>
-        <% end %>
+
+          <% if @cart %>
+            <div id="small-cart-container">
+              <div id="small-cart-link"><iron-icon icon="icons:shopping-cart" style="margin-right:8px;"></iron-icon>Cart (<%= @cart.count_items %>)</div>
+            </div>
+
+            <div id="cart-peek">
+                <%= render @cart %>
+
+                <% if !@cart.line_items.empty? %>
+                  <div class="layout horizontal center-justified" style="margin-top:40px;">
+                    <div class="submit-container3">
+                      <%= button_to "Checkout", new_order_path, method: :get %>
+                    </div>
+                  </div>
+                <% end %>
+            </div>
+          <% end %>
+        </paper-toolbar>
+
+        <div>
+          <div>
+            <% if notice %>
+              <div id="notice"><%= notice %></div>
+            <% end %>
+
+            <%= yield %>
+          </div>
+
+          <div id="newsletter-footer" class="layout vertical center-justified">
+            <h2 class="layout horizontal center-justified">Inside Local Farm Raised</h2>
+            <p class="layout horizontal center-justified" style="text-align:center;font-weigth:100;">
+              Fresh healthy recipes to try + upcoming <br>
+              products and featured farmers!
+            </p>
+            <div class="layout horizontal center-justified start" style="margin-top:20px;">
+              <%= form_tag do %>
+                <%= text_field_tag :email, nil, placeholder: "Email Address", id: "email-newsletter" %>
+                <%= submit_tag "Sign up", id: "submit-newsletter" %>
+              <% end %>
+            </div>
+          </div>
+
+          <div style="width:100%;height:230.5px;">
+            <div class="layout vertical center-justified" style="height:100%;">
+              <div class="layout horizontal center-justified" style="padding-bottom: 1.5em;">
+                <%= link_to "Shipping & Returns", "#shipping", class: "footer-link" %>
+                <%= link_to "Terms & Conditions", "#shipping", class: "footer-link" %>
+                <%= link_to "FAQ", "#shipping", class: "footer-link" %>
+                <%= link_to "Privacy", "#shipping", class: "footer-link" %>
+                <%= link_to "Become a Partner", "#shipping", class: "footer-link" %>
+              </div>
+
+              <div class="layout horizontal center-justified">
+                <%= link_to "https://twitter.com/localfarmraised", class: "footer-link" do %>
+                  <%= image_tag "https://3.bp.blogspot.com/-a2vIfeSBZx4/VS6mckNchCI/AAAAAAAAARg/WXiZOSDODUA/w800-h800/Twitter_circle.svg.png", style: "width:32px;height:32px;" %>
+                <% end %>
+                <%= link_to "mailto:justin@localfarmraised.com", class: "footer-link" do %>
+                  <%= image_tag "http://cdn.mysitemyway.com/icons-watermarks/flat-circle-white-on-black/raphael/raphael_mail/raphael_mail_flat-circle-white-on-black_512x512.png", style: "width:32px;height:32px;" %>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
     </div>
-  <% end %>
-
-  <div id="main">
-    <% if notice %>
-      <div id="notice"><%= notice %></div>
-    <% end %>
-
-    <%= yield %>
-  </div>
-
-  <div id="newsletter-footer" class="layout vertical center-justified">
-    <h2 class="layout horizontal center-justified">Inside Local Farm Raised</h2>
-    <p class="layout horizontal center-justified" style="text-align:center;font-weigth:100;">
-      Fresh healthy recipes to try + upcoming <br>
-      products and featured farmers!
-    </p>
-    <div class="layout horizontal center-justified start" style="margin-top:20px;">
-      <%= form_tag do %>
-        <%= text_field_tag :email, nil, placeholder: "Email Address", id: "email-newsletter" %>
-        <%= submit_tag "Sign up", id: "submit-newsletter" %>
-      <% end %>
-    </div>
-  </div>
-
-  <div style="width:100%;height:230.5px;">
-    <div class="layout vertical center-justified" style="height:100%;">
-      <div class="layout horizontal center-justified" style="padding-bottom: 1.5em;">
-        <%= link_to "Shipping & Returns", "#shipping", class: "footer-link" %>
-        <%= link_to "Terms & Conditions", "#shipping", class: "footer-link" %>
-        <%= link_to "FAQ", "#shipping", class: "footer-link" %>
-        <%= link_to "Privacy", "#shipping", class: "footer-link" %>
-        <%= link_to "Become a Partner", "#shipping", class: "footer-link" %>
-      </div>
-
-      <div class="layout horizontal center-justified">
-        <%= link_to "https://twitter.com/localfarmraised", class: "footer-link" do %>
-          <%= image_tag "https://3.bp.blogspot.com/-a2vIfeSBZx4/VS6mckNchCI/AAAAAAAAARg/WXiZOSDODUA/w800-h800/Twitter_circle.svg.png", style: "width:32px;height:32px;" %>
-        <% end %>
-        <%= link_to "mailto:justin@localfarmraised.com", class: "footer-link" do %>
-          <%= image_tag "http://cdn.mysitemyway.com/icons-watermarks/flat-circle-white-on-black/raphael/raphael_mail/raphael_mail_flat-circle-white-on-black_512x512.png", style: "width:32px;height:32px;" %>
-        <% end %>
-      </div>
-    </div>
-  </div>
-
+  </paper-drawer-panel>
 </body>
 </html>
