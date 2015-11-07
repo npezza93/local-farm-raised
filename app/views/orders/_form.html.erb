@@ -59,7 +59,9 @@
         <div class="horizontal layout" style="margin-top:8px;">
           <%= f.radio_button(:credit_card_id, card.id) %>
           <div class="layout horizontal" style="margin-left:10px;font-size:12px;">
-            <%= image_tag card.brand.downcase.strip.tr(" ", "") + ".png", style: "height:27px;margin-right:8px;" %>
+            <% credit_card_icon = card.brand.downcase.strip.tr(" ", "-") %>
+            <% credit_card_icon = credit_card_icon == "american-express" ? "amex" : credit_card_icon %>
+            <i class="fa fa-cc-<%= credit_card_icon %>" style="font-size:2em;margin-right:8px;"></i>
             <b style="margin-right:4px;"><%= card.brand %></b>
             ending in <%= card.last4 %>
           </div>

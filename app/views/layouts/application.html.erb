@@ -40,7 +40,10 @@
 
   <% if @cart %>
     <div id="small-cart-container">
-      <div id="small-cart-link">Cart (<%= @cart.count_items %>)</div>
+      <div id="small-cart-link">
+        <iron-icon icon="shopping-cart" style="margin-right:8px;"></iron-icon>
+        Cart (<%= @cart.count_items %>)
+      </div>
     </div>
 
     <div id="cart-peek">

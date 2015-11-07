@@ -15,7 +15,9 @@
 
         <% @credit_cards.each do |credit_card| %>
         <paper-item class="layout horizontal around-justified">
-          <span class="layout vertical center-center;" style="text-align:center;"><%= image_tag credit_card.brand.downcase.strip.tr(" ", "") + ".png", style: "height:27px;" %></span>
+          <% credit_card_icon = credit_card.brand.downcase.strip.tr(" ", "-") %>
+          <% credit_card_icon = credit_card_icon == "american-express" ? "amex" : credit_card_icon %>
+          <i class="fa fa-cc-<%= credit_card_icon %>" style="font-size:2.5em;"></i>
           <span style="text-align:center;width:200px;margin:0;"><%= credit_card.brand %></span>
           <span style="text-align:center;width:100px;margin:0;"><%= credit_card.last4 %></span>
           <span style="text-align:center;width:150px;margin:0;"><%= credit_card.exp_month %>/<%= credit_card.exp_year %></span>
