@@ -18,7 +18,7 @@ class CreditCardsControllerTest < ActionController::TestCase
 
   test "should create credit_card" do
     assert_difference('CreditCard.count') do
-      post :create, credit_card: { stripe_card_token: @credit_card.stripe_card_token, user_id: @credit_card.user_id }
+      post :create, credit_card: { stripe_card_token: @credit_card.stripe_customer_card_token, user_id: @credit_card.user_id, last4: @credit_card.last4, brand: @credit_card.brand, exp_month: @credit_card.exp_month, exp_year: @credit_card.exp_year }
     end
 
     assert_redirected_to credit_card_path(assigns(:credit_card))
@@ -35,7 +35,7 @@ class CreditCardsControllerTest < ActionController::TestCase
   end
 
   test "should update credit_card" do
-    patch :update, id: @credit_card, credit_card: { stripe_card_token: @credit_card.stripe_card_token, user_id: @credit_card.user_id }
+    patch :update, id: @credit_card, credit_card: { stripe_card_token: @credit_card.stripe_customer_card_token, user_id: @credit_card.user_id, last4: @credit_card.last4, brand: @credit_card.brand, exp_month: @credit_card.exp_month, exp_year: @credit_card.exp_year }
     assert_redirected_to credit_card_path(assigns(:credit_card))
   end
 

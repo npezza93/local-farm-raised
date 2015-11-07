@@ -35,13 +35,12 @@
 
   <div class="layout horizontal center-justified">
     <div style="width:350px;margin-top:45px;">
-      <h3 style="text-align:center;">Unhappy?</h3>
+      <h3 style="text-align:center;margin-bottom:0;">Unhappy?</h3>
 
-      <div class="layout horizontal center-justified">
-        <div class="submit-container2">
-          <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %>
-        </div>
+      <div class="layout horizontal center-justified" style="width:100%;">
+        <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, id: "submit-order", style: "width:200px;" %>
       </div>
+
     </div>
   </div>
 </div>
