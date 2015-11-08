@@ -23,8 +23,7 @@ class CreditCardsController < ApplicationController
     @credit_card = @user.credit_cards.new
 
     respond_to do |format|
-      puts params[:stripe_card_token]
-      if @credit_card.save_with_card(params[:stripe_card_token])
+      if @credit_card.save_card(params[:stripe_card_token])
         format.html { redirect_to user_credit_cards_url(@user), notice: 'Credit card was successfully added.' }
       else
         format.html { render :new }

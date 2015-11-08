@@ -21,8 +21,8 @@ class Order < ActiveRecord::Base
   end
 
   def self.search(search)
-    if search
-      where("id LIKE ?", "%#{search}%")
+    if search && search != ""
+      where("id LIKE ?", "%#{search.to_i}%")
     else
       all
     end

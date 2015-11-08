@@ -3,18 +3,16 @@ Rails.application.routes.draw do
     resources :addresses, except: [:show]
     resources :credit_cards, except: [:show, :edit, :update]
   end
-  get 'users/settings', to: 'users#settings', as: "settings"
+
   put 'users/:id', to: "users#admin", as: "admin"
 
   devise_for :users, controllers: { registrations: "registrations" }
 
-  resources :orders
+  resources :orders, except: [:edit, :update]
   resources :line_items, only: [:create, :update, :destroy]
   resources :carts, only: [:show, :create, :destroy]
 
-  resources :products do
-    get :who_bought, on: :member
-  end
+  resources :products
 
   get 'store', to: "products#index"
 

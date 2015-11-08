@@ -1,75 +1,39 @@
-<div>
-  Order Summary
-</div>
+<div>Your Cart</div>
+
 <% if !cart.line_items.empty? %>
-  <table style="border-bottom: 1px solid #ddd;padding-top: 20px;margin-bottom: 10px;width: 100%;">
+  <table id="cart-table">
     <tr>
-      <td style="font-size:10px;color:#666;">Item</td>
-      <td style="font-size:10px;color:#666;width:20px;">Quantity</td>
-      <td style="text-align: right;
-        width: 90px;
-        padding-left: 10px;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;font-size: 10px;line-height:13px;color:#666;">
-        Price
-      </td>
-      <td>
-      </td>
+      <td class="item-th">Item</td>
+      <td class="quantity-th">Quantity</td>
+      <td class="price-th">Price</td>
+      <td></td>
     </tr>
     <%= render (cart.line_items) %>
   </table>
 
-<div style="padding-right: 51px;height:15px;" class="layout horizontal">
-  <div style="width:100%;text-align:right;text-transform: uppercase;color: #777;font-size: 10px;">
-    SUBTOTAL
-  </div>
-
-  <div style="font-size: 12px;min-width: 100px;text-align: right;">
-    <%= number_to_currency(cart.total_price) %>
-  </div>
-</div>
-
-
-<div style="padding-right: 51px;height:15px;" class="layout horizontal">
-  <div style="width:100%;text-align:right;text-transform: uppercase;color: #777;font-size: 10px;">
-    Tax
-  </div>
-
-  <div style="font-size: 12px;min-width: 100px;text-align: right;">
-    <%= number_to_currency(0) %>
-  </div>
-</div>
-
-
-<div style="padding-right: 51px;height:15px;" class="layout horizontal">
-  <div style="width:100%;text-align:right;text-transform: uppercase;color: #777;font-size: 10px;">
-    Shipping
-  </div>
-
-  <div style="font-size: 12px;min-width: 100px;text-align: right;">
-    <%= number_to_currency(0) %>
-  </div>
-</div>
-
-<div style="line-height: 32px;margin-top: 18px;border-top: 1px solid #ddd;padding-top: 15px;padding-right: 51px;">
-
-    <div style="font-size: 16px;font-weight:500;float: right;min-width: 100px;text-align: right;margin-top:-8px;">
-      <%= number_to_currency(cart.total_price) %>
+  <div id="cart-summaries">
+    <div class="summary-total-container layout horizontal">
+      <div class="summary-total-header">SUBTOTAL</div>
+      <div class="summary-total-price"><%= number_to_currency(cart.total_price) %></div>
     </div>
 
-    <div style="float: right;
-      text-transform: uppercase;
-      color: #777;
-      font-size: 16px;
-      word-wrap: normal;margin-top:-8px;">
-      GRAND TOTAL
+    <div class="summary-total-container layout horizontal">
+      <div class="summary-total-header">TAX</div>
+      <div class="summary-total-price"><%= number_to_currency(cart.total_price * 0.06) %></div>
     </div>
 
+    <div class="summary-total-container layout horizontal">
+      <div class="summary-total-header">Shipping</div>
+      <div class="summary-total-price"><%= number_to_currency(0) %></div>
+    </div>
 
-</div>
+    <div class="grand-total">
+        <div class="grand-total-price"><%= number_to_currency(cart.total_price * 1.06) %></div>
+        <div class="grand-total-header">GRAND TOTAL</div>
+    </div>
+  </div>
 <% else %>
-  <div class="layout horizontal center-justified" style="margin-top:25px;">
-    Your shopping bag is currently empty
+  <div class="layout horizontal center-justified empty-cart">
+    Your shopping cart is currently empty
   </div>
 <% end %>

@@ -1,70 +1,51 @@
-<div>
-  Order Summary
-</div>
+<div id="order-summary-container">
+  <p>Order Summary</p>
+  <table>
+    <tr>
+      <td id="item-header">Item</td>
+      <td id="quantity-header">Quantity</td>
+      <td id="price-header">Price</td>
+    </tr>
 
-<table style="border-bottom: 1px solid #ddd;padding-top: 20px;margin-bottom: 10px;width: 100%;">
-  <tr>
-    <td style="font-size:10px;color:#666;">Item</td>
-    <td style="font-size:10px;color:#666;width:20px;">Quantity</td>
-    <td style="text-align: right;
-      width: 90px;
-      padding-left: 10px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;font-size: 10px;line-height:13px;color:#666;">
-      Price
-    </td>
-    <td>
-    </td>
-  </tr>
-  <%= render (order.line_items) %>
-</table>
+    <% @order.line_items.each do |line_item| %>
+      <tr>
+        <td class="product-td">
+          <div class="product-image">
+            <%= image_tag line_item.product.image_url(:thumb) %>
+          </div>
+          <div class="product-title">
+            <%= line_item.product.title %>
+          </div>
+        </td>
 
-<div style="padding-right: 51px;height:15px;" class="layout horizontal">
-  <div style="width:100%;text-align:right;text-transform: uppercase;color: #777;font-size: 10px;">
-    SUBTOTAL
+        <td class="quantity-td">
+          <%= line_item.quantity %>
+        </td>
+
+        <td class="price-td">
+          <%= number_to_currency(line_item.total_price) %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+
+  <div class="summary-total-container layout horizontal">
+    <div class="summary-total-header">SUBTOTAL</div>
+    <div class="summary-total-price"><%= number_to_currency(@order.total_price) %></div>
   </div>
 
-  <div style="font-size: 12px;min-width: 100px;text-align: right;">
-    <%= number_to_currency(order.total_price) %>
-  </div>
-</div>
-
-
-<div style="padding-right: 51px;height:15px;" class="layout horizontal">
-  <div style="width:100%;text-align:right;text-transform: uppercase;color: #777;font-size: 10px;">
-    Tax
+  <div class="summary-total-container layout horizontal">
+    <div class="summary-total-header">TAX</div>
+    <div class="summary-total-price"><%= number_to_currency(@order.total_price * 0.06) %></div>
   </div>
 
-  <div style="font-size: 12px;min-width: 100px;text-align: right;">
-    <%= number_to_currency(0) %>
-  </div>
-</div>
-
-
-<div style="padding-right: 51px;height:15px;" class="layout horizontal">
-  <div style="width:100%;text-align:right;text-transform: uppercase;color: #777;font-size: 10px;">
-    Shipping
+  <div class="summary-total-container layout horizontal">
+    <div class="summary-total-header">Shipping</div>
+    <div class="summary-total-price"><%= number_to_currency(0) %></div>
   </div>
 
-  <div style="font-size: 12px;min-width: 100px;text-align: right;">
-    <%= number_to_currency(0) %>
+  <div class="grand-total">
+      <div class="grand-total-price"><%= number_to_currency(@order.total_price * 1.06) %></div>
+      <div class="grand-total-header">GRAND TOTAL</div>
   </div>
-</div>
-
-<div style="line-height: 32px;margin-top: 18px;border-top: 1px solid #ddd;padding-top: 15px;padding-right: 51px;">
-
-    <div style="font-size: 16px;font-weight:500;float: right;min-width: 100px;text-align: right;margin-top:-8px;">
-      <%= number_to_currency(order.total_price) %>
-    </div>
-
-    <div style="float: right;
-      text-transform: uppercase;
-      color: #777;
-      font-size: 16px;
-      word-wrap: normal;margin-top:-8px;">
-      GRAND TOTAL
-    </div>
-
-
 </div>

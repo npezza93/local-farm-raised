@@ -1,17 +1,9 @@
-<div class="layout horizontal center-justified flex">
-  <%= link_to user_addresses_path(@user), {style: "margin-top: 50px;", id: "back-to-home"} do %>
-    <span class="back-arrow">←</span>
-    Back to Address book
-  <% end %>
-</div>
+<div class="outside-container layout vertical">
+  <div class="layout horizontal center-justified">
+    <div>
+      <h2>Add Address</h2>
 
-<div style="box-sizing: border-box;width: auto;margin: auto;max-width: 1080px;padding: 50px 34px 100px 34px;" class="layout vertical">
-  <div style="width:100%;" class="layout horizontal center-justified">
-  <div style="width:360px;margin-bottom: 30px;background: #fff;padding: 30px;">
-
-    <h2 style="text-align:center;">New Address</h2>
-
-    <%= render 'form' %>
+      <%= render 'form' %>
+    </div>
   </div>
-</div>
 </div>

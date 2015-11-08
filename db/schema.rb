@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151105011129) do
+ActiveRecord::Schema.define(version: 20151108175548) do
 
   create_table "addresses", force: :cascade do |t|
     t.string   "first_name"
@@ -23,8 +23,9 @@ ActiveRecord::Schema.define(version: 20151105011129) do
     t.string   "zipcode"
     t.string   "phone_number"
     t.integer  "user_id"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+    t.boolean  "archived",        default: false
   end
 
   add_index "addresses", ["user_id"], name: "index_addresses_on_user_id"
@@ -69,6 +70,7 @@ ActiveRecord::Schema.define(version: 20151105011129) do
     t.integer  "user_id"
     t.integer  "credit_card_id"
     t.string   "stripe_charge_token"
+    t.string   "new_field"
   end
 
   add_index "orders", ["address_id"], name: "index_orders_on_address_id"
@@ -99,6 +101,7 @@ ActiveRecord::Schema.define(version: 20151105011129) do
     t.datetime "updated_at",                             null: false
     t.boolean  "admin",                  default: false
     t.string   "stripe_customer_token"
+    t.string   "name"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

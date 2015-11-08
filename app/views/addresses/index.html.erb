@@ -1,48 +1,40 @@
-<div style="height:100%;width:100%;background-color:#f3f3f3;margin-top:-15px;" >
-  <div style="position: relative;margin: 0 auto;width: 900px;padding: 45px 15px;" class="layout vertical">
-    <h2 style="text-align:center;">Address Book</h2>
+<div class="outside-container">
+  <h2>Address Book</h2>
 
-    <div class="layout horizontal wrap">
-      <% @addresses.each do |address| %>
-        <div style="width:360px;margin-bottom: 30px;background: #fff;padding: 30px;margin-right:30px;margin-top:30px;">
-            <div>
-              <div id="fn-container">
-                <%= text_field_tag :first_name, address.first_name, disabled: true %>
-              </div>
-
-              <div id="ln-container">
-                <%= text_field_tag :last_name, address.last_name, disabled: true %>
-              </div>
-            </div>
-
-            <%= text_field_tag :street_address1, address.street_address1, disabled: true %>
-
-            <%= text_field_tag :street_address2, address.street_address2, disabled: true %>
-
-            <div id="city-container">
-              <%= text_field_tag :city, address.city, disabled: true %>
-            </div>
-
-            <div id="state-container">
-              <%= text_field_tag :state, address.state, disabled: true %>
-            </div>
-
-            <div id="zip-container">
-              <%= text_field_tag :zipcode, address.zipcode, disabled: true %>
-            </div>
-
-            <%= text_field_tag :phone_number, address.phone_number, disabled: true %>
-
-            <div class="layout horizontal center-justified" style="width:100%;">
-              <%= link_to 'Edit', edit_user_address_path(@user, address), id: "submit-order", style: "margin-right:10px;margin-left:0;" %>
-              <%= button_to 'Remove', user_address_path(@user, address), method: :delete, data: { confirm: 'Are you sure?' }, id: "submit-order" %>
-            </div>
+  <div class="layout horizontal center-justified wrap">
+    <% @addresses.each do |address| %>
+      <div class="address-box">
+        <div>
+            <%= address.first_name %>
+            <%= address.last_name %>
         </div>
-      <% end %>
-    </div>
 
-    <div class="layout horizontal center-justified" style="width:100%;">
-      <%= link_to 'New Address', new_user_address_path(@user), id: "submit-order", style: "margin-right:10px;margin-left:0;" %>
-    </div>
+        <div>
+            <%= address.street_address1 %>
+        </div>
+
+        <% if address.street_address2 %>
+          <div>
+              <%= address.street_address2 %>
+          </div>
+        <% end %>
+
+        <div>
+            <%= address.city %>, <%= address.state %> <%= address.zipcode %>
+        </div>
+        <%= "<br>".html_safe if address.street_address2.empty? %>
+
+        <div class="layout horizontal end center-justified">
+          <%= link_to 'Edit', edit_user_address_path(@user, address), id: "submit-order", style: "margin-right:10px;" %>
+          <%= button_to 'Remove', user_address_path(@user, address), method: :delete, data: { confirm: 'Are you sure?' }, id: "submit-order" %>
+        </div>
+      </div>
+    <% end %>
   </div>
 </div>
+
+<%= link_to new_user_address_path(@user) do %>
+  <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored fab">
+    <i class="material-icons">add</i>
+  </button>
+<% end %>

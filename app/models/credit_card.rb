@@ -1,11 +1,11 @@
 class CreditCard < ActiveRecord::Base
   belongs_to :user
   has_many :orders
-  
-  def save_with_card(stripe_card_token)
+
+  def save_card(stripe_card_token)
     if valid?
       customer = Stripe::Customer.retrieve(user.stripe_customer_token)
-      card     = customer.sources.create({:source => stripe_card_token})
+      card     = customer.sources.create(:source => stripe_card_token)
       self.stripe_customer_card_token = card.id
       self.last4 = card.last4
       self.exp_month = card.exp_month
@@ -23,5 +23,10 @@ class CreditCard < ActiveRecord::Base
     customer = Stripe::Customer.retrieve(user.stripe_customer_token)
     customer.sources.retrieve(stripe_customer_card_token).delete()
     self.destroy!
+  end
+
+  def icon
+    icon = brand.downcase.strip.tr(" ", "-")
+    icon == "american-express" ? "amex" : icon
   end
 end

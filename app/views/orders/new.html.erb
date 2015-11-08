@@ -1,10 +1,9 @@
-<div style="height:100%;width:100%;background-color:#f3f3f3;margin-top:-15px;" >
-  <div style="position: relative;margin: 0 auto;width: 900px;padding: 45px 15px;" class="layout horizontal">
+<div class="layout center-justified horizontal wrap outside-container">
+    <div id="cart-summary">
+      <%= render @cart %>
+    </div>
+
     <div class="layout vertical">
       <%= render 'form' %>
     </div>
-    <div style="height:100%;width:360px;margin-bottom: 30px;background: #fff;padding: 30px;" id="order-summary">
-      <%= render @cart %>
-    </div>
-  </div>
 </div>

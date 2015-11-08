@@ -1,0 +1,66 @@
+<% if user_signed_in? %>
+  <%= link_to edit_user_registration_path, class: "drawer-link" do %>
+   <paper-item>
+     <i class="material-icons">face</i>
+     Profile
+   </paper-item>
+  <% end %>
+
+  <%= link_to orders_path, class: "drawer-link" do %>
+   <paper-item>
+     <iron-icon icon="maps:local-shipping"></iron-icon>
+     Orders
+   </paper-item>
+  <% end %>
+
+  <%= link_to user_credit_cards_path(current_user), class: "drawer-link" do %>
+   <paper-item>
+     <iron-icon icon="icons:credit-card"></iron-icon>
+     Wallet
+   </paper-item>
+  <% end %>
+
+  <%= link_to user_addresses_path(current_user), class: "drawer-link" do %>
+   <paper-item>
+     <iron-icon icon="maps:place"></iron-icon>
+     Address Book
+   </paper-item>
+  <% end %>
+
+  <hr>
+
+  <% if current_user.try(:admin?) %>
+    <%= link_to users_path, class: "drawer-link" do %>
+     <paper-item>
+       <iron-icon icon="icons:supervisor-account"></iron-icon>
+       Users
+     </paper-item>
+    <% end %>
+    <hr>
+  <% end %>
+
+  <%= link_to destroy_user_session_path, method: :delete, class: "drawer-link" do %>
+   <paper-item>
+     <svg class="svg-icon" viewBox="0 0 24 24">
+       <path fill="#000000" d="M17,17.25V14H10V10H17V6.75L22.25,12L17,17.25M13,2A2,2 0 0,1 15,4V8H13V4H4V20H13V16H15V20A2,2 0 0,1 13,22H4A2,2 0 0,1 2,20V4A2,2 0 0,1 4,2H13Z" />
+     </svg>
+     Logout
+   </paper-item>
+  <% end %>
+<% else %>
+  <%= link_to new_user_session_path, class: "drawer-link" do %>
+   <paper-item>
+     <svg class="svg-icon" viewBox="0 0 24 24">
+       <path fill="#000000" d="M10,17.25V14H3V10H10V6.75L15.25,12L10,17.25M8,2H17A2,2 0 0,1 19,4V20A2,2 0 0,1 17,22H8A2,2 0 0,1 6,20V16H8V20H17V4H8V8H6V4A2,2 0 0,1 8,2Z" />
+     </svg>
+     Login
+   </paper-item>
+  <% end %>
+
+  <%= link_to new_user_registration_path, class: "drawer-link" do %>
+   <paper-item>
+     <i class="material-icons">person_add</i>
+     Sign Up
+   </paper-item>
+  <% end %>
+<% end %>

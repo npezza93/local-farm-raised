@@ -9,68 +9,63 @@
     </div>
   <% end %>
 
-  <div style="width:360px;margin-bottom: 30px;background: #fff;padding: 30px;margin-right:30px;">
+  <%= f.hidden_field :user_id, value: current_user.id %>
 
-    <p style="font-size: 16px;color: #333;height: 20px;font-weight:500;margin-bottom:30px;">Contact & Shipping</p>
-
-
-    <%= f.hidden_field :user_id, value: current_user.id %>
-
-
-    <div style="font-size:13px;font-weight:bold;">
-      Shipping Address
-    </div>
+  <div id="order-form-shipping">
+    <p>Contact & Shipping</p>
 
     <% if current_user.addresses.count == 0 %>
-      <div class="layout horizontal center-justified" style="width:100%;">
-        <%= link_to 'Add Address', new_user_address_path(current_user), id: "submit-order", style: "margin-right:10px;margin-left:0;" %>
+      <div class="layout horizontal center-justified">
+        <%= link_to 'Add Address', new_user_address_path(current_user), id: "submit-order" %>
+      </div>
+    <% else %>
+      <div id="shipping-header">Shipping Address</div>
+
+      <div class="layout vertical center-justified ">
+        <% current_user.addresses.each_with_index do |address, index| %>
+          <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="order_address_id_<%= address.id %>">
+            <%= f.radio_button :address_id, address.id, class: "mdl-radio__button", checked:  index==0 %>
+
+            <div class="mdl-radio__label layout vertical address-container">
+              <div><b><%= address.name %></b></div>
+              <div><%= address.street_address1 %></div>
+              <% if address.street_address2 %>
+                <div><%= address.street_address2 %></div>
+              <% end %>
+              <div><%= address.city + "," + address.state + " " + address.zipcode %></div>
+            </div>
+          </label>
+        <% end %>
       </div>
     <% end %>
-    <div class="layout vertical">
-      <% current_user.addresses.each do |address| %>
-        <div class="horizontal layout center">
-          <%= f.radio_button(:address_id, address.id) %>
-          <div class="layout vertical" style="margin-left:10px;">
-            <div style="font-size:12px;font-weight:bold;margin-top:8px;"><%= address.name %></div>
-            <div style="font-size:12px;">
-              <%= address.street_address1 %><br>
-              <%= address.street_address2 %><br>
-              <%= address.city + "," + address.state + " " + address.zipcode %>
-            </div>
-          </div>
-        </div>
-      <% end %>
-    </div>
   </div>
 
-  <div style="width:360px;margin-bottom: 30px;background: #fff;padding: 30px;margin-right:30px;">
-    <div class="layout horizontal">
-      <p style="font-size: 16px;color: #333;height: 20px;font-weight:500;margin-bottom:30px;">Billing</p>
-    </div>
+  <div id="order-form-billing">
+    <p>Billing</p>
 
     <% if current_user.credit_cards.count == 0 %>
-      <div class="layout horizontal center-justified" style="width:100%;">
-        <%= link_to 'Add Credit Card', new_user_credit_card_path(current_user), id: "submit-order", style: "margin-right:10px;margin-left:0;" %>
+      <div class="layout horizontal center-justified">
+        <%= link_to 'Add Credit Card', new_user_credit_card_path(current_user), id: "submit-order" %>
       </div>
     <% end %>
 
     <div class="layout vertical">
-      <% current_user.credit_cards.each do |card| %>
-        <div class="horizontal layout" style="margin-top:8px;">
-          <%= f.radio_button(:credit_card_id, card.id) %>
-          <div class="layout horizontal" style="margin-left:10px;font-size:12px;">
-            <% credit_card_icon = card.brand.downcase.strip.tr(" ", "-") %>
-            <% credit_card_icon = credit_card_icon == "american-express" ? "amex" : credit_card_icon %>
-            <i class="fa fa-cc-<%= credit_card_icon %>" style="font-size:2em;margin-right:8px;"></i>
-            <b style="margin-right:4px;"><%= card.brand %></b>
-            ending in <%= card.last4 %>
+      <% current_user.credit_cards.each_with_index do |card, index| %>
+        <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="order_credit_card_id_<%= card.id %>">
+          <%= f.radio_button :credit_card_id, card.id, class: "mdl-radio__button", checked:  index==0 %>
+
+          <div class="mdl-radio__label layout vertical">
+            <div class="layout horizontal center">
+              <i class="fa fa-cc-<%= card.icon %>"></i>
+              <b><%= card.brand %></b> ending in <%= card.last4 %>
+            </div>
           </div>
-        </div>
+        </label>
       <% end %>
     </div>
-
-    <br>
-    <%= f.submit "Continue", id: "submit-order", class: "layout horizontal center-justified" %>
-
   </div>
+
+  <% if !(current_user.credit_cards.empty? || current_user.addresses.empty?) %>
+    <%= f.submit "Place Order", id: "submit-order", class: "layout horizontal center-justified" %>
+  <% end %>
 <% end %>

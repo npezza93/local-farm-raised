@@ -9,4 +9,9 @@ class Address < ActiveRecord::Base
   def name
     first_name + " " + last_name
   end
+
+  def archive
+    self.archived = true
+    self.save!
+  end
 end

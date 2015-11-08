@@ -1,3 +1,8 @@
+.mdl-layout__drawer-button {
+  background: #3c9;
+  color: #fff;
+}
+
 body {
   font-family: 'Open Sans', sans-serif;
   font-size: 15px;
@@ -27,25 +32,7 @@ h2 {
   letter-spacing: 1px;
   font-weight: 500;
   font-style: normal;
-}
-
-pre {
-  background-color: #eee;
-  padding: 10px;
-  font-size: 11px;
-}
-
-#back-to-home, .edit-link, .delete-link {
-  font-size: 15px;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  font-weight: 300;
-  font-style: normal;
-  color: #333;
-  text-decoration: none;
-}
-.edit-link {
-  margin-right: 100px;
+  text-align:center;
 }
 
 #error_explanation {
@@ -72,76 +59,6 @@ transform: translateY(100px);
     font-size: 12px;
     list-style: square;
   color: red;
-}
-
-.product_overlay {
-  position:absolute;
-  top:0;
-  left:0;
-  right:0;
-  bottom:0;
-  background: rgba(255,255,255,.8);
-  color: #fff;
-  opacity: 0;
-  -webkit-transition: opacity .3s ease-out;
-  -moz-transition: opacity .3s ease-out;
-  -ms-transition: opacity .3s ease-out;
-  -o-transition: opacity .3s ease-out;
-  transition: opacity .3s ease-out;
-  filter: alpha(opacity=0);
-
-  &:hover {
-    opacity: 10;
-
-  }
-}
-
-#cart-peek {
-  position: absolute;
-  width:360px;
-  top: 48px;
-  right: 40px;
-  opacity: 1;
-  background-color: #16181a;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-font-smoothing: antialiased;
-  color: #fff;
-  visibility: visible;
-  font-style: normal;
-  font-size: 12px;
-  z-index: 1101;
-  display: block;
-  color: #fff;
-  padding: 30px;
-  line-height: 1em;
-  display: none;
-}
-
-#small-cart-container {
-  position: absolute;
-  top: 0;
-  right: 40px;
-  opacity: 1;
-  background-color: #16181a;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-font-smoothing: antialiased;
-  color: #fff;
-  visibility: visible;
-  text-transform: uppercase;
-  text-decoration: none;
-  font-style: normal;
-  font-size: 12px;
-  letter-spacing: 1px;
-  z-index: 1101;
-  cursor: pointer;
-}
-#small-cart-link {
-  display: block;
-  color: #fff;
-  padding: 12px;
-  white-space: nowrap;
-  line-height: 1em;
-  font-weight: 500;
 }
 
 #newsletter-footer {
@@ -195,125 +112,6 @@ transform: translateY(100px);
   }
 }
 
-#new-product-link {
-  position:absolute;
-  right:150px;
-  padding:12px;
-  top: 0;
-  opacity: 1;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-font-smoothing: antialiased;
-  color: #fff;
-  visibility: visible;
-  text-decoration: none;
-  font-style: normal;
-  letter-spacing: 1px;
-  z-index: 1101;
-  cursor: pointer;
-  padding: 12px;
-  white-space: nowrap;
-  line-height: 1em;
-  font-weight: 400;
-}
-#orders-link {
-  position:absolute;
-  right:270px;
-  padding:12px;
-  top: 0;
-  opacity: 1;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-font-smoothing: antialiased;
-  color: #fff;
-  visibility: visible;
-  text-decoration: none;
-  font-style: normal;
-  letter-spacing: 1px;
-  z-index: 1101;
-  cursor: pointer;
-  padding: 12px;
-  white-space: nowrap;
-  line-height: 1em;
-  font-weight: 400;
-}
-#users-link {
-  position:absolute;
-  right:350px;
-  padding:12px;
-  top: 0;
-  opacity: 1;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-font-smoothing: antialiased;
-  color: #fff;
-  visibility: visible;
-  text-decoration: none;
-  font-style: normal;
-  letter-spacing: 1px;
-  z-index: 1101;
-  cursor: pointer;
-  padding: 12px;
-  white-space: nowrap;
-  line-height: 1em;
-  font-weight: 400;
-}
-
-#user-profile, #logout-user, #user-name, #signup-link, #login-user {
-  padding:12px;
-  opacity: 1;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-font-smoothing: antialiased;
-  color: #fff;
-  visibility: visible;
-  text-decoration: none;
-  font-style: normal;
-  letter-spacing: 1px;
-  z-index: 1101;
-  cursor: pointer;
-  padding: 12px;
-  white-space: nowrap;
-  line-height: 1em;
-  font-weight: 400;
-}
-
-#product-title-field {
-  font-family: "Raleway",Arial,sans-serif;
-  font-size: 56px;
-  line-height: 1em;
-  text-transform: none;
-  letter-spacing: 1px;
-  font-weight: 600;
-  font-style: normal;
-  border: none;
-  width:100%;
-  margin-top: 37.520px;
-  margin-bottom: 20px;
-}
-#product-price-field {
-  font-family: 'Open Sans', sans-serif;
-  font-size: 15px;
-  line-height: 1.7em;
-  letter-spacing: 0px;
-  font-weight: 300;
-  font-style: normal;
-  color: #333;
-  border: none;
-}
-#product-desc-field {
-  font-family: 'Open Sans', sans-serif;
-  font-size: 15px;
-  line-height: 1.7em;
-  letter-spacing: 0px;
-  font-weight: 300;
-  font-style: normal;
-  color: #333;
-  width: 100%;
-}
-
-#login {
-  position: absolute;
-  top: 0;
-  left: 0;
-}
-
 input[type=submit] {
   color: #2b2f33;
   text-transform: uppercase;
@@ -342,6 +140,8 @@ input[type=submit] {
 
   &:hover {
     background-color: #2b2f33;
+    color: #fff;
+
     input[type=submit] {
       color: #fff;
     }
@@ -365,53 +165,14 @@ input[type=submit] {
 
   &:hover {
     background-color: #2b2f33;
+    color: #fff;
+
     input[type=submit] {
       color: #fff;
     }
   }
 }
 
-.submit-container3 {
-  border-radius: 3px;
-  background: transparent;
-  color: #fff;
-  border-width: 2px;
-  border-style: solid;
-  -webkit-transition: 0.1s background-color linear, 0.1s color linear;
-  -moz-transition: 0.1s background-color linear, 0.1s color linear;
-  -o-transition: 0.1s background-color linear, 0.1s color linear;
-  transition: 0.1s background-color linear, 0.1s color linear;
-  border-color: #fff;
-  margin: 0;
-  padding: .8em 3em !important;
-  cursor: pointer;
-
-  input[type=submit] {
-    color: #fff;
-  }
-
-  &:hover {
-    background-color: #fff;
-    input[type=submit] {
-      color: #2b2f33;
-    }
-  }
-}
-
-#quantity-line-item {
-  margin: 0;
-  padding: 3px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  text-align: right;
-  float: right;
-  outline: none;
-  width: 75%;
-
-  &:focus {
-    border: 1px solid #777;
-  }
-}
 
 .footer-link {
   text-decoration: none;
@@ -439,11 +200,38 @@ box-sizing: border-box;
 box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
 border-radius: 2px;
 bottom: 115px;
-left: 12px;
+right: 12px;
 font-size: 14px;
 cursor: default;
 -webkit-transition: visibility 0.3s, -webkit-transform 0.3s;
 transition: visibility 0.3s, transform 0.3s;
 -webkit-transform: translateY(100px);
 transform: translateY(100px);
+z-index: 1000;
+}
+
+
+
+
+
+.outside-container {
+  box-sizing: border-box;
+  width: auto;
+  margin: auto;
+  max-width: 1080px;
+  padding: 50px 34px 100px 34px;
+}
+
+.fab {
+  position:fixed;
+  bottom:0;
+  right:0;
+  margin-right:32px;
+  margin-bottom:32px;
+}
+.search-container {
+  position: absolute;
+  margin-right: 108px;
+  right: 0;
+  color:#fff;
 }

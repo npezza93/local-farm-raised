@@ -9,7 +9,7 @@ class AddressesController < ApplicationController
   # GET /addresses
   # GET /addresses.json
   def index
-    @addresses = @user.addresses
+    @addresses = @user.addresses.where(archived: false)
   end
 
   # GET /addresses/new
@@ -54,7 +54,7 @@ class AddressesController < ApplicationController
   # DELETE /addresses/1
   # DELETE /addresses/1.json
   def destroy
-    @address.destroy
+    @address.archive
     respond_to do |format|
       format.html { redirect_to user_addresses_url(@user), notice: 'Address was successfully destroyed.' }
       format.json { head :no_content }

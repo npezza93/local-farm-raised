@@ -2,67 +2,6 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-#order_email, #order_first_name, #order_last_name, #order_street_address1,  #order_street_address2, #order_city, #order_state, #order_zipcode, #order_phone_number, #line_item_quantity, #user_email, #user_password, #user_password_confirmation, #user_current_password, #email, #first_name, #last_name, #street_address1, #street_address2, #city, #zipcode, #phone_number, #state, #card_number, #card_code, #card_month, #card_year, #address_first_name, #address_last_name, #address_street_address1,  #address_street_address2, #address_city, #address_state, #address_zipcode, #address_phone_number {
-  padding: 8px 10px;
-  border: 1px solid #ddd;
-  box-shadow: 0 0 0 1px rgba(0,0,0,0);
-  -webkit-transition: all .2s ease-out;
-  transition: all .2s ease-out;
-  width: 100%;
-  box-sizing: border-box;
-  border-radius: 4px;
-  font-size: 1em;
-  outline: none;
-
-  &:focus {
-    border-color: #42b1ff;
-    box-shadow: 0 0 0 1px #42b1ff;
-  }
-}
-#user_email, #user_password, #user_password_confirmation, #user_current_password, #card_code, #card_number {
-  margin-top: .5em;
-}
-#line_item_quantity{
-  width:20%;
-}
-#fn-container {
-  margin-right: 2%;
-  width: 49%;
-  position: relative;
-  float: left;
-}
-#ln-container {
-  width: 49%;
-  position: relative;
-  float: left;
-}
-#address_street_address1,  #address_street_address2, #address_phone_number, #order_street_address1,  #order_street_address2, #order_phone_number, #street_address1, #street_address2, #phone_number {
-  margin-top: .5em;
-}
-#city-container {
-  margin-right: 2%;
-  width: 42%;
-  margin-top: .5em;
-  position: relative;
-  float: left;
-}
-#state-container {
-  width: 24%;
-  position: relative;
-  margin-right: 2%;
-  float: left;
-  margin-top: .5em;
-}
-
-#order_state, #address_state {
-  height:34px;
-}
-#zip-container {
-  width: 30%;
-  position: relative;
-  float: left;
-  margin-top: .5em;
-}
 #submit-order {
   font-size: 12px;
   line-height: normal;
@@ -82,4 +21,220 @@
   border: none;
   font-weight: 500;
   text-decoration: none;
+}
+
+.order-id-link {
+  text-decoration: none;
+}
+
+#order-shipping-container {
+  width:360px;
+  margin-bottom: 30px;
+  background: #f3f3f3;
+  padding: 30px;
+  margin:15px;
+
+  p {
+    font-size: 16px;
+    color: #333;
+    height: 20px;
+    font-weight:500;
+    margin-bottom:30px;
+  }
+}
+#order-summary-container {
+  width:360px;
+  margin-bottom: 30px;
+  background: #f3f3f3;
+  padding: 30px;
+  margin:15px;
+
+  p {
+    font-size: 16px;
+    color: #333;
+    height: 20px;
+    font-weight:500;
+    margin-bottom:30px;
+  }
+
+  table {
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 10px;
+    width: 100%;
+  }
+  #item-header {
+    font-size:10px;
+    color:#666;
+  }
+  #quantity-header {
+    font-size:10px;
+    color:#666;
+    width:20px;
+  }
+  #price-header {
+    text-align: right;
+    width: 90px;
+    padding-left: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 10px;
+    line-height:13px;
+    color:#666;
+  }
+  .quantity-td {
+    vertical-align:top;
+    font-size: 12px;
+    line-height:13px;
+    text-align:center;
+  }
+  .price-td {
+    vertical-align:top;
+    text-align: right;
+    width: 90px;
+    padding-left: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 12px;
+    line-height:13px;
+  }
+  .product-td {
+    vertical-align:top;
+    width:174px;
+
+    .product-image {
+      float:left;
+      padding:0 8px 10px 0;
+      text-align:left;
+    }
+    img {
+      width:50px;
+    }
+    .product-title {
+      max-width: 100px;
+      float: left;
+      padding-bottom: 10px;
+      text-align:left;
+      font-size: 12px;
+      line-height:13px;
+    }
+  }
+  .summary-total-container {
+    height:15px;
+
+    .summary-total-header {
+      width:100%;
+      text-align:right;
+      text-transform: uppercase;
+      color: #777;
+      font-size: 10px;
+    }
+
+    .summary-total-price {
+      font-size: 12px;
+      min-width: 100px;
+      text-align: right;
+    }
+  }
+  .grand-total {
+    line-height: 32px;
+    margin-top: 18px;
+    border-top: 1px solid #ddd;
+    padding-top: 15px;
+
+    .grand-total-price {
+      font-size: 16px;
+      font-weight:500;
+      float: right;
+      min-width: 100px;
+      text-align: right;
+      margin-top:-8px;
+    }
+
+    .grand-total-header {
+      float: right;
+      text-transform: uppercase;
+      color: #777;
+      font-size: 16px;
+      word-wrap: normal;
+      margin-top:-8px;
+    }
+  }
+}
+
+#cart-summary {
+  height:100%;
+  width:360px;
+  margin-bottom: 30px;
+  background: #f3f3f3;
+  padding: 30px;
+  margin-left:30px;
+}
+#order-form-shipping {
+  width:360px;
+  margin-bottom: 30px;
+  background: #f3f3f3;
+  padding: 30px;
+  margin-left:30px;
+
+  p {
+    font-size: 16px;
+    color: #333;
+    height: 20px;
+    font-weight:500;
+    margin-bottom:30px;
+  }
+  #shipping-header {
+    font-size:13px;
+    font-weight:bold;
+  }
+
+  .address-container {
+    margin-left:10px;
+    margin-top:8px;
+
+    div {
+      font-size:12px;
+    }
+  }
+  .mdl-radio__outer-circle, .mdl-radio__ripple-container, .mdl-radio__inner-circle {
+    margin-top: 10%;
+  }
+}
+
+#order-form-billing {
+  width:360px;
+  margin-bottom: 30px;
+  background: #f3f3f3;
+  padding: 30px;
+  margin-left:30px;
+
+  p {
+    font-size: 16px;
+    color: #333;
+    height: 20px;
+    font-weight:500;
+    margin-bottom:30px;
+  }
+
+  b {
+    margin-right:4px;
+  }
+  i {
+    font-size:2em;
+    margin-right:8px;
+  }
+  .card-container {
+    margin-top:8px;
+
+    div {
+      margin-left:10px;
+      font-size:12px;
+    }
+  }
+
+  .mdl-radio__outer-circle, .mdl-radio__ripple-container, .mdl-radio__inner-circle {
+    margin-top: 4px;
+  }
 }

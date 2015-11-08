@@ -1,15 +1,7 @@
-<div class="layout horizontal center-justified flex">
-  <%= link_to user_credit_cards_path(@user), {style: "margin-top: 50px;", id: "back-to-home"} do %>
-    <span class="back-arrow">←</span>
-    Back to Credit Cards
-  <% end %>
-</div>
-
-<div style="box-sizing: border-box;width: auto;margin: auto;max-width: 1080px;padding: 50px 34px 100px 34px;" class="layout vertical">
-  <div style="width:100%;" class="layout horizontal center-justified">
+<div class="outside-container layout vertical">
+  <div class="layout horizontal center-justified">
     <div>
-
-      <h2 style="text-align:center;">Add Credit Card</h2>
+      <h2>Add Credit Card</h2>
 
       <%= render 'form' %>
     </div>

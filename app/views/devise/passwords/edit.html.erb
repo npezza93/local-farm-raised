@@ -7,9 +7,15 @@
         <%= devise_error_messages! %>
         <%= f.hidden_field :reset_password_token %>
 
-        <%= f.password_field :password, autofocus: true, autocomplete: "off", placeholder: "New password" + ( " (" + @minimum_password_length.to_s + " characters minimum)") if @minimum_password_length %>
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+          <%= f.password_field :password, class: "mdl-textfield__input" %>
+          <label class="mdl-textfield__label" for="user_password"><%= "New password" + ( " (" + @minimum_password_length.to_s + " characters minimum)") if @minimum_password_length %></label>
+        </div>
 
-        <%= f.password_field :password_confirmation, autocomplete: "off", placeholder: "Confirm new password" %>
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+          <%= f.password_field :password_confirmation, class: "mdl-textfield__input" %>
+          <label class="mdl-textfield__label" for="user_password_confirmation">Confirm new password</label>
+        </div>
 
         <div class="layout horizontal center-justified">
           <div class="submit-container2">

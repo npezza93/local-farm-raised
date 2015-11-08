@@ -1,3 +1,45 @@
 // Place all the styles related to the Users controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.drawer-link {
+  text-decoration:none;
+  color:#333;
+
+  i, iron-icon {
+    margin-right:24px;
+  }
+
+  .svg-icon {
+    width:24px;
+    height:24px;
+    margin-right:24px;
+  }
+}
+
+#users-list-table {
+  border-collapse:collapse;
+  padding-bottom:30px;
+}
+.users-email-td {
+  padding:12px;
+  text-align:end;
+  border-right: 1px solid #333;
+}
+
+#forgot {
+  margin-top: 50px;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: 300;
+  font-style: normal;
+  color: #333;
+  text-decoration: none;
+}
+
+.profile-helper {
+  padding-left: 2px;
+  font-size: 12px;
+  margin-top:-20px;
+}

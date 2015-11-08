@@ -1,28 +1,24 @@
-<tr>
-  <td style="vertical-align:top;width:174px;">
-    <div style="float:left;padding:0 8px 10px 0;text-align:left;">
-      <%= image_tag line_item.product.image_url(:thumb), style: "width:50px;" %>
+<tr class="line-item-tr">
+  <td class="product-td">
+    <div class="product-img">
+      <%= image_tag line_item.product.image_url(:thumb) %>
     </div>
-    <div style="max-width: 100px;float: left;padding-bottom: 10px;text-align:left;font-size: 12px;line-height:13px;">
+    <div class="product-title">
       <%= line_item.product.title %>
     </div>
   </td>
 
-  <td style="vertical-align:top;font-size: 12px;line-height:13px;text-align:end;">
+  <td class="quantity-td">
     <%= form_for(line_item, remote: true) do |f| %>
-      <%= f.number_field :quantity, id: "quantity-line-item" %>
+      <%= f.number_field :quantity, min: 1 %>
     <% end %>
   </td>
 
-  <td style="vertical-align:top;text-align: right;
-    width: 90px;
-    padding-left: 10px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;font-size: 12px;line-height:13px;">
+  <td class="total-td">
     <%= number_to_currency(line_item.total_price) %>
   </td>
-  <td style="vertical-align:top;width:43px;text-align:center;height:10px;" class="layout vertical center-justified">
-    <%= button_to "&times;".html_safe, line_item_path(line_item), remote: true, method: :delete, data: { confirm: 'Are you sure?' }, style: "text-decoration:none;background-color:transparent;border:none;font-size:20px;" %>
+
+  <td class="delete-td layout vertical center-justified">
+    <%= button_to "&times;".html_safe, line_item_path(line_item), remote: true, method: :delete, data: { confirm: 'Are you sure?' } %>
   </td>
 </tr>

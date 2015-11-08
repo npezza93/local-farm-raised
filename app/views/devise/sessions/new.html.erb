@@ -1,20 +1,28 @@
-<div style="box-sizing: border-box;width: auto;margin: auto;max-width: 1080px;padding: 50px 34px 100px 34px;" class="layout vertical">
-  <h2 style="text-align:center;">Log in</h2>
+<div class="outside-container layout vertical">
+  <h2>Log in</h2>
 
   <div class="layout horizontal center-justified">
-    <div style="width:350px;">
+    <div style="width:300px;">
       <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+          <%= f.email_field :email, autofocus: true, class: "mdl-textfield__input" %>
+          <label class="mdl-textfield__label" for="user_email">Email</label>
+        </div>
 
-        <%= f.email_field :email, autofocus: true, placeholder: "Email" %>
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+          <%= f.password_field :password, class: "mdl-textfield__input" %>
+          <label class="mdl-textfield__label" for="user_password">Password</label>
+        </div>
 
-        <%= f.password_field :password, autocomplete: "off", placeholder: "Password" %>
 
-        <% if devise_mapping.rememberable? -%>
-          <div class="layout horizontal center-justified center">
-            <%= f.check_box :remember_me %>
-            <%= f.label :remember_me %>
+        <% if devise_mapping.rememberable? %>
+          <div class="layout horizontal center-justified">
+            <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="user_remember_me" style="width:131px;">
+              <%= f.check_box :remember_me, class: "mdl-checkbox__input" %>
+              <span class="mdl-checkbox__label">Remember me</span>
+            </label>
           </div>
-        <% end -%>
+        <% end %>
 
         <div class="layout horizontal center-justified">
           <div class="submit-container2">
@@ -26,6 +34,6 @@
   </div>
 
   <div class="layout horizontal center-justified flex">
-    <%= link_to "Forgot your password?", new_password_path(resource_name), id: "back-to-home", style: "margin-bottom:20px;" %>
+    <%= link_to "Forgot your password?", new_password_path(resource_name), id: "forgot" %>
   </div>
 </div>

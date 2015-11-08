@@ -1,9 +1,9 @@
 <% if !@errors %>
   $("#cart-peek").html("<%= j render @cart %><% if !@cart.line_items.empty? %><div class='layout horizontal center-justified' style='margin-top:40px;'><div class='submit-container3'><%= j button_to 'Checkout', new_order_path, method: :get %></div></div><% end %>");
-  $("#small-cart-link").html("Cart (<%= j @cart.count_items %>)");
+  $("#small-cart-link").html("<button class='mdl-button mdl-js-button mdl-button--icon'><i class='material-icons'>shopping_cart</i></button>(<%= @cart.count_items %>)");
 
   <% if @line_item.quantity != 0 %>
-    $("#small-cart-link").css({'background-color':'#EEEEEE'}).animate({'background-color':'#16181a'}, 1000);
+    $("#small-cart-link i").css({'color':'#333'}).animate({'color':'#fff'}, 1000);
   <% end %>
   $("#order-summary").html("<%= j render @cart %>");
   $("#quantity-error").css("display", "none");

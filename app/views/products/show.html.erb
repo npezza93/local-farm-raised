@@ -1,20 +1,57 @@
 <% if current_user.try(:admin?) %>
-  <div class="layout horizontal center-justified flex" style="margin-top: 50px;">
-    <%= link_to "edit", edit_product_path(@product), class: "edit-link" %>
-
-    <%= link_to "delete", product_path(@product), method: :delete, data: { confirm: 'Are you sure?' }, class: "delete-link" %>
+  <div class="layout horizontal center-justified" id="delete-product">
+    <%= link_to "delete", product_path(@product), method: :delete, data: { confirm: 'Are you sure?' } %>
   </div>
 <% end %>
 
-<div style="box-sizing: border-box;width: auto;margin: auto;max-width: 1080px;padding: 50px 34px 100px 34px;" class="layout horizontal center-justified">
-  <div class="layout vertical center-justified" style="width: 48.5%;margin-right:1.5%;">
-    <%= image_tag @product.image_url, style: "width:100%;", class: "layout center-justified vertical" %>
+<div class="outside-container">
+  <div class="layout horizontal center-justified" id="large-screen-product-page">
+    <div class="layout vertical center-justified" id="product-image">
+      <%= image_tag @product.image_url, class: "layout center-justified vertical" %>
+    </div>
+
+    <div id="product-info">
+      <h1><%= @product.title %></h1>
+
+      <p>
+        <%= number_to_currency(@product.price) %>
+      </p>
+
+      <p>
+        <%= @product.description %>
+      </p>
+
+      <div class="layout vertical">
+        <div>Quantity:</div>
+
+        <%= form_for(@line_item, remote: true) do |f| %>
+          <%= f.hidden_field :product_id, value: @product.id %>
+          <div class="mdl-textfield mdl-js-textfield" id="product-show-quantity">
+            <%= f.number_field :quantity, min: 1, class: "mdl-textfield__input", pattern: "-?[0-9]*(\.[0-9]+)?" %>
+            <label class="mdl-textfield__label" for="line_item_quantity"></label>
+            <span class="mdl-textfield__error">Quantity is not a number!</span>
+          </div>
+          <div class="layout horizontal start-justified">
+            <div class="submit-container2">
+              <iron-icon icon="icons:add-shopping-cart"></iron-icon>
+              <%= f.submit "Add to Cart" %>
+            </div>
+          </div>
+        <% end %>
+
+        <div id="quantity-error">
+          <i>* Quantity must be greater than one</i>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <div style="width: 48.5%;margin-left:1.5%;">
-    <h1>
-      <%= @product.title %>
-    </h1>
+  <div class="layout vertical center" id="small-screen-product-page">
+    <div class="layout vertical center-justified" id="product-image">
+      <%= image_tag @product.image_url, class: "layout center-justified vertical" %>
+    </div>
+
+    <h1 style="text-align:center;"><%= @product.title %></h1>
 
     <p>
       <%= number_to_currency(@product.price) %>
@@ -24,12 +61,16 @@
       <%= @product.description %>
     </p>
 
-    <div class="layout vertical">
+    <div class="layout vertical start">
       <div>Quantity:</div>
 
       <%= form_for(@line_item, remote: true) do |f| %>
         <%= f.hidden_field :product_id, value: @product.id %>
-        <%= f.number_field :quantity %>
+        <div class="mdl-textfield mdl-js-textfield" id="product-show-quantity">
+          <%= f.number_field :quantity, min: 1, class: "mdl-textfield__input", pattern: "-?[0-9]*(\.[0-9]+)?" %>
+          <label class="mdl-textfield__label" for="line_item_quantity"></label>
+          <span class="mdl-textfield__error">Quantity is not a number!</span>
+        </div>
         <div class="layout horizontal start-justified">
           <div class="submit-container2">
             <iron-icon icon="icons:add-shopping-cart"></iron-icon>
@@ -37,9 +78,18 @@
           </div>
         </div>
       <% end %>
-      <div style="color:red;font-size:11px;display:none;" id="quantity-error">
+
+      <div id="quantity-error">
         <i>* Quantity must be greater than one</i>
       </div>
     </div>
   </div>
 </div>
+
+<% if current_user.try(:admin?) %>
+  <%= link_to edit_product_path(@product) do %>
+    <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored fab">
+      <i class="material-icons">edit</i>
+    </button>
+  <% end %>
+<% end %>
