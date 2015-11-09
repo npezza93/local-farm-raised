@@ -34,27 +34,29 @@
 
       <main class="mdl-layout__content">
         <div style="height:174px;background-color:#3c9;">
-          <%= yield :search %>
-          <% if @cart %>
-            <div id="small-cart-link" style="position: absolute;margin-right: 50px;right: 0;color:#fff;padding: 15px 0;">
-                <button class="mdl-button mdl-js-button mdl-button--icon">
-                  <i class="material-icons">shopping_cart</i>
-                </button>(<%= @cart.count_items %>)
-            </div>
+          <div class="layout horizontal end-justified" style="height:65px;">
+            <%= yield :search %>
+            <% if @cart %>
+              <div id="small-cart-link" style="margin-right: 50px;right: 0;color:#fff;">
+                  <button class="mdl-button mdl-js-button mdl-button--icon">
+                    <i class="material-icons">shopping_cart</i>
+                  </button>(<%= @cart.count_items %>)
+              </div>
 
-            <div id="cart-peek">
-                <%= render @cart %>
+              <div id="cart-peek">
+                  <%= render @cart %>
 
-                <% if !@cart.line_items.empty? %>
-                  <div class="layout horizontal center-justified" style="margin-top:40px;">
-                    <div class="submit-container2" style="margin:0;">
-                      <%= button_to "Checkout", new_order_path, method: :get %>
+                  <% if !@cart.line_items.empty? %>
+                    <div class="layout horizontal center-justified" style="margin-top:40px;">
+                      <div class="submit-container2" style="margin:0;">
+                        <%= button_to "Checkout", new_order_path, method: :get %>
+                      </div>
                     </div>
-                  </div>
-                <% end %>
-            </div>
-          <% end %>
-          <div class="layout vertical center-center" style="height:100%;">
+                  <% end %>
+              </div>
+            <% end %>
+          </div>
+          <div class="layout vertical center start-justified" style="margin-top:-15px;">
             <%= link_to root_path do %>
               <%= image_tag "logo.png" %>
             <% end %>
