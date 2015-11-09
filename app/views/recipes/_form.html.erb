@@ -1,0 +1,28 @@
+<%= form_for(@recipe) do |f| %>
+  <% if @recipe.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@recipe.errors.count, "error") %> prohibited this recipe from being saved:</h2>
+
+      <ul>
+      <% @recipe.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= f.fields_for :post, @post do |post| %>
+    <div class="mdl-textfield mdl-js-textfield" style="width: 100%;">
+      <%= post.text_field :title, class: "mdl-textfield__input", style: "font-size:2.5em;" %>
+      <label class="mdl-textfield__label" for="recipe_post_attributes_title" style="font-size:2.5em;">Title</label>
+    </div>
+
+    <%= post.text_area :content %>
+  <% end %>
+
+  <div class="layout horizontal center-justified">
+    <div class="submit-container2">
+      <%= f.submit %>
+    </div>
+  </div>
+<% end %>

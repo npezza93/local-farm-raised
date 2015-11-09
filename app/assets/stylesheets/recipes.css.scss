@@ -1,0 +1,53 @@
+// Place all the styles related to the Recipes controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.fr-wrapper {
+  font-family: 'Open Sans', sans-serif;
+}
+.fr-counter {
+  font-family: 'Open Sans', sans-serif !important;
+}
+
+#post-content {
+  width: 750px;
+  margin-right: auto;
+  margin-left: auto;
+
+  img {
+    width: 100% !important;
+    height: auto;
+  }
+}
+
+.recipe-title {
+  font-family: "Raleway",Arial,sans-serif;
+  font-size: 56px;
+  line-height: 1em;
+  text-transform: none;
+  letter-spacing: 1px;
+  font-weight: 600;
+  font-style: normal;
+  text-decoration: none;
+  color: #333;
+}
+
+.recipe-read-more {
+  color: #3c9;
+  text-decoration: none;
+  font-weight:300;
+}
+.recipe-read-more::after {
+  content: " \279D";
+  font: .9em sans-serif;
+}
+
+.comment-link{
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: 300;
+  font-style: normal;
+  color: #333;
+  text-decoration: none;
+}

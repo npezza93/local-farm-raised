@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151108175548) do
+ActiveRecord::Schema.define(version: 20151109031321) do
 
   create_table "addresses", force: :cascade do |t|
     t.string   "first_name"
@@ -29,6 +29,11 @@ ActiveRecord::Schema.define(version: 20151108175548) do
   end
 
   add_index "addresses", ["user_id"], name: "index_addresses_on_user_id"
+
+  create_table "blogs", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "carts", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -77,6 +82,17 @@ ActiveRecord::Schema.define(version: 20151108175548) do
   add_index "orders", ["credit_card_id"], name: "index_orders_on_credit_card_id"
   add_index "orders", ["user_id"], name: "index_orders_on_user_id"
 
+  create_table "posts", force: :cascade do |t|
+    t.string   "title"
+    t.text     "content"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.integer  "postable_id"
+    t.string   "postable_type"
+  end
+
+  add_index "posts", ["postable_type", "postable_id"], name: "index_posts_on_postable_type_and_postable_id"
+
   create_table "products", force: :cascade do |t|
     t.string   "title",       limit: 255
     t.text     "description"
@@ -84,6 +100,11 @@ ActiveRecord::Schema.define(version: 20151108175548) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "image",       limit: 255
+  end
+
+  create_table "recipes", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|

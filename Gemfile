@@ -48,3 +48,4 @@ gem 'rmagick'
 gem 'devise'
 gem 'will_paginate'
 gem 'stripe'
+gem "wysiwyg-rails", "2.0.0.pre.rc.3"

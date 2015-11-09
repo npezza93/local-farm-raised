@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  resources :blogs
+  resources :recipes
+  resources :posts
+
   resources :users, only: [:index] do
     resources :addresses, except: [:show]
     resources :credit_cards, except: [:show, :edit, :update]
