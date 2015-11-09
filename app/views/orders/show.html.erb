@@ -2,7 +2,7 @@
   <h2>Order #<%= (sprintf '%07d', @order.id) %></h2>
 
   <div class="layout horizontal center-justified wrap">
-    <div id="order-shipping-container">
+    <paper-material id="order-shipping-container">
       <p>Shipping</p>
 
       <div>
@@ -23,7 +23,7 @@
       <div>
         <%= @order.address.city + ", " + @order.address.state + " " + @order.address.zipcode %>
       </div>
-    </div>
+    </paper-material>
 
     <%= render @order %>
   </div>

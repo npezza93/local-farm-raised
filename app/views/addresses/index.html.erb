@@ -3,7 +3,7 @@
 
   <div class="layout horizontal center-justified wrap">
     <% @addresses.each do |address| %>
-      <div class="address-box">
+      <paper-material class="address-box">
         <div>
             <%= address.first_name %>
             <%= address.last_name %>
@@ -28,7 +28,7 @@
           <%= link_to 'Edit', edit_user_address_path(@user, address), id: "submit-order", style: "margin-right:10px;" %>
           <%= button_to 'Remove', user_address_path(@user, address), method: :delete, data: { confirm: 'Are you sure?' }, id: "submit-order" %>
         </div>
-      </div>
+      </paper-material>
     <% end %>
   </div>
 </div>

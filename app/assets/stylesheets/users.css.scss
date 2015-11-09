@@ -4,7 +4,7 @@
 
 .drawer-link {
   text-decoration:none;
-  color:#333;
+  color:#757575;
 
   i, iron-icon {
     margin-right:24px;
@@ -14,6 +14,10 @@
     width:24px;
     height:24px;
     margin-right:24px;
+  }
+
+  &:hover {
+    background-color:#e0e0e0;
   }
 }
 

@@ -4,3 +4,9 @@
 
 document.addEventListener 'page:change', ->
   $('#recipe_post_attributes_content').froalaEditor inlineMode: false
+
+  if $("#notice").length
+    $("#notice").delay(3500).fadeOut(400)
+
+  if $("#alert").length
+    $("#notice").delay(3500).fadeOut(400)
