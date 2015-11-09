@@ -34,7 +34,7 @@ class Order < ActiveRecord::Base
       customer.default_source = credit_card.stripe_customer_card_token
       customer.save
 
-      charge = Stripe::Charge.create(amount: (total_price*100).to_i, description: user.email, currency: "usd", customer: user.stripe_customer_token)
+      charge = Stripe::Charge.create(amount: ((total_price*1.06)*100).to_i, description: user.email, currency: "usd", customer: user.stripe_customer_token)
       self.stripe_charge_token = charge.id
       save!
     end

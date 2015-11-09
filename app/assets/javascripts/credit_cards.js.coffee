@@ -13,6 +13,8 @@ creditcard =
     $('#new_credit_card').submit (e) ->
       $('input[type=submit]').attr('disabled', true)
       if $('#card_number').length
+        $("#credit-card-submit-container").css("display", "none")
+        $("#credit-card-spinner").css("display", "")
         creditcard.processCard()
         false
       else
@@ -32,5 +34,7 @@ creditcard =
       $("#stripe_card_token").val(response.id)
       $("#new_credit_card").get(0).submit()
     else
+      $("#credit-card-submit-container").css("display", "")
+      $("#credit-card-spinner").css("display", "none")
       $("#stripe_error").text(response.error.message)
       $('input[type=submit]').attr('disabled', false)
