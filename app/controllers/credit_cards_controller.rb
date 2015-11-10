@@ -37,7 +37,6 @@ class CreditCardsController < ApplicationController
     @credit_card.destroy_card
     respond_to do |format|
       format.html { redirect_to user_credit_cards_url(@user), notice: 'Credit card was successfully destroyed.' }
-      format.json { head :no_content }
     end
   end
 

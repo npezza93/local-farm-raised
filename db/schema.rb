@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151109031321) do
+ActiveRecord::Schema.define(version: 20151110012356) do
 
   create_table "addresses", force: :cascade do |t|
     t.string   "first_name"
@@ -85,13 +85,9 @@ ActiveRecord::Schema.define(version: 20151109031321) do
   create_table "posts", force: :cascade do |t|
     t.string   "title"
     t.text     "content"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
-    t.integer  "postable_id"
-    t.string   "postable_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
-
-  add_index "posts", ["postable_type", "postable_id"], name: "index_posts_on_postable_type_and_postable_id"
 
   create_table "products", force: :cascade do |t|
     t.string   "title",       limit: 255
@@ -105,6 +101,8 @@ ActiveRecord::Schema.define(version: 20151109031321) do
   create_table "recipes", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "title"
+    t.text     "content"
   end
 
   create_table "users", force: :cascade do |t|

@@ -21,10 +21,8 @@ class UsersController < ApplicationController
       if @user.update({admin: !@user.admin})
         notice = @user.admin? ? @user.email + " is now an admin" : @user.email + " is no longer an admin"
         format.html { redirect_to users_url, notice: notice }
-        format.json { render :show, status: :ok, location: @product }
       else
         format.html { render :index }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
   end

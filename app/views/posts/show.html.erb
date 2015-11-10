@@ -1,15 +1,15 @@
 <% if current_user.try(:admin?) %>
   <div class="layout horizontal center-justified" id="delete-product">
-    <%= link_to "delete", recipe_path(@recipe), method: :delete, data: { confirm: 'Are you sure?' } %>
+    <%= link_to "delete", post_path(@post), method: :delete, data: { confirm: 'Are you sure?' } %>
   </div>
 <% end %>
 
 <div class="outside-container layout horizontal wrap center-justified">
-  <%= render @recipe, show: true %>
+<%= render @post, show: true %>
 </div>
 
 <% if current_user.try(:admin?) %>
-  <%= link_to edit_recipe_path(@recipe) do %>
+  <%= link_to edit_post_path(@post) do %>
     <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored fab">
       <i class="material-icons">edit</i>
     </button>

@@ -6,7 +6,7 @@
 
 <div class="outside-container">
   <div class="layout horizontal center-justified" id="large-screen-product-page">
-    <div class="layout vertical center-justified" id="product-image">
+    <div class="layout horizontal center" id="product-image">
       <%= image_tag @product.image_url, class: "layout center-justified vertical" %>
     </div>
 
@@ -47,7 +47,7 @@
   </div>
 
   <div class="layout vertical center" id="small-screen-product-page">
-    <div class="layout vertical center-justified" id="product-image">
+    <div class="layout horizontal center" id="product-image">
       <%= image_tag @product.image_url, class: "layout center-justified vertical" %>
     </div>
 

@@ -1,0 +1,36 @@
+<div style="margin-bottom:136px;">
+  <div style="max-width: 37em;margin: auto;text-align: center;">
+    <p><%= recipe.created_at.strftime("%B %-d, %Y") %></p>
+    <%= link_to recipe, class: "recipe-title" do %>
+      <h1><%= recipe.title %></h1>
+    <% end %>
+  </div>
+
+  <% if show %>
+    <div id="post-content">
+      <%= raw recipe.content  %>
+    </div>
+  <% else %>
+    <div id="post-content">
+      <%= (truncate(recipe.content, :separator => '[---MORE---]', :length => 600, :escape => false)) %>
+    </div>
+
+    <%= link_to recipe, class: "recipe-read-more" do %>
+      Read More
+    <% end %>
+  <% end %>
+
+  <div class="layout center-justified horizontal around-justified" style="margin:auto;margin-top:3em;width:30em;">
+    <% if !show %>
+      <%= link_to recipe, class: "layout horizontal center comment-link" do %>
+        <i class="material-icons" style="margin-right:8px;font-size:1em;">mode_comment</i>
+        Comment
+      <% end %>
+    <% end %>
+
+    <%= link_to recipe, class: "layout horizontal center comment-link" do %>
+      <i class="material-icons" style="margin-right:8px;font-size:1em;">share</i>
+      share
+    <% end %>
+  </div>
+</div>

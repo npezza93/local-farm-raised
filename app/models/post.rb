@@ -1,5 +1,11 @@
 class Post < ActiveRecord::Base
-  belongs_to :postable, polymorphic: true
-
   validates_presence_of :title, :content
+
+  def self.search(search)
+    if search && search != ""
+      where("title LIKE ? or content LIKE ?", "%#{search}%", "%#{search}%")
+    else
+      all
+    end
+  end
 end

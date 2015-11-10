@@ -1,11 +1,9 @@
 class Recipe < ActiveRecord::Base
-  has_one :post, as: :postable
-
-  accepts_nested_attributes_for :post
+  validates_presence_of :title, :content
 
   def self.search(search)
     if search && search != ""
-      joins(:post).where("posts.title LIKE ?", "%#{search}%")
+      where("title LIKE ? or content LIKE ?", "%#{search}%", "%#{search}%")
     else
       all
     end

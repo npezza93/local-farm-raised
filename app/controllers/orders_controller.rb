@@ -41,10 +41,8 @@ class OrdersController < ApplicationController
         session[:cart_id] = nil
 
         format.html { redirect_to store_url, notice: 'Your order has been placed.' }
-        format.json { render :show, status: :created, location: @order }
       else
         format.html { render :new }
-        format.json { render json: @order.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -55,7 +53,6 @@ class OrdersController < ApplicationController
     respond_to do |format|
       if @order.cancel_order
         format.html { redirect_to orders_url, notice: 'Order was successfully canceled and refunded.' }
-        format.json { head :no_content }
       else
         format.html { redirect_to order_url(@order), notice: "Charge has already been refunded." }
       end
