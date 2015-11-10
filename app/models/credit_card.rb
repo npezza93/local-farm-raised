@@ -25,7 +25,7 @@ class CreditCard < ActiveRecord::Base
     self.destroy!
   end
 
-  def icon
+  def self.icon(brand)
     icon = brand.downcase.strip.tr(" ", "-")
     icon == "american-express" ? "amex" : icon
   end

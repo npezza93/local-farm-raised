@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151110012356) do
+ActiveRecord::Schema.define(version: 20151110021159) do
 
   create_table "addresses", force: :cascade do |t|
     t.string   "first_name"
@@ -45,10 +45,6 @@ ActiveRecord::Schema.define(version: 20151110012356) do
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
     t.string   "stripe_customer_card_token"
-    t.string   "last4"
-    t.string   "brand"
-    t.string   "exp_month"
-    t.string   "exp_year"
   end
 
   add_index "credit_cards", ["user_id"], name: "index_credit_cards_on_user_id"

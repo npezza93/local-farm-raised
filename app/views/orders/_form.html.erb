@@ -50,13 +50,13 @@
     <% end %>
 
     <div class="layout vertical">
-      <% current_user.credit_cards.each_with_index do |card, index| %>
-        <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="order_credit_card_id_<%= card.id %>">
-          <%= f.radio_button :credit_card_id, card.id, class: "mdl-radio__button", checked:  index==0 %>
+      <% @credit_cards.data.each_with_index do |card, index| %>
+        <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="order_credit_card_id_<%= current_user.credit_cards.find_by_stripe_customer_card_token(card.id).id %>">
+          <%= f.radio_button :credit_card_id, current_user.credit_cards.find_by_stripe_customer_card_token(card.id).id, class: "mdl-radio__button", checked:  index==0 %>
 
           <div class="mdl-radio__label layout vertical">
             <div class="layout horizontal center">
-              <i class="fa fa-cc-<%= card.icon %>"></i>
+              <i class="fa fa-cc-<%= CreditCard.icon(card.brand) %>"></i>
               <b><%= card.brand %></b> ending in <%= card.last4 %>
             </div>
           </div>

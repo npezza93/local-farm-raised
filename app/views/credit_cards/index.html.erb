@@ -16,10 +16,10 @@
         </thead>
 
         <tbody>
-          <% @credit_cards.each do |credit_card| %>
+          <% @credit_cards.data.each do |credit_card| %>
             <tr>
               <td style="padding-top: 11px;">
-                <i class="fa fa-cc-<%= credit_card.icon %>"></i>
+                <i class="fa fa-cc-<%= CreditCard.icon(credit_card.brand) %>"></i>
               </td>
               <td class="mdl-data-table__cell--non-numeric"><%= credit_card.brand %></td>
               <td><%= credit_card.last4 %></td>

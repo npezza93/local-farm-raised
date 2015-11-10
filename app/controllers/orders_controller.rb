@@ -26,6 +26,7 @@ class OrdersController < ApplicationController
       redirect_to store_url, notice: "Your cart is empty"
       return
     end
+    @credit_cards = Stripe::Customer.retrieve(current_user.stripe_customer_token).sources.all(:object => "card")
     @order = Order.new
   end
 

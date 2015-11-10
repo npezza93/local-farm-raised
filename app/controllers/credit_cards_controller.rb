@@ -9,7 +9,7 @@ class CreditCardsController < ApplicationController
   # GET /credit_cards
   # GET /credit_cards.json
   def index
-    @credit_cards = @user.credit_cards
+    @credit_cards = Stripe::Customer.retrieve(@user.stripe_customer_token).sources.all(:object => "card")
   end
 
   # GET /credit_cards/new
