@@ -1,0 +1,40 @@
+<div class="outside-container layout vertical">
+  <div class="layout horizontal center-justified">
+    <div>
+
+      <h2>Subscriptions</h2>
+
+      <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+        <thead>
+          <tr>
+            <th class="mdl-data-table__cell--non-numeric">Plan</th>
+            <th>Amount</th>
+            <th>Interval</th>
+            <th class="mdl-data-table__cell--non-numeric"></th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @subscriptions.each do |plan| %>
+            <tr>
+              <td class="mdl-data-table__cell--non-numeric"><%= plan.id %></td>
+              <td><%= plan.amount %></td>
+              <td><%= plan.interval_count %> every <%= plan.interval %></td>
+              <td>
+                <%= link_to subscription_path(plan), method: :delete, data: { confirm: 'Are you sure?' } do %>
+                <i class="material-icons">delete</i>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<%= link_to new_subscription_path do %>
+  <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored fab">
+    <i class="material-icons">add</i>
+  </button>
+<% end %>

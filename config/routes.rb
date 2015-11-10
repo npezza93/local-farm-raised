@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :subscriptions
   resources :posts
   resources :recipes
   resources :posts

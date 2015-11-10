@@ -23,6 +23,16 @@
  </paper-item>
 <% end %>
 
+<%= link_to subscriptions_path, class: "drawer-link" do %>
+ <paper-item>
+   <svg class="svg-icon" style="width:24px;height:24px" viewBox="0 0 24 24">
+     <path fill="#757575" d="M4.8,22V22C3.3,22 2,20.7 2,19.2V19.2C2,17.7 3.3,16.4 4.8,16.4H4.8C6.3,16.4 7.6,17.7 7.6,19.2V19.2C7.6,20.7 6.4,22 4.8,22M2,2V5C11.4,5 19,12.6 19,22H22A20,20 0 0,0 2,2M2,8.1V11.1C8,11.1 12.9,16 12.9,22H15.9C15.9,14.3 9.7,8.1 2,8.1Z" />
+   </svg>
+   Subscriptions
+ </paper-item>
+<% end %>
+
+
 <hr>
 
 <% if user_signed_in? %>
@@ -77,9 +87,7 @@
 <% else %>
   <%= link_to new_user_session_path, class: "drawer-link" do %>
    <paper-item>
-     <svg class="svg-icon" viewBox="0 0 24 24">
-       <path fill="#757575" d="M10,17.25V14H3V10H10V6.75L15.25,12L10,17.25M8,2H17A2,2 0 0,1 19,4V20A2,2 0 0,1 17,22H8A2,2 0 0,1 6,20V16H8V20H17V4H8V8H6V4A2,2 0 0,1 8,2Z" />
-     </svg>
+     <i class="material-icons">exit_to_app</i>
      Login
    </paper-item>
   <% end %>
