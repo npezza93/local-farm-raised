@@ -1,12 +1,12 @@
 Rails.application.routes.draw do
-  resources :subscriptions
-  resources :posts
+  resources :plans, only: [:index, :new, :create, :destroy]
   resources :recipes
   resources :posts
 
   resources :users, only: [:index] do
     resources :addresses, except: [:show]
     resources :credit_cards, except: [:show, :edit, :update]
+    resources :subscriptions, only: [:index, :new, :create] 
   end
 
   put 'users/:id', to: "users#admin", as: "admin"

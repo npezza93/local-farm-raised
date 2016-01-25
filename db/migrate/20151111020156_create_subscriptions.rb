@@ -1,7 +1,8 @@
 class CreateSubscriptions < ActiveRecord::Migration
   def change
     create_table :subscriptions do |t|
-      t.string :plan_id
+      t.belongs_to :user, index: true, foreign_key: true
+      t.belongs_to :plan, index: true, foreign_key: true
 
       t.timestamps null: false
     end

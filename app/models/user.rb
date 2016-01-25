@@ -9,6 +9,7 @@ class User < ActiveRecord::Base
   has_many :addresses
   has_many :credit_cards
   has_many :orders
+  has_one  :subscription
 
   def create_stripe_customer
     customer = Stripe::Customer.create(email: email)

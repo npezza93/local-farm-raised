@@ -1,0 +1,38 @@
+<div class="outside-container layout vertical">
+  <div class="layout horizontal center-justified">
+    <div>
+
+      <h2>Plans</h2>
+
+      <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+        <thead>
+          <tr>
+            <th class="mdl-data-table__cell--non-numeric">Plan</th>
+            <th>Amount</th>
+            <th class="mdl-data-table__cell--non-numeric"></th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @plans.each do |plan| %>
+            <tr>
+              <td class="mdl-data-table__cell--non-numeric"><%= plan.name %></td>
+              <td><%= number_to_currency(plan.amount/100.0) %></td>
+              <td>
+                <%= link_to plan_path(plan.id), method: :delete, data: { confirm: 'Are you sure?' } do %>
+                <i class="material-icons">delete</i>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<%= link_to new_plan_path do %>
+  <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored fab">
+    <i class="material-icons">add</i>
+  </button>
+<% end %>

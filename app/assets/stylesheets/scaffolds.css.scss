@@ -90,64 +90,13 @@ h2 {
 input[type=submit] {
   color: #2b2f33;
   text-transform: uppercase;
-  letter-spacing: 2px;
-  font-weight: 600;
+  letter-spacing: 1px;
+  font-weight: 500;
   font-style: normal;
   border: none;
   background: transparent;
   cursor: pointer;
 }
-.submit-container1 {
-  border-radius: 3px;
-  background: transparent;
-  color: #2b2f33;
-  border-width: 2px;
-  border-style: solid;
-  -webkit-transition: 0.1s background-color linear, 0.1s color linear;
-  -moz-transition: 0.1s background-color linear, 0.1s color linear;
-  -o-transition: 0.1s background-color linear, 0.1s color linear;
-  transition: 0.1s background-color linear, 0.1s color linear;
-  border-color: #2b2f33;
-  margin: 20px 0;
-  padding: 1em 3.5em !important;
-  cursor: pointer;
-  margin-top: -50px;
-
-  &:hover {
-    background-color: #2b2f33;
-    color: #fff;
-
-    input[type=submit] {
-      color: #fff;
-    }
-  }
-}
-
-.submit-container2 {
-  border-radius: 3px;
-  background: transparent;
-  color: #2b2f33;
-  border-width: 2px;
-  border-style: solid;
-  -webkit-transition: 0.1s background-color linear, 0.1s color linear;
-  -moz-transition: 0.1s background-color linear, 0.1s color linear;
-  -o-transition: 0.1s background-color linear, 0.1s color linear;
-  transition: 0.1s background-color linear, 0.1s color linear;
-  border-color: #2b2f33;
-  margin: 20px 0;
-  padding: .8em 3em !important;
-  cursor: pointer;
-
-  &:hover {
-    background-color: #2b2f33;
-    color: #fff;
-
-    input[type=submit] {
-      color: #fff;
-    }
-  }
-}
-
 
 .footer-link {
   text-decoration: none;
