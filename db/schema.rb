@@ -13,6 +13,9 @@
 
 ActiveRecord::Schema.define(version: 20160124224148) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "addresses", force: :cascade do |t|
     t.string   "first_name"
     t.string   "last_name"
@@ -28,7 +31,7 @@ ActiveRecord::Schema.define(version: 20160124224148) do
     t.boolean  "archived",        default: false
   end
 
-  add_index "addresses", ["user_id"], name: "index_addresses_on_user_id"
+  add_index "addresses", ["user_id"], name: "index_addresses_on_user_id", using: :btree
 
   create_table "blogs", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -47,7 +50,7 @@ ActiveRecord::Schema.define(version: 20160124224148) do
     t.string   "stripe_customer_card_token"
   end
 
-  add_index "credit_cards", ["user_id"], name: "index_credit_cards_on_user_id"
+  add_index "credit_cards", ["user_id"], name: "index_credit_cards_on_user_id", using: :btree
 
   create_table "line_items", force: :cascade do |t|
     t.integer  "product_id"
@@ -58,9 +61,9 @@ ActiveRecord::Schema.define(version: 20160124224148) do
     t.integer  "order_id"
   end
 
-  add_index "line_items", ["cart_id"], name: "index_line_items_on_cart_id"
-  add_index "line_items", ["order_id"], name: "index_line_items_on_order_id"
-  add_index "line_items", ["product_id"], name: "index_line_items_on_product_id"
+  add_index "line_items", ["cart_id"], name: "index_line_items_on_cart_id", using: :btree
+  add_index "line_items", ["order_id"], name: "index_line_items_on_order_id", using: :btree
+  add_index "line_items", ["product_id"], name: "index_line_items_on_product_id", using: :btree
 
   create_table "orders", force: :cascade do |t|
     t.datetime "created_at",                          null: false
@@ -71,12 +74,18 @@ ActiveRecord::Schema.define(version: 20160124224148) do
     t.integer  "user_id"
     t.integer  "credit_card_id"
     t.string   "stripe_charge_token"
-    t.string   "new_field"
   end
 
-  add_index "orders", ["address_id"], name: "index_orders_on_address_id"
-  add_index "orders", ["credit_card_id"], name: "index_orders_on_credit_card_id"
-  add_index "orders", ["user_id"], name: "index_orders_on_user_id"
+  add_index "orders", ["address_id"], name: "index_orders_on_address_id", using: :btree
+  add_index "orders", ["credit_card_id"], name: "index_orders_on_credit_card_id", using: :btree
+  add_index "orders", ["user_id"], name: "index_orders_on_user_id", using: :btree
+
+  create_table "plans", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string   "name"
+    t.decimal  "amount"
+  end
 
   create_table "posts", force: :cascade do |t|
     t.string   "title"
@@ -86,12 +95,12 @@ ActiveRecord::Schema.define(version: 20160124224148) do
   end
 
   create_table "products", force: :cascade do |t|
-    t.string   "title",       limit: 255
+    t.string   "title"
     t.text     "description"
-    t.decimal  "price",                   precision: 8, scale: 2
+    t.decimal  "price",       precision: 8, scale: 2
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "image",       limit: 255
+    t.string   "image"
   end
 
   create_table "recipes", force: :cascade do |t|
@@ -108,8 +117,8 @@ ActiveRecord::Schema.define(version: 20160124224148) do
     t.datetime "updated_at", null: false
   end
 
-  add_index "subscriptions", ["plan_id"], name: "index_subscriptions_on_plan_id"
-  add_index "subscriptions", ["user_id"], name: "index_subscriptions_on_user_id"
+  add_index "subscriptions", ["plan_id"], name: "index_subscriptions_on_plan_id", using: :btree
+  add_index "subscriptions", ["user_id"], name: "index_subscriptions_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "",    null: false
@@ -129,7 +138,17 @@ ActiveRecord::Schema.define(version: 20160124224148) do
     t.string   "name"
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", unique: true
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  add_foreign_key "addresses", "users"
+  add_foreign_key "credit_cards", "users"
+  add_foreign_key "line_items", "carts"
+  add_foreign_key "line_items", "orders"
+  add_foreign_key "line_items", "products"
+  add_foreign_key "orders", "addresses"
+  add_foreign_key "orders", "credit_cards"
+  add_foreign_key "orders", "users"
+  add_foreign_key "subscriptions", "plans"
+  add_foreign_key "subscriptions", "users"
 end
