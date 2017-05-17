@@ -1,4 +1,4 @@
-class Post < ActiveRecord::Base
+class Post < ApplicationRecord
   validates_presence_of :title, :content
 
   def self.search(search)

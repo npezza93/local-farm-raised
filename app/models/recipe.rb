@@ -1,4 +1,4 @@
-class Recipe < ActiveRecord::Base
+class Recipe < ApplicationRecord
   validates_presence_of :title, :content
 
   def self.search(search)
