@@ -11,6 +11,8 @@ Lint/AmbiguousOperator:
     without parentheses.
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#parens-as-args
   Enabled: true
+Lint/AmbiguousBlockAssociation:
+  Enabled: false
 Lint/AmbiguousRegexpLiteral:
   Description: Checks for ambiguous regexp literals in the first argument of a method
     invocation without parenthesis.
@@ -616,6 +618,13 @@ Style/PercentLiteralDelimiters:
   Description: Use `%`-literal delimiters consistently
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#percent-literal-braces
   Enabled: true
+  PreferredDelimiters:
+    default: ()
+    '%i': '()'
+    '%I': '()'
+    '%r': '{}'
+    '%w': '()'
+    '%W': '()'
 Style/PercentQLiterals:
   Description: Checks if uses of %Q/%q match the configured preference.
   Enabled: true
