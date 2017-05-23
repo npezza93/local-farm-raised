@@ -1,4 +1,4 @@
-class RemoveLast4AndBrandAndExpMonthAndExpYearFromCreditCards < ActiveRecord::Migration
+class RemoveLast4AndBrandAndExpMonthAndExpYearFromCreditCards < ActiveRecord::Migration[4.2]
   def change
     remove_column :credit_cards, :brand, :string
     remove_column :credit_cards, :last4, :string

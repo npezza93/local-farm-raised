@@ -1,4 +1,4 @@
-class AddStripeAttrsToCreditCards < ActiveRecord::Migration
+class AddStripeAttrsToCreditCards < ActiveRecord::Migration[4.2]
   def change
     add_column :credit_cards, :last4, :string
     add_column :credit_cards, :brand, :string

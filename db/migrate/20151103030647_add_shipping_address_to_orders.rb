@@ -1,5 +1,5 @@
-class AddShippingAddressToOrders < ActiveRecord::Migration
+class AddShippingAddressToOrders < ActiveRecord::Migration[4.2]
   def change
-    add_reference :orders, :address, index: true, foreign_key: true
+    add_reference :orders, :address, index: true
   end
 end

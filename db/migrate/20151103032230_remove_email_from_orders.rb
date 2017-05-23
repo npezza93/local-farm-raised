@@ -1,4 +1,4 @@
-class RemoveEmailFromOrders < ActiveRecord::Migration
+class RemoveEmailFromOrders < ActiveRecord::Migration[4.2]
   def change
     remove_column :orders, :email, :string
   end

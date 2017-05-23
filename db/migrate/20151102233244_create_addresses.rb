@@ -1,4 +1,4 @@
-class CreateAddresses < ActiveRecord::Migration
+class CreateAddresses < ActiveRecord::Migration[4.2]
   def change
     create_table :addresses do |t|
       t.string :first_name
@@ -9,7 +9,7 @@ class CreateAddresses < ActiveRecord::Migration
       t.string :state
       t.string :zipcode
       t.string :phone_number
-      t.references :user, index: true, foreign_key: true
+      t.references :user, index: true
 
       t.timestamps null: false
     end
