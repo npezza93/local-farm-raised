@@ -1,4 +1,6 @@
-require 'test_helper'
+# frozen_string_literal: true
+
+require "test_helper"
 
 class LineItemsControllerTest < ActionController::TestCase
   setup do
@@ -17,7 +19,7 @@ class LineItemsControllerTest < ActionController::TestCase
   end
 
   test "should create line_item" do
-    assert_difference('LineItem.count') do
+    assert_difference("LineItem.count") do
       post :create, line_item: { cart_id: @line_item.cart_id, product_id: @line_item.product_id }
     end
 
@@ -40,7 +42,7 @@ class LineItemsControllerTest < ActionController::TestCase
   end
 
   test "should destroy line_item" do
-    assert_difference('LineItem.count', -1) do
+    assert_difference("LineItem.count", -1) do
       delete :destroy, id: @line_item
     end
 

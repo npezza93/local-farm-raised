@@ -1,4 +1,6 @@
-require 'test_helper'
+# frozen_string_literal: true
+
+require "test_helper"
 
 class SubscriptionsControllerTest < ActionController::TestCase
   setup do
@@ -17,7 +19,7 @@ class SubscriptionsControllerTest < ActionController::TestCase
   end
 
   test "should create subscription" do
-    assert_difference('Subscription.count') do
+    assert_difference("Subscription.count") do
       post :create, subscription: { plan_id: @subscription.plan_id, user_id: @subscription.user_id }
     end
 
@@ -40,7 +42,7 @@ class SubscriptionsControllerTest < ActionController::TestCase
   end
 
   test "should destroy subscription" do
-    assert_difference('Subscription.count', -1) do
+    assert_difference("Subscription.count", -1) do
       delete :destroy, id: @subscription
     end
 

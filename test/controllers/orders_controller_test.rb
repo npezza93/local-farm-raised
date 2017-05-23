@@ -1,4 +1,6 @@
-require 'test_helper'
+# frozen_string_literal: true
+
+require "test_helper"
 
 class OrdersControllerTest < ActionController::TestCase
   setup do
@@ -17,7 +19,7 @@ class OrdersControllerTest < ActionController::TestCase
   end
 
   test "should create order" do
-    assert_difference('Order.count') do
+    assert_difference("Order.count") do
       post :create, order: { city: @order.city, eamil: @order.eamil, first_name: @order.first_name, last_name: @order.last_name, phone_number: @order.phone_number, street_address1: @order.street_address1, street_address2: @order.street_address2, zipcode: @order.zipcode }
     end
 
@@ -40,7 +42,7 @@ class OrdersControllerTest < ActionController::TestCase
   end
 
   test "should destroy order" do
-    assert_difference('Order.count', -1) do
+    assert_difference("Order.count", -1) do
       delete :destroy, id: @order
     end
 

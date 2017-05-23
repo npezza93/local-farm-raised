@@ -1,4 +1,6 @@
-require 'test_helper'
+# frozen_string_literal: true
+
+require "test_helper"
 
 class CartsControllerTest < ActionController::TestCase
   setup do
@@ -17,8 +19,8 @@ class CartsControllerTest < ActionController::TestCase
   end
 
   test "should create cart" do
-    assert_difference('Cart.count') do
-      post :create, cart: {  }
+    assert_difference("Cart.count") do
+      post :create, cart: { }
     end
 
     assert_redirected_to cart_path(assigns(:cart))
@@ -35,12 +37,12 @@ class CartsControllerTest < ActionController::TestCase
   end
 
   test "should update cart" do
-    patch :update, id: @cart, cart: {  }
+    patch :update, id: @cart, cart: { }
     assert_redirected_to cart_path(assigns(:cart))
   end
 
   test "should destroy cart" do
-    assert_difference('Cart.count', -1) do
+    assert_difference("Cart.count", -1) do
       delete :destroy, id: @cart
     end
 

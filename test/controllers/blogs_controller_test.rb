@@ -1,4 +1,6 @@
-require 'test_helper'
+# frozen_string_literal: true
+
+require "test_helper"
 
 class BlogsControllerTest < ActionController::TestCase
   setup do
@@ -17,8 +19,8 @@ class BlogsControllerTest < ActionController::TestCase
   end
 
   test "should create blog" do
-    assert_difference('Blog.count') do
-      post :create, blog: {  }
+    assert_difference("Blog.count") do
+      post :create, blog: { }
     end
 
     assert_redirected_to blog_path(assigns(:blog))
@@ -35,12 +37,12 @@ class BlogsControllerTest < ActionController::TestCase
   end
 
   test "should update blog" do
-    patch :update, id: @blog, blog: {  }
+    patch :update, id: @blog, blog: { }
     assert_redirected_to blog_path(assigns(:blog))
   end
 
   test "should destroy blog" do
-    assert_difference('Blog.count', -1) do
+    assert_difference("Blog.count", -1) do
       delete :destroy, id: @blog
     end
 

@@ -1,4 +1,6 @@
-require 'test_helper'
+# frozen_string_literal: true
+
+require "test_helper"
 
 class RecipesControllerTest < ActionController::TestCase
   setup do
@@ -17,8 +19,8 @@ class RecipesControllerTest < ActionController::TestCase
   end
 
   test "should create recipe" do
-    assert_difference('Recipe.count') do
-      post :create, recipe: {  }
+    assert_difference("Recipe.count") do
+      post :create, recipe: { }
     end
 
     assert_redirected_to recipe_path(assigns(:recipe))
@@ -35,12 +37,12 @@ class RecipesControllerTest < ActionController::TestCase
   end
 
   test "should update recipe" do
-    patch :update, id: @recipe, recipe: {  }
+    patch :update, id: @recipe, recipe: { }
     assert_redirected_to recipe_path(assigns(:recipe))
   end
 
   test "should destroy recipe" do
-    assert_difference('Recipe.count', -1) do
+    assert_difference("Recipe.count", -1) do
       delete :destroy, id: @recipe
     end
 

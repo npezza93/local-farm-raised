@@ -1,4 +1,6 @@
-require 'test_helper'
+# frozen_string_literal: true
+
+require "test_helper"
 
 class CreditCardsControllerTest < ActionController::TestCase
   setup do
@@ -17,7 +19,7 @@ class CreditCardsControllerTest < ActionController::TestCase
   end
 
   test "should create credit_card" do
-    assert_difference('CreditCard.count') do
+    assert_difference("CreditCard.count") do
       post :create, credit_card: { stripe_card_token: @credit_card.stripe_customer_card_token, user_id: @credit_card.user_id, last4: @credit_card.last4, brand: @credit_card.brand, exp_month: @credit_card.exp_month, exp_year: @credit_card.exp_year }
     end
 
@@ -40,7 +42,7 @@ class CreditCardsControllerTest < ActionController::TestCase
   end
 
   test "should destroy credit_card" do
-    assert_difference('CreditCard.count', -1) do
+    assert_difference("CreditCard.count", -1) do
       delete :destroy, id: @credit_card
     end
 
