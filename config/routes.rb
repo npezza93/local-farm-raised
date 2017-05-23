@@ -1,30 +1,27 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
-  resources :plans, only: [:index, :new, :create, :destroy]
+  resources :plans, only: %i(index new create destroy)
   resources :recipes
   resources :posts
 
   resources :users, only: [:index] do
     resources :addresses, except: [:show]
-    resources :credit_cards, except: [:show, :edit, :update]
-    resources :subscriptions, only: [:index, :new, :create] 
+    resources :credit_cards, except: %i(show edit update)
+    resources :subscriptions, only: %i(index new create)
   end
 
-  put 'users/:id', to: "users#admin", as: "admin"
+  put "users/:id", to: "users#admin", as: "admin"
 
   devise_for :users, controllers: { registrations: "registrations" }
 
-  resources :orders, except: [:edit, :update]
-  resources :line_items, only: [:create, :update, :destroy]
-  resources :carts, only: [:show, :create, :destroy]
+  resources :orders, except: %i(edit update)
+  resources :line_items, only: %i(create update destroy)
+  resources :carts, only: %i(show create destroy)
 
   resources :products
 
-  get 'store', to: "products#index"
+  get "store", to: "products#index"
 
-  root 'products#index'
-  # The priority is based upon order of creation: first created -> highest priority.
-  # See how all your routes lay out with "rake routes".
-
-  # You can have the root of your site routed with "root"
-  # root 'welcome#index'
+  root "products#index"
 end
