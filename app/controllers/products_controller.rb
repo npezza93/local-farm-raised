@@ -1,73 +1,59 @@
+# frozen_string_literal: true
+
 class ProductsController < ApplicationController
-  before_action :set_product, only: [:show, :edit, :update, :destroy]
+  before_action :set_product, only: %i(show edit update destroy)
   include CurrentCart
   before_action :set_cart
-  before_filter :auth_user, except: [:index, :show]
+  before_action :auth_user, except: %i(index show)
 
-  # GET /products
-  # GET /products.json
   def index
-    @products = Product.search(params[:search]).paginate(:page => params[:page], per_page: 10)
+    @products = Product.search(params[:search]).page(params[:page]).per_page(10)
   end
 
-  # GET /products/1
-  # GET /products/1.json
   def show
     @line_item = LineItem.new
   end
 
-  # GET /products/new
   def new
     @product = Product.new
   end
 
-  # GET /products/1/edit
   def edit
   end
 
-  # POST /products
-  # POST /products.json
   def create
     @product = Product.new(product_params)
 
-    respond_to do |format|
-      if @product.save
-        format.html { redirect_to @product, notice: 'Product was successfully created.' }
-      else
-        format.html { render :new }
-      end
+    if @product.save
+      redirect_to @product, notice: "Product was successfully created."
+    else
+      render :new
     end
   end
 
-  # PATCH/PUT /products/1
-  # PATCH/PUT /products/1.json
   def update
-    respond_to do |format|
-      if @product.update(product_params)
-        format.html { redirect_to @product, notice: 'Product was successfully updated.' }
-      else
-        format.html { render :edit }
-      end
+    if @product.update(product_params)
+      redirect_to @product, notice: "Product was successfully updated."
+    else
+      render :edit
     end
   end
 
-  # DELETE /products/1
-  # DELETE /products/1.json
   def destroy
     @product.destroy
-    respond_to do |format|
-      format.html { redirect_to store_url, notice: 'Product was successfully destroyed.' }
-    end
+
+    redirect_to store_url, notice: "Product was successfully destroyed."
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_product
-      @product = Product.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def product_params
-      params.require(:product).permit(:title, :description, :image, :price, :remote_image_url)
-    end
+  def set_product
+    @product = Product.find(params[:id])
+  end
+
+  def product_params
+    params.require(:product).permit(
+      :title, :description, :image, :price, :remote_image_url
+    )
+  end
 end

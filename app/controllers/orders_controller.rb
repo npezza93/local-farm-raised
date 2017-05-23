@@ -1,89 +1,79 @@
+# frozen_string_literal: true
+
 class OrdersController < ApplicationController
   include CurrentCart
-  before_action :set_order, only: [:show, :destroy]
-  before_action :set_cart, only: [:new, :create, :index]
-  before_filter :sign_in_if_not, only: :new
-  before_filter :authenticate_user
+  before_action :set_order, only: %i(show destroy)
+  before_action :set_cart, only: %i(new create index)
+  before_action :sign_in_if_not, only: :new
+  before_action :authenticate_user
 
-  # GET /orders
-  # GET /orders.json
   def index
-    if current_user.try(:admin?)
-      @orders = Order.search(params[:search]).paginate(:page => params[:page], per_page: 30)
-    else
-      @orders = current_user.orders.search(params[:search]).paginate(:page => params[:page], per_page: 30)
-    end
+    @orders =
+      if current_user&.admin?
+        Order
+      else
+        current_user.orders
+      end.search(params[:search]).page(params[:page]).per_page(30)
   end
 
-  # GET /orders/1
-  # GET /orders/1.json
   def show
   end
 
-  # GET /orders/new
   def new
     if @cart.line_items.empty?
       redirect_to store_url, notice: "Your cart is empty"
       return
     end
-    @credit_cards = Stripe::Customer.retrieve(current_user.stripe_customer_token).sources.all(:object => "card")
+    @credit_cards = Stripe::Customer.retrieve(
+      current_user.stripe_customer_token
+    ).sources.all(object: "card")
     @order = Order.new
   end
 
-  # POST /orders
-  # POST /orders.json
   def create
     @order = Order.new(order_params)
     @order.add_line_items_from_cart(@cart)
 
-    respond_to do |format|
       if @order.save_with_payment
         Cart.destroy(session[:cart_id])
         session[:cart_id] = nil
 
-        format.html { redirect_to store_url, notice: 'Your order has been placed.' }
+        redirect_to store_url, notice: "Your order has been placed."
       else
-        format.html { render :new }
+        render :new
       end
-    end
   end
 
-  # DELETE /orders/1
-  # DELETE /orders/1.json
   def destroy
-    respond_to do |format|
-      if @order.cancel_order
-        format.html { redirect_to orders_url, notice: 'Order was successfully canceled and refunded.' }
-      else
-        format.html { redirect_to order_url(@order), notice: "Charge has already been refunded." }
-      end
+    if @order.cancel_order
+      redirect_to orders_url,
+                  notice: "Order was successfully canceled and refunded."
+    else
+      redirect_to order_url(@order), notice: "Charge has already been refunded."
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_order
-      @order = Order.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def order_params
-      params.require(:order).permit(:credit_card_id, :address_id, :user_id)
-    end
+  def set_order
+    @order = Order.find(params[:id])
+  end
 
-    def order_update_params
-      params.require(:order).permit(:address_id, :user_id)
-    end
+  def order_params
+    params.require(:order).permit(:credit_card_id, :address_id, :user_id)
+  end
 
-    def sign_in_if_not
-      if !user_signed_in?
-        redirect_to new_user_session_url
-      end
-    end
+  def order_update_params
+    params.require(:order).permit(:address_id, :user_id)
+  end
 
-    def authenticate_user
-      if !user_signed_in?
-        redirect_to root_url, notice: "You're not authorized to view this page"
-      end
-    end
+  def sign_in_if_not
+    redirect_to new_user_session_url unless user_signed_in?
+  end
+
+  def authenticate_user
+    return if user_signed_in?
+
+    redirect_to root_url, notice: "You're not authorized to view this page"
+  end
 end

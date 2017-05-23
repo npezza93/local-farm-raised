@@ -1,39 +1,38 @@
+# frozen_string_literal: true
+
 class UsersController < ApplicationController
   include CurrentCart
   before_action :set_cart
 
-  before_filter :auth_user, except: [:settings]
+  before_action :auth_user, except: [:settings]
   before_action :set_user, only: [:admin]
 
-  # GET /users
-  # GET /users.json
   def index
-    @users = User.where.not(id: current_user.id).paginate(:page => params[:page], per_page: 30)
+    @users = User.where.not(
+      id: current_user.id
+    ).page(params[:page]).per_page(30)
   end
 
   def settings
   end
 
-  # PATCH/PUT /users/1
-  # PATCH/PUT /users/1.json
   def admin
-    respond_to do |format|
-      if @user.update({admin: !@user.admin})
-        notice = @user.admin? ? @user.email + " is now an admin" : @user.email + " is no longer an admin"
-        format.html { redirect_to users_url, notice: notice }
-      else
-        format.html { render :index }
-      end
+    if @user.update({admin: !@user.admin})
+      notice = @user.email
+      notice += @user.admin? ? " is now an admin" : " is no longer an admin"
+      redirect_to users_url, notice: notice
+    else
+      render :index
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_user
-      @user = User.find(params[:id])
-    end
 
-    def add_addresses
-      redirect_to settings_path
-    end
+  def set_user
+    @user = User.find(params[:id])
+  end
+
+  def add_addresses
+    redirect_to settings_path
+  end
 end
