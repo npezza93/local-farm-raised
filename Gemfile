@@ -5,14 +5,13 @@ source "https://rubygems.org"
 ruby "2.4.1"
 
 gem "haml"
-gem "kaminari"
 gem "pg"
 gem "pry-rails"
 gem "puma"
 gem "rails"
 gem "sprockets", "~> 4.0.0.beta4"
 gem "turbolinks"
-
+gem "will_paginate"
 
 # Style Gems
 gem "babel-transpiler"
