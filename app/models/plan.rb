@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Plan
   include ActiveModel::Validations
   include ActiveModel::Conversion
@@ -20,12 +22,12 @@ class Plan
 
   def save_plan
     Stripe::Plan.create(
-      :amount => (amount).to_i,
-      :interval => "month",
-      :interval_count => 1,
-      :name => name,
-      :currency => "usd",
-      :id => id
+      amount: amount.to_i,
+      interval: "month",
+      interval_count: 1,
+      name: name,
+      currency: "usd",
+      id: id
     )
   end
 end

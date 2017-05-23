@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreditCard < ApplicationRecord
   belongs_to :user
   has_many :orders
@@ -5,7 +7,7 @@ class CreditCard < ApplicationRecord
   def save_card(stripe_card_token)
     if valid?
       customer = Stripe::Customer.retrieve(user.stripe_customer_token)
-      card     = customer.sources.create(:source => stripe_card_token)
+      card     = customer.sources.create(source: stripe_card_token)
       self.stripe_customer_card_token = card.id
       self.last4 = card.last4
       self.exp_month = card.exp_month
@@ -21,8 +23,8 @@ class CreditCard < ApplicationRecord
 
   def destroy_card
     customer = Stripe::Customer.retrieve(user.stripe_customer_token)
-    customer.sources.retrieve(stripe_customer_card_token).delete()
-    self.destroy!
+    customer.sources.retrieve(stripe_customer_card_token).delete
+    destroy!
   end
 
   def self.icon(brand)

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Order < ApplicationRecord
   has_many :line_items, dependent: :destroy
   belongs_to :address
@@ -34,7 +36,10 @@ class Order < ApplicationRecord
       customer.default_source = credit_card.stripe_customer_card_token
       customer.save
 
-      charge = Stripe::Charge.create(amount: ((total_price*1.06)*100).to_i, description: user.email, currency: "usd", customer: user.stripe_customer_token)
+      charge = Stripe::Charge.create(
+        amount: ((total_price * 1.06) * 100).to_i, description: user.email,
+        currency: "usd", customer: user.stripe_customer_token
+      )
       self.stripe_charge_token = charge.id
       save!
     end
@@ -46,7 +51,9 @@ class Order < ApplicationRecord
 
   def cancel_order
     if valid?
-      refund = Stripe::Refund.create(charge: stripe_charge_token, reason: :requested_by_customer)
+      refund = Stripe::Refund.create(
+        charge: stripe_charge_token, reason: :requested_by_customer
+      )
       self.refund_token = refund.id
       self.refund = true
       save!
@@ -55,5 +62,5 @@ class Order < ApplicationRecord
       logger.error "Stripe error while refunding charge: #{e.message}"
       errors.add :base, "Charge has already been refunded."
       false
-    end
+  end
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Product < ApplicationRecord
   mount_uploader :image, ImageUploader
   validates :title, :description, :image, presence: true
@@ -10,7 +12,7 @@ class Product < ApplicationRecord
   before_destroy :ensure_not_referenced_by_any_line_items
 
   def self.search(search)
-    if search && search != ""
+    if search.present?
       where("title LIKE ?", "%#{search}%")
     else
       all
@@ -18,12 +20,11 @@ class Product < ApplicationRecord
   end
 
   private
-    def ensure_not_referenced_by_any_line_items
-      if line_items.empty?
-        return true
-      else
-        errors.add(:base, 'Line Items present')
-        return false
-      end
-    end
+
+  def ensure_not_referenced_by_any_line_items
+    return true if line_items.empty?
+
+    errors.add(:base, "Line Items present")
+    false
+  end
 end

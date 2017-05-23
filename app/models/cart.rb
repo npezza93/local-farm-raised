@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Cart < ApplicationRecord
   has_many :line_items, dependent: :destroy
 
@@ -6,7 +8,8 @@ class Cart < ApplicationRecord
     if current_item
       current_item.quantity += quantity.to_i
     else
-      current_item = line_items.build(product_id: product_id, quantity: quantity)
+      current_item =
+        line_items.build(product_id: product_id, quantity: quantity)
     end
     current_item
   end

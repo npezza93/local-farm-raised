@@ -1,11 +1,11 @@
+# frozen_string_literal: true
+
 class Post < ApplicationRecord
-  validates_presence_of :title, :content
+  validates :title, :content, presence: true
 
   def self.search(search)
-    if search && search != ""
-      where("title LIKE ? or content LIKE ?", "%#{search}%", "%#{search}%")
-    else
-      all
-    end
+    return all if search.blank?
+
+    where("title LIKE ? or content LIKE ?", "%#{search}%", "%#{search}%")
   end
 end
