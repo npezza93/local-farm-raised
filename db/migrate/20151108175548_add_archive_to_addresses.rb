@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddArchiveToAddresses < ActiveRecord::Migration[4.2]
   def change
     add_column :addresses, :archived, :boolean, default: false

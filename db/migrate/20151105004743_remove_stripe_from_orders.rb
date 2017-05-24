@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class RemoveStripeFromOrders < ActiveRecord::Migration[4.2]
   def change
     remove_column :orders, :stripe_charge_token, :string

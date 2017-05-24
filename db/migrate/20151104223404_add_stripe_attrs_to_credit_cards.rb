@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddStripeAttrsToCreditCards < ActiveRecord::Migration[4.2]
   def change
     add_column :credit_cards, :last4, :string
