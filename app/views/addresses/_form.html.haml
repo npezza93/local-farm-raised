@@ -1,0 +1,13 @@
+= form_for address, builder: FormBuilder do |f|
+  .layout.horizontal
+    = f.text_field :first_name, required: true
+    = f.text_field :last_name, required: true
+  = f.text_field :street_address1, full_width: true, required: true
+  = f.text_field :street_address2, full_width: true
+  .layout.horizontal
+    = f.text_field :city, required: true
+    = f.collection_select :state, Address::US_STATES, :to_s, :to_s, required: true
+    = f.text_field :zipcode, required: true
+  = f.text_field :phone_number,full_width: true
+  .layout.vertical.center.mt-4
+    = f.submit

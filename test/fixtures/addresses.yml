@@ -6,10 +6,10 @@ one:
   street_address1: MyString
   street_address2: MyString
   city: MyString
-  state: MyString
+  state: MD
   zipcode: MyString
   phone_number: MyString
-  user_id: 
+  user: one
 
 two:
   first_name: MyString
@@ -17,7 +17,7 @@ two:
   street_address1: MyString
   street_address2: MyString
   city: MyString
-  state: MyString
+  state: MD
   zipcode: MyString
   phone_number: MyString
-  user_id: 
+  user: two

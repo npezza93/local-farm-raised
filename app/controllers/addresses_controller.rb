@@ -1,28 +1,24 @@
 # frozen_string_literal: true
 
 class AddressesController < ApplicationController
-  include CurrentCart
-  before_action :set_cart
-
+  before_action :set_addresses
   before_action :set_address, only: %i(edit update destroy)
 
   def index
-    @addresses = @user.addresses.where(archived: false)
   end
 
   def new
-    @address = Address.new
+    @address = @addresses.new
   end
 
   def edit
   end
 
   def create
-    @address = @user.addresses.new(address_params)
+    @address = @addresses.new(address_params)
 
     if @address.save
-      redirect_to user_addresses_path(@user),
-                  notice: "Address was successfully created."
+      redirect_to addresses_path, notice: "Successfully added to address book"
     else
       render :new
     end
@@ -30,30 +26,32 @@ class AddressesController < ApplicationController
 
   def update
     if @address.update(address_params)
-      redirect_to user_addresses_path(@user),
-                  notice: "Address was successfully updated."
+      redirect_to addresses_path, notice: "Address was updated"
     else
       render :edit
     end
   end
 
   def destroy
-    @address.archive
+    @address.archive!
 
-    redirect_to user_addresses_url(@user),
-                notice: "Address was successfully destroyed."
+    redirect_to addresses_url, notice: "Address removed"
   end
 
   private
 
+  def set_addresses
+    @addresses = current_user.addresses
+  end
+
   def set_address
-    @address = current_user.addresses.find(params[:id])
+    @address = @addresses.find(params[:id])
   end
 
   def address_params
     params.require(:address).permit(
       :first_name, :last_name, :street_address1, :street_address2, :city,
-      :state, :zipcode, :phone_number, :user_id
+      :state, :zipcode, :phone_number
     )
   end
 end
