@@ -22,6 +22,15 @@ class ApplicationController < ActionController::Base
     session[:previous_url] || root_path
   end
 
+  def current_cart
+    @current_cart ||=
+      Cart.find_by(user: current_user, id: session[:cart_id]) || Cart.create
+    session[:cart_id] ||= @current_cart.id
+
+    @current_cart
+  end
+  helper_method :current_cart
+
   private
     def auth_user
       if !current_user.try(:admin?)
