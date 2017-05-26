@@ -1,0 +1,23 @@
+#newsletter-footer.layout.vertical.center-justified
+  %h2.layout.horizontal.center-justified Inside Local Farm Raised
+  %p.layout.horizontal.center-justified{:style => "text-align:center;font-weigth:100;"}
+    Fresh healthy recipes to try + upcoming
+    %br/
+    products and featured farmers!
+  .layout.horizontal.center-justified.start{:style => "margin-top:20px;"}
+    = form_tag do
+      = text_field_tag :email, nil, placeholder: "Email Address", id: "email-newsletter"
+      = submit_tag "Sign up", id: "submit-newsletter"
+.w-100{ style: "height:230.5px;" }
+  .layout.vertical.center-justified.h-100
+    .layout.horizontal.center-justified{:style => "padding-bottom: 1.5em;"}
+      = link_to "Shipping & Returns", "#shipping", class: "footer-link"
+      = link_to "Terms & Conditions", "#shipping", class: "footer-link"
+      = link_to "FAQ", "#shipping", class: "footer-link"
+      = link_to "Privacy", "#shipping", class: "footer-link"
+      = link_to "Become a Partner", "#shipping", class: "footer-link"
+    .layout.horizontal.center-justified
+      = link_to "https://twitter.com/localfarmraised", class: "footer-link" do
+        = image_tag "https://3.bp.blogspot.com/-a2vIfeSBZx4/VS6mckNchCI/AAAAAAAAARg/WXiZOSDODUA/w800-h800/Twitter_circle.svg.png", style: "width:32px;height:32px;"
+      = link_to "mailto:justin@localfarmraised.com", class: "footer-link" do
+        = image_tag "http://cdn.mysitemyway.com/icons-watermarks/flat-circle-white-on-black/raphael/raphael_mail/raphael_mail_flat-circle-white-on-black_512x512.png", style: "width:32px;height:32px;"

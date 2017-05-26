@@ -2,70 +2,31 @@
 %html
   %head
     %title Local Farm Raised
-    = favicon_link_tag 'logo.png'
-    = stylesheet_link_tag    "https://fonts.googleapis.com/icon?family=Material+Icons", "https://storage.googleapis.com/code.getmdl.io/1.0.6/material.blue-red.min.css", 'application', media: 'all', 'data-turbolinks-track' => true
-    = javascript_include_tag "https://js.stripe.com/v2/", "https://storage.googleapis.com/code.getmdl.io/1.0.6/material.min.js", 'application', 'data-turbolinks-track' => true
-    = html_import_tag 'application', 'data-turbolinks-track' => true
-    %link{:href => "https://fonts.googleapis.com/css?family=Raleway:600|Open+Sans:400,300,100,800", :rel => "stylesheet", :type => "text/css"}/
+    = favicon_link_tag "logo.png"
+    = stylesheet_link_tag "https://fonts.googleapis.com/icon?family=Material+Icons", "application", media: "all", "data-turbolinks-track" => true
+    = javascript_include_tag "https://js.stripe.com/v3/", "application", "data-turbolinks-track" => true
+    %link{ href: "https://fonts.googleapis.com/css?family=Raleway:600|Open+Sans:400,300,100,800", rel: "stylesheet", type: "text/css"}/
     = csrf_meta_tags
-    %meta{:content => STRIPE_PUBLIC_KEY, :name => "stripe-key"}/
-    %meta{:content => "width=device-width, initial-scale=1.0, maximum-scale=1.0", :name => "viewport"}/
-    %meta{:content => "yes", :name => "mobile-web-app-capable"}/
-    %meta{:content => "yes", :name => "apple-mobile-web-app-capable"}/
-  %body.fullbleed.layout.vertical
+    %meta{ content: Rails.configuration.stripe[:publishable_key], name: "stripe-key"}/
+    %meta{ content: "width=device-width, initial-scale=1.0, maximum-scale=1.0", name: "viewport"}/
+    %meta{ content: "yes", name: "mobile-web-app-capable"}/
+    %meta{ content: "yes", name: "apple-mobile-web-app-capable"}/
+  %body
     .mdl-layout.mdl-js-layout.mdl-layout--fixed-drawer
-      .mdl-layout__drawer
-        - if user_signed_in?
-          %div{:style => "height:100px;"}
-            %div{:style => "height:100px;background-image:url('http://www.wallbacks.com/walls/river-canyon-android-6-marshmallow-wide.jpg');background-size:cover;background-repeat:no-repeat;opacity:.85;"}
-            %div{:style => "height:48px;width:48px;border-radius:50%;background-image:url('http://lh4.ggpht.com/-QcmRTddmJZs/VdQJ_iW9_kI/AAAAAAAAKg8/ynH022TOfiA/wp_006.jpg?imgmax=0');background-size:cover;background-repeat:no-repeat;position:absolute;top: 36px;left: 0;margin-left: 14px;"}
-            %span{:style => "position:absolute;top: 41px;left: 56px;margin-left: 14px;font-size: 16px;font-weight: 500;text-transform:uppercase;color:#fff;"}= current_user.name
-            %span{:style => "position:absolute;top: 57px;left: 56px;margin-left: 14px;font-size: 12px;color:#fff;"}= current_user.email
-        %nav.mdl-navigation= render "users/user_links"
+      -# .mdl-layout__drawer
+      -#   - if user_signed_in?
+      -#     %div{:style => "height:100px;"}
+      -#       %div{:style => "height:100px;background-image:url('http://hdqwalls.com/wallpapers/android-6-marshmallow-original.jpg');background-size:cover;background-repeat:no-repeat;opacity:.85;"}
+      -#       %div{:style => "height:48px;width:48px;border-radius:50%;background-image:url('http://lh4.ggpht.com/-QcmRTddmJZs/VdQJ_iW9_kI/AAAAAAAAKg8/ynH022TOfiA/wp_006.jpg?imgmax=0');background-size:cover;background-repeat:no-repeat;position:absolute;top: 36px;left: 0;margin-left: 14px;"}
+      -#       %span{:style => "position:absolute;top: 41px;left: 56px;margin-left: 14px;font-size: 16px;font-weight: 500;text-transform:uppercase;color:#fff;"}= current_user.name
+      -#       %span{:style => "position:absolute;top: 57px;left: 56px;margin-left: 14px;font-size: 12px;color:#fff;"}= current_user.email
+      -#   %nav.mdl-navigation= render "users/user_links"
       %main.mdl-layout__content
-        %div{:style => "height:174px;background-color:#4DB6AC;"}
-          .layout.horizontal.end-justified{:style => "height:65px;"}
-            = yield :search
-            - if @cart
-              #small-cart-link{:style => "margin-right: 50px;right: 0;color:#fff;"}
-                %button.mdl-button.mdl-js-button.mdl-button--icon>
-                  %i.material-icons shopping_cart
-                (#{@cart.count_items})
-              #cart-peek
-                = render @cart
-                - if !@cart.line_items.empty?
-                  .layout.horizontal.center-justified{:style => "margin-top:40px;"}
-                    .submit-container2{:style => "margin:0;"}
-                      = button_to "Checkout", new_order_path, method: :get
-          .layout.vertical.center.start-justified{:style => "margin-top:-15px;"}
-            = link_to root_path do
-              = image_tag "logo.png"
+        = render "layouts/header"
         #main
           - if notice
             #notice= notice
           - if alert
             #notice= alert
           = yield
-        #newsletter-footer.layout.vertical.center-justified
-          %h2.layout.horizontal.center-justified Inside Local Farm Raised
-          %p.layout.horizontal.center-justified{:style => "text-align:center;font-weigth:100;"}
-            Fresh healthy recipes to try + upcoming
-            %br/
-            products and featured farmers!
-          .layout.horizontal.center-justified.start{:style => "margin-top:20px;"}
-            = form_tag do
-              = text_field_tag :email, nil, placeholder: "Email Address", id: "email-newsletter"
-              = submit_tag "Sign up", id: "submit-newsletter"
-        %div{:style => "width:100%;height:230.5px;"}
-          .layout.vertical.center-justified{:style => "height:100%;"}
-            .layout.horizontal.center-justified{:style => "padding-bottom: 1.5em;"}
-              = link_to "Shipping & Returns", "#shipping", class: "footer-link"
-              = link_to "Terms & Conditions", "#shipping", class: "footer-link"
-              = link_to "FAQ", "#shipping", class: "footer-link"
-              = link_to "Privacy", "#shipping", class: "footer-link"
-              = link_to "Become a Partner", "#shipping", class: "footer-link"
-            .layout.horizontal.center-justified
-              = link_to "https://twitter.com/localfarmraised", class: "footer-link" do
-                = image_tag "https://3.bp.blogspot.com/-a2vIfeSBZx4/VS6mckNchCI/AAAAAAAAARg/WXiZOSDODUA/w800-h800/Twitter_circle.svg.png", style: "width:32px;height:32px;"
-              = link_to "mailto:justin@localfarmraised.com", class: "footer-link" do
-                = image_tag "http://cdn.mysitemyway.com/icons-watermarks/flat-circle-white-on-black/raphael/raphael_mail/raphael_mail_flat-circle-white-on-black_512x512.png", style: "width:32px;height:32px;"
+        = render "layouts/footer"
