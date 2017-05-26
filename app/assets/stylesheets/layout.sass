@@ -1,0 +1,266 @@
+@import colors
+
+.layout
+  display: flex
+  &.horizontal
+    display: flex
+    flex-direction: row
+  &.horizontal-reverse
+    display: flex
+    flex-direction: row-reverse
+  &.vertical
+    display: flex
+    flex-direction: column
+  &.vertical-reverse
+    display: flex
+    flex-direction: column-reverse
+  &.inline
+    display: inline-flex
+  &.wrap
+    flex-wrap: wrap
+  &.wrap-reverse
+    flex-wrap: wrap-reverse
+  &.start
+    align-items: flex-start
+  &.center
+    align-items: center
+  &.center-center
+    align-items: center
+    justify-content: center
+  &.end
+    align-items: flex-end
+  &.start-justified
+    justify-content: flex-start
+  &.center-justified
+    justify-content: center
+  &.end-justified
+    justify-content: flex-end
+  &.around-justified
+    justify-content: space-around
+  &.justified
+    justify-content: space-between
+
+.flex-auto
+  flex: 1 1 auto
+
+.flex-none
+  flex: none
+
+.flex
+  flex: 1
+
+.flex-1
+  flex: 1 !important
+
+.flex-2
+  flex: 2 !important
+
+.flex-3
+  flex: 3 !important
+
+.flex-4
+  flex: 4 !important
+
+.flex-5
+  flex: 5 !important
+
+.flex-6
+  flex: 6 !important
+
+.flex-7
+  flex: 7 !important
+
+.flex-8
+  flex: 8 !important
+
+.flex-9
+  flex: 9 !important
+
+.flex-10
+  flex: 10 !important
+
+.flex-11
+  flex: 11 !important
+
+.flex-12
+  flex: 12 !important
+
+.self-start
+  align-self: flex-start
+
+.self-center
+  align-self: center
+
+.self-end
+  align-self: flex-end
+
+.self-stretch
+  align-self: stretch
+
+.block
+  display: block
+
+[hidden]
+  display: none !important
+
+.invisible
+  visibility: hidden !important
+
+.relative
+  position: relative
+
+.fit
+  position: absolute
+  top: 0
+  right: 0
+  bottom: 0
+  left: 0
+
+.scroll
+  overflow: auto
+
+.fixed-bottom
+  position: fixed
+  right: 0
+  bottom: 0
+  left: 0
+
+.fixed-left
+  position: fixed
+  top: 0
+  bottom: 0
+  left: 0
+
+.fixed-right
+  position: fixed
+  top: 0
+  right: 0
+  bottom: 0
+
+.fixed-top
+  position: fixed
+  top: 0
+  left: 0
+  right: 0
+
+@for $i from 0 through 15
+  .m-#{$i}
+    margin: calc(#{$i} * 8px) calc(#{$i} * 8px) !important
+  .mt-#{$i}
+    margin-top: calc(#{$i} * 8px) !important
+  .mr-#{$i}
+    margin-right: calc(#{$i} * 8px) !important
+  .mb-#{$i}
+    margin-bottom: calc(#{$i} * 8px) !important
+  .ml-#{$i}
+    margin-left: calc(#{$i} * 8px) !important
+  .mx-#{$i}
+    margin-right: calc(#{$i} * 8px) !important
+    margin-left: calc(#{$i} * 8px) !important
+  .my-#{$i}
+    margin-top: calc(#{$i} * 8px) !important
+    margin-bottom: calc(#{$i} * 8px) !important
+  .p-#{$i}
+    padding: calc(#{$i} * 8px) calc(#{$i} * 8px) !important
+  .pt-#{$i}
+    padding-top: calc(#{$i} * 8px) !important
+  .pr-#{$i}
+    padding-right: calc(#{$i} * 8px) !important
+  .pb-#{$i}
+    padding-bottom: calc(#{$i} * 8px) !important
+  .pl-#{$i}
+    padding-left: calc(#{$i} * 8px) !important
+  .px-#{$i}
+    padding-right: calc(#{$i} * 8px) !important
+    padding-left: calc(#{$i} * 8px) !important
+  .py-#{$i}
+    padding-top: calc(#{$i} * 8px) !important
+    padding-bottom: calc(#{$i} * 8px) !important
+
+.w-100
+  width: 100% !important
+
+.h-100
+  height: 100% !important
+
+.hidden
+  display: none
+
+.center-text
+  text-align: center !important
+
+.bold
+  font-weight: bold !important
+
+.pointer
+  cursor: pointer !important
+
+.d-flex
+  display: flex
+
+body
+  -webkit-font-smoothing: antialiased
+  text-rendering: optimizeLegibility
+  -moz-osx-font-smoothing: grayscale
+  margin: 0
+
+a
+  text-decoration: none !important
+
+
+#drawer
+  width: 100vw
+  height: 56px
+  position: fixed
+  bottom: 0
+  left: 0
+  background-color: var(--mdc-theme-primary)
+  a
+    @extend .layout.vertical
+    @extend .layout.center
+    color: var(--mdc-theme-text-disabled-on-dark)
+    min-width: 56px
+    max-width: 96px
+    width: 100%
+    transition: 0.15s cubic-bezier(0.0, 0.0, 1, 1)
+    .ripple
+      position: absolute
+      top: 0
+      left: 0
+      width: 200%
+      height: 200%
+      z-index: -1
+      transform: scale(0)
+      opacity: 0
+      transition: .15s linear
+    span
+      opacity: 0
+      font-size: 14px
+      margin-top: -17px
+      transition: opacity 0.15s cubic-bezier(0.0, 0.0, 1, 1)
+      transition: margin 0.15s cubic-bezier(0.0, 0.0, 1, 1)
+    &.active
+      color: #fff
+      min-width: 96px
+      max-width: 168px
+      .ripple
+        transform: scale(1)
+        opacity: 1
+      span
+        margin-top: 0px
+        display: block
+        opacity: 1
+
+
+header.mdc-toolbar
+  height: 174px
+
+.container, .form-container
+  box-sizing: border-box
+  width: auto
+  margin: auto
+  max-width: 1000px
+  padding: 50px 34px 100px 34px
+
+.form-container
+  max-width: 400px
