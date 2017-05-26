@@ -1,0 +1,5 @@
+= form_for @credit_card, builder: FormBuilder do |f|
+  #card-element
+  #card-errors{ role: :alert }
+  .layout.horizontal.center-justified.mt-4
+    = f.submit

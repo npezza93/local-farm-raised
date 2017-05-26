@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170524215534) do
+ActiveRecord::Schema.define(version: 20170525235544) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,6 +48,10 @@ ActiveRecord::Schema.define(version: 20170524215534) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "stripe_customer_card_token"
+    t.string "last4"
+    t.integer "exp_month"
+    t.integer "exp_year"
+    t.string "brand"
     t.index ["user_id"], name: "index_credit_cards_on_user_id"
   end
 

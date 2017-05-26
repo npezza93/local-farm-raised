@@ -5,9 +5,10 @@ Rails.application.routes.draw do
   resources :recipes
   resources :posts
 
+  resources :addresses, except: :show
+  resources :credit_cards, except: %i(show edit update)
+
   resources :users, only: [:index] do
-    resources :addresses, except: [:show]
-    resources :credit_cards, except: %i(show edit update)
     resources :subscriptions, only: %i(index new create)
   end
 

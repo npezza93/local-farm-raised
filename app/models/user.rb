@@ -13,9 +13,13 @@ class User < ApplicationRecord
   has_many :orders
   has_one  :subscription
 
+  def stripe_customer
+    @stripe_customer ||= Stripe::Customer.retrieve(stripe_customer_token)
+  end
+
   def create_stripe_customer
     customer = Stripe::Customer.create(email: email)
     self.stripe_customer_token = customer.id
-    save!
+    save
   end
 end

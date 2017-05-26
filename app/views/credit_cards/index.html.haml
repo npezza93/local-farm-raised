@@ -1,0 +1,6 @@
+.container
+  %h2 Wallet
+  .layout.horizontal.wrap.center-justified
+    = render partial: "credit_cards/credit_card", collection: @credit_cards, cached: true
+
+= fab new_credit_card_path

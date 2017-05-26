@@ -1,44 +1,57 @@
-let creditcard;
+function stripeTokenHandler(token) {
+  const form = $("#new_credit_card")[0];
+  const hiddenInput = document.createElement("input");
+  hiddenInput.setAttribute("type", "hidden");
+  hiddenInput.setAttribute("name", "stripe_card_token");
+  hiddenInput.setAttribute("value", token.id);
+  form.appendChild(hiddenInput);
+
+  form.submit();
+}
 
 $(document).on("turbolinks:load", () => {
-  Stripe.setPublishableKey($("meta[name='stripe-key']").attr("content"));
-  return creditcard.setupForm();
-});
+  const stripe = Stripe($("meta[name='stripe-key']").attr("content"));
+  const elements = stripe.elements();
+  const style = {
+    base: {
+      color: "#32325d",
+      lineHeight: "24px",
+      fontFamily: "'Helvetica Neue', Helvetica, sans-serif",
+      fontSmoothing: "antialiased",
+      fontSize: "16px",
+      "::placeholder": {
+        color: "#aab7c4"
+      }
+    },
+    invalid: {
+      color: "#fa755a",
+      iconColor: "#fa755a"
+    }
+  };
+  const card = elements.create("card", {style});
+  if ($("#card-element").length > 0) {
+    card.mount("#card-element");
+  }
 
-creditcard = {
-  setupForm() {
-    return $('#new_credit_card').submit(e => {
-      $('input[type=submit]').attr('disabled', true);
-      if ($('#card_number').length) {
-        $("#credit-card-submit-container").css("display", "none");
-        $("#credit-card-spinner").css("display", "");
-        creditcard.processCard();
-        return false;
+  card.addEventListener("change", event => {
+    const displayError = document.getElementById("card-errors");
+    if (event.error) {
+      displayError.textContent = event.error.message;
+    } else {
+      displayError.textContent = "";
+    }
+  });
+
+  $(document).on("submit", "#new_credit_card", event => {
+    event.preventDefault();
+
+    stripe.createToken(card).then(result => {
+      if (result.error) {
+        const errorElement = document.getElementById("card-errors");
+        errorElement.textContent = result.error.message;
       } else {
-        return true;
+        stripeTokenHandler(result.token);
       }
     });
-  },
-  processCard() {
-    let card;
-    card = {
-      number: $('#card_number').val(),
-      cvc: $('#card_code').val(),
-      expMonth: $('#card_month').val(),
-      expYear: $('#card_year').val(),
-      name: $("#name").val()
-    };
-    return Stripe.createToken(card, creditcard.handleStripeResponse);
-  },
-  handleStripeResponse(status, response) {
-    if (status === 200) {
-      $("#stripe_card_token").val(response.id);
-      return $("#new_credit_card").get(0).submit();
-    } else {
-      $("#credit-card-submit-container").css("display", "");
-      $("#credit-card-spinner").css("display", "none");
-      $("#stripe_error").text(response.error.message);
-      return $('input[type=submit]').attr('disabled', false);
-    }
-  }
-};
+  });
+});

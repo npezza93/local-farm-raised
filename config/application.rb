@@ -13,5 +13,7 @@ module LocalFarmRaised
     config.active_record.time_zone_aware_types = %i(datetime time)
     config.time_zone = "Eastern Time (US & Canada)"
     config.active_record.default_timezone = :local
+
+    config.assets.paths << Rails.root.join("app", "assets", "fonts")
   end
 end

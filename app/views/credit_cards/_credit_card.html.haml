@@ -1,0 +1,15 @@
+.credit_card.mb-4.p-3.layout.vertical.mx-1{ style: "background-image: #{credit_card.gradient}"}
+  .layout.horizontal
+    %i.pf{ class: "pf-#{credit_card.brand.parameterize}" }
+    .flex
+    = link_to credit_card, method: :delete, data: { confirm: "Are you sure?" } do
+      %i.material-icons clear
+  .flex
+  .layout.horizontal.justified.mb-2.numbers
+    %div ****
+    %div ****
+    %div ****
+    %div= credit_card.last4
+  .layout.horizontal.mb-3
+    .flex
+    .white-text.expiration= "#{credit_card.exp_month}/#{credit_card.exp_year}"
