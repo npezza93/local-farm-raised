@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-class CreateCreditCards < ActiveRecord::Migration[4.2]
+class CreateCarts < ActiveRecord::Migration[5.1]
   def change
-    create_table :credit_cards do |t|
+    create_table :carts do |t|
+      t.string :session_id, index: true
       t.references :user, index: true
-      t.string :stripe_card_token
 
       t.timestamps null: false
     end

@@ -10,12 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170525235544) do
+ActiveRecord::Schema.define(version: 20170527104410) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "addresses", id: :serial, force: :cascade do |t|
+  create_table "addresses", force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
     t.string "street_address1"
@@ -24,117 +24,109 @@ ActiveRecord::Schema.define(version: 20170525235544) do
     t.string "state"
     t.string "zipcode"
     t.string "phone_number"
-    t.integer "user_id"
+    t.boolean "archived", default: false
+    t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "archived", default: false
     t.index ["user_id"], name: "index_addresses_on_user_id"
   end
 
-  create_table "blogs", id: :serial, force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "carts", id: :serial, force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+  create_table "carts", force: :cascade do |t|
     t.string "session_id"
-  end
-
-  create_table "credit_cards", id: :serial, force: :cascade do |t|
-    t.integer "user_id"
+    t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["session_id"], name: "index_carts_on_session_id"
+    t.index ["user_id"], name: "index_carts_on_user_id"
+  end
+
+  create_table "credit_cards", force: :cascade do |t|
+    t.bigint "user_id"
     t.string "stripe_customer_card_token"
     t.string "last4"
+    t.string "brand"
     t.integer "exp_month"
     t.integer "exp_year"
-    t.string "brand"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_credit_cards_on_user_id"
   end
 
-  create_table "line_items", id: :serial, force: :cascade do |t|
-    t.integer "product_id"
-    t.integer "cart_id"
+  create_table "line_items", force: :cascade do |t|
+    t.integer "quantity", default: 1
+    t.bigint "product_id"
+    t.bigint "cart_id"
+    t.bigint "order_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "quantity", default: 1
-    t.integer "order_id"
     t.index ["cart_id"], name: "index_line_items_on_cart_id"
     t.index ["order_id"], name: "index_line_items_on_order_id"
     t.index ["product_id"], name: "index_line_items_on_product_id"
   end
 
-  create_table "orders", id: :serial, force: :cascade do |t|
+  create_table "orders", force: :cascade do |t|
+    t.string "refund_token"
+    t.string "stripe_charge_token"
+    t.boolean "refund", default: false
+    t.bigint "user_id"
+    t.bigint "credit_card_id"
+    t.bigint "address_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "refund", default: false
-    t.string "refund_token"
-    t.integer "address_id"
-    t.integer "user_id"
-    t.integer "credit_card_id"
-    t.string "stripe_charge_token"
     t.index ["address_id"], name: "index_orders_on_address_id"
     t.index ["credit_card_id"], name: "index_orders_on_credit_card_id"
     t.index ["user_id"], name: "index_orders_on_user_id"
   end
 
-  create_table "plans", id: :serial, force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+  create_table "plans", force: :cascade do |t|
     t.string "name"
     t.decimal "amount"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
-  create_table "posts", id: :serial, force: :cascade do |t|
+  create_table "posts", force: :cascade do |t|
     t.string "title"
     t.text "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "products", id: :serial, force: :cascade do |t|
+  create_table "products", force: :cascade do |t|
     t.string "title"
+    t.string "image"
     t.text "description"
     t.decimal "price", precision: 8, scale: 2
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string "image"
-  end
-
-  create_table "recipes", id: :serial, force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "title"
-    t.text "content"
   end
 
-  create_table "subscriptions", id: :serial, force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "plan_id"
+  create_table "recipes", force: :cascade do |t|
+    t.string "title"
+    t.text "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "subscriptions", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "plan_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["plan_id"], name: "index_subscriptions_on_plan_id"
     t.index ["user_id"], name: "index_subscriptions_on_user_id"
   end
 
-  create_table "users", id: :serial, force: :cascade do |t|
-    t.string "email", default: "", null: false
-    t.string "encrypted_password", default: "", null: false
+  create_table "users", force: :cascade do |t|
     t.string "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
-    t.integer "sign_in_count", default: 0, null: false
-    t.datetime "current_sign_in_at"
-    t.datetime "last_sign_in_at"
-    t.string "current_sign_in_ip"
-    t.string "last_sign_in_ip"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.boolean "admin", default: false
     t.string "stripe_customer_token"
     t.string "name"
+    t.string "email"
+    t.string "encrypted_password"
+    t.boolean "admin", default: false
+    t.datetime "reset_password_sent_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
