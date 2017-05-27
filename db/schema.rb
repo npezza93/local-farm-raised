@@ -39,8 +39,7 @@ ActiveRecord::Schema.define(version: 20170525235544) do
   create_table "carts", id: :serial, force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "user_id"
-    t.index ["user_id"], name: "index_carts_on_user_id"
+    t.string "session_id"
   end
 
   create_table "credit_cards", id: :serial, force: :cascade do |t|

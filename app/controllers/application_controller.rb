@@ -19,8 +19,7 @@ class ApplicationController < ActionController::Base
   end
 
   def current_cart
-    @current_cart ||=
-      Cart.find_by(user: current_user, id: session[:cart_id]) || Cart.create
+    @current_cart ||= Cart.find_or_create_by_session(session)
     session[:cart_id] ||= @current_cart.id
 
     @current_cart

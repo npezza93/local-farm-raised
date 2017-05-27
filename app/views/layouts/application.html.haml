@@ -12,21 +12,8 @@
     %meta{ content: "yes", name: "mobile-web-app-capable"}/
     %meta{ content: "yes", name: "apple-mobile-web-app-capable"}/
   %body
-    .mdl-layout.mdl-js-layout.mdl-layout--fixed-drawer
-      -# .mdl-layout__drawer
-      -#   - if user_signed_in?
-      -#     %div{:style => "height:100px;"}
-      -#       %div{:style => "height:100px;background-image:url('http://hdqwalls.com/wallpapers/android-6-marshmallow-original.jpg');background-size:cover;background-repeat:no-repeat;opacity:.85;"}
-      -#       %div{:style => "height:48px;width:48px;border-radius:50%;background-image:url('http://lh4.ggpht.com/-QcmRTddmJZs/VdQJ_iW9_kI/AAAAAAAAKg8/ynH022TOfiA/wp_006.jpg?imgmax=0');background-size:cover;background-repeat:no-repeat;position:absolute;top: 36px;left: 0;margin-left: 14px;"}
-      -#       %span{:style => "position:absolute;top: 41px;left: 56px;margin-left: 14px;font-size: 16px;font-weight: 500;text-transform:uppercase;color:#fff;"}= current_user.name
-      -#       %span{:style => "position:absolute;top: 57px;left: 56px;margin-left: 14px;font-size: 12px;color:#fff;"}= current_user.email
-      -#   %nav.mdl-navigation= render "users/user_links"
-      %main.mdl-layout__content
-        = render "layouts/header"
-        #main
-          - if notice
-            #notice= notice
-          - if alert
-            #notice= alert
-          = yield
-        = render "layouts/footer"
+    = snackbar_notice(notice || alert)
+
+    = render "layouts/header"
+    = yield
+    = render "layouts/footer"
