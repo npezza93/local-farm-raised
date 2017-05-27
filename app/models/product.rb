@@ -1,4 +1,17 @@
 # frozen_string_literal: true
+# == Schema Information
+#
+# Table name: products
+#
+#  id          :integer          not null, primary key
+#  title       :string
+#  description :text
+#  price       :decimal(8, 2)
+#  created_at  :datetime
+#  updated_at  :datetime
+#  image       :string
+#
+
 
 class Product < ApplicationRecord
   mount_uploader :image, ImageUploader
