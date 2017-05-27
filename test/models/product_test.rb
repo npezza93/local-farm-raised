@@ -1,16 +1,15 @@
 # frozen_string_literal: true
-
 # == Schema Information
 #
 # Table name: products
 #
 #  id          :integer          not null, primary key
 #  title       :string
+#  image       :string
 #  description :text
 #  price       :decimal(8, 2)
-#  created_at  :datetime
-#  updated_at  :datetime
-#  image       :string
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
 #
 
 require "test_helper"

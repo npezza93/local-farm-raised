@@ -1,13 +1,13 @@
 # frozen_string_literal: true
-
 # == Schema Information
 #
 # Table name: carts
 #
 #  id         :integer          not null, primary key
+#  session_id :string
+#  user_id    :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
-#  session_id :string
 #
 
 require "test_helper"
