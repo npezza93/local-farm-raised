@@ -2,8 +2,6 @@
 
 class ProductsController < ApplicationController
   before_action :set_product, only: %i(show edit update destroy)
-  include CurrentCart
-  before_action :set_cart
   before_action :auth_user, except: %i(index show)
 
   def index

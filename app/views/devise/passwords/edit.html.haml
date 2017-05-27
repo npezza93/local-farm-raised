@@ -1,0 +1,9 @@
+.container.layout.vertical.center
+  %h2 Change your password
+  = form_for resource, as: resource_name, url: password_path(resource_name),
+      builder: FormBuilder, html: { method: :put } do |f|
+    = f.hidden_field :reset_password_token
+    .layout.vertical.center.w-100
+      = f.password_field :password, autofocus: true, required: true
+      = f.password_field :password_confirmation, required: true
+      .mt-2= f.submit "Change password"

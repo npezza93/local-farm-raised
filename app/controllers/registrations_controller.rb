@@ -1,10 +1,11 @@
 # frozen_string_literal: true
 
 class RegistrationsController < Devise::RegistrationsController
-  include CurrentCart
-  before_action :set_cart
-
   protected
+
+  def update_resource(resource, params)
+    resource.update_without_password(params)
+  end
 
   def sign_up_params
     params.require(:user).permit(

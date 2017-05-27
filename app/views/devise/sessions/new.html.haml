@@ -1,0 +1,11 @@
+.container.layout.vertical.center
+  %h2 Log in
+  = form_for resource, as: resource_name, url: session_path(resource_name),
+      builder: FormBuilder do |f|
+    .layout.vertical.center.w-100
+      = f.email_field :email, autofocus: true, required: true
+      = f.password_field :password, required: true
+      .mt-2= f.submit "Log in"
+  .layout.vertical.center
+    = link_to "FORGOT YOUR PASSWORD?", new_password_path(resource_name),
+        class: "mt-6 forgot-password-link"

@@ -18,10 +18,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def after_sign_in_path_for(resource)
-    session[:previous_url] || root_path
-  end
-
   def current_cart
     @current_cart ||=
       Cart.find_by(user: current_user, id: session[:cart_id]) || Cart.create
