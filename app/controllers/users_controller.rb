@@ -1,9 +1,6 @@
 # frozen_string_literal: true
 
 class UsersController < ApplicationController
-  include CurrentCart
-  before_action :set_cart
-
   before_action :auth_user, except: [:settings]
   before_action :set_user, only: [:admin]
 

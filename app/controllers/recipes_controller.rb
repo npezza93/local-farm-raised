@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class RecipesController < ApplicationController
-  include CurrentCart
-  before_action :set_cart
   before_action :set_recipe, only: %i(show edit update destroy)
 
   def index

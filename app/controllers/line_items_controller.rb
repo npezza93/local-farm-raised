@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class LineItemsController < ApplicationController
-  include CurrentCart
-  before_action :set_cart, only: %i(create destroy update)
   before_action :set_line_item, only: %i(show edit update destroy)
 
   def create

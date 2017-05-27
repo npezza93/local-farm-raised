@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 
 class OrdersController < ApplicationController
-  include CurrentCart
   before_action :set_order, only: %i(show destroy)
-  before_action :set_cart, only: %i(new create index)
   before_action :sign_in_if_not, only: :new
   before_action :authenticate_user
 
