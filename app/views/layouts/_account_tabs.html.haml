@@ -1,0 +1,8 @@
+%nav.mdc-tab-bar.mt-2
+  = link_to "Settings", edit_user_registration_path,
+      class: "mdc-tab #{'mdc-tab--active' if active_tab == :settings}"
+  = link_to "Address Book", addresses_path,
+      class: "mdc-tab #{'mdc-tab--active' if active_tab == :addresses}"
+  = link_to "Wallet", credit_cards_path,
+      class: "mdc-tab #{'mdc-tab--active' if active_tab == :wallet}"
+  %span.mdc-tab-bar__indicator
