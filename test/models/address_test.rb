@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: addresses
@@ -17,7 +18,6 @@
 #  updated_at      :datetime         not null
 #  archived        :boolean          default(FALSE)
 #
-
 
 require "test_helper"
 

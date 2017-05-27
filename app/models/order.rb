@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: orders
@@ -13,7 +14,6 @@
 #  credit_card_id      :integer
 #  stripe_charge_token :string
 #
-
 
 class Order < ApplicationRecord
   has_many :line_items, dependent: :destroy

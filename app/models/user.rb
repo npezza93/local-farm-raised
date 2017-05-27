@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: users
@@ -20,7 +21,6 @@
 #  stripe_customer_token  :string
 #  name                   :string
 #
-
 
 class User < ApplicationRecord
   devise :database_authenticatable, :registerable, :recoverable,

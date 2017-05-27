@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: credit_cards
@@ -13,7 +14,6 @@
 #  exp_year                   :integer
 #  brand                      :string
 #
-
 
 class CreditCard < ApplicationRecord
   GRADIENTS = {

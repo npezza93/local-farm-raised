@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: products
@@ -11,7 +12,6 @@
 #  updated_at  :datetime
 #  image       :string
 #
-
 
 require "test_helper"
 

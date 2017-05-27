@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: recipes
@@ -9,7 +10,6 @@
 #  title      :string
 #  content    :text
 #
-
 
 require "test_helper"
 

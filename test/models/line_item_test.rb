@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: line_items
@@ -11,7 +12,6 @@
 #  quantity   :integer          default(1)
 #  order_id   :integer
 #
-
 
 require "test_helper"
 

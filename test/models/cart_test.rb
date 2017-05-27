@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: carts
@@ -8,7 +9,6 @@
 #  updated_at :datetime         not null
 #  session_id :string
 #
-
 
 require "test_helper"
 
