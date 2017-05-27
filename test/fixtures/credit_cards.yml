@@ -1,9 +1,17 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  user_id:
-  stripe_customer_card_token: MyString
+  user: one
+  stripe_customer_card_token: card_1ANtFdGUzBox4K0LPWj8aa0N
+  last4: 4242
+  exp_month: 4
+  exp_year: 2024
+  brand: Visa
 
-two:
-  user_id:
-  stripe_customer_card_token: MyString
+deleted_card:
+  user: one
+  stripe_customer_card_token: card_1ANtFnGUzBox4K0LpcndzJxL
+  last4: 4242
+  exp_month: 4
+  exp_year: 2024
+  brand: Visa

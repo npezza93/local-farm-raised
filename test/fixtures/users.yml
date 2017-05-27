@@ -7,6 +7,7 @@
 one:
   name: person1
   email: person1@email.com
+  stripe_customer_token: cus_AjLajTwZ9BXOAb
 
 two:
   name: person2

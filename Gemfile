@@ -38,6 +38,8 @@ end
 group :test do
   gem "mocha"
   gem "simplecov", require: false
+  gem "vcr"
+  gem "webmock"
 end
 
 group :development, :test do

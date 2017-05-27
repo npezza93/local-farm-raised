@@ -2,48 +2,47 @@
 
 require "test_helper"
 
-class CreditCardsControllerTest < ActionController::TestCase
+VCR.configure do |c|
+  c.cassette_library_dir = "test/vcr_cassettes"
+  c.hook_into :webmock
+end
+
+class CreditCardsControllerTest < ActionDispatch::IntegrationTest
+  include Devise::Test::IntegrationHelpers
+
   setup do
-    @credit_card = credit_cards(:one)
+    @user = users(:one)
+    sign_in @user
   end
 
   test "should get index" do
-    get :index
+    get credit_cards_path
+
     assert_response :success
-    assert_not_nil assigns(:credit_cards)
   end
 
   test "should get new" do
-    get :new
+    get new_credit_card_path
+
     assert_response :success
   end
 
-  test "should create credit_card" do
-    assert_difference("CreditCard.count") do
-      post :create, credit_card: { stripe_card_token: @credit_card.stripe_customer_card_token, user_id: @credit_card.user_id, last4: @credit_card.last4, brand: @credit_card.brand, exp_month: @credit_card.exp_month, exp_year: @credit_card.exp_year }
-    end
-
-    assert_redirected_to credit_card_path(assigns(:credit_card))
-  end
-
-  test "should show credit_card" do
-    get :show, id: @credit_card
-    assert_response :success
-  end
-
-  test "should get edit" do
-    get :edit, id: @credit_card
-    assert_response :success
-  end
-
-  test "should update credit_card" do
-    patch :update, id: @credit_card, credit_card: { stripe_card_token: @credit_card.stripe_customer_card_token, user_id: @credit_card.user_id, last4: @credit_card.last4, brand: @credit_card.brand, exp_month: @credit_card.exp_month, exp_year: @credit_card.exp_year }
-    assert_redirected_to credit_card_path(assigns(:credit_card))
-  end
+  # test "should create credit_card" do
+  #   assert_difference("CreditCard.count") do
+  #     post :create, credit_card: { stripe_card_token:
+  #  @credit_card.stripe_customer_card_token, user_id: @credit_card.user_id,
+  # last4: @credit_card.last4, brand: @credit_card.brand,
+  # exp_month: @credit_card.exp_month, exp_year: @credit_card.exp_year }
+  #   end
+  #
+  #   assert_redirected_to credit_card_path(assigns(:credit_card))
+  # end
 
   test "should destroy credit_card" do
     assert_difference("CreditCard.count", -1) do
-      delete :destroy, id: @credit_card
+      VCR.use_cassette "delete_credit_card" do
+        delete credit_card_path(credit_cards(:deleted_card))
+      end
     end
 
     assert_redirected_to credit_cards_path
