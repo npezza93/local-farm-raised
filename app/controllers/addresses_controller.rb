@@ -33,7 +33,7 @@ class AddressesController < ApplicationController
   end
 
   def destroy
-    @address.archive!
+    @address.archive
 
     redirect_to addresses_url, notice: "Address removed"
   end
