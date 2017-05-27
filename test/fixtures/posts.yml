@@ -9,12 +9,8 @@
 #  updated_at :datetime         not null
 #
 
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
-one:
-  title: MyString
-  content: MyText
-
-two:
-  title: MyString
-  content: MyText
+<% 50.times do |i| %>
+  "<%= i.to_words.underscore %>":
+    title: <%= Faker::StarWars.character %>
+    content: <%= Faker::StarWars.quote %>
+<% end %>

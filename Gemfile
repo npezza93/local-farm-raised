@@ -36,7 +36,9 @@ group :development do
 end
 
 group :test do
+  gem "faker"
   gem "mocha"
+  gem "numbers_and_words"
   gem "simplecov", require: false
   gem "vcr"
   gem "webmock"
