@@ -8,7 +8,7 @@ class Plan
   attr_accessor :amount, :name, :id
 
   validates :amount, :name, :id, presence: true
-  validates :amount, numericality: {greater_than_or_equal_to: 0}
+  validates :amount, numericality: { greater_than_or_equal_to: 0 }
 
   def initialize(attributes = {})
     attributes.each do |name, value|
