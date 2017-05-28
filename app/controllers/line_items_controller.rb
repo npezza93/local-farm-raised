@@ -6,9 +6,8 @@ class LineItemsController < ApplicationController
   def create
     @line_item = current_cart.line_items.create(line_item_params)
 
-    respond_to do |format|
-      format.js
-    end
+    redirect_to store_path,
+                notice: "#{@line_item.product.title} added to your cart"
   end
 
   def update
