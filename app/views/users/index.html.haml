@@ -1,0 +1,7 @@
+= render "layouts/account_tabs", active_tab: :users
+.container.layout.vertical.center
+  %h2 Users
+  %ul.mdc-list.form-container
+    = render partial: "users/user", collection: @users, cached: true
+
+  = paginate @users

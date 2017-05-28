@@ -27,13 +27,6 @@
 <hr>
 
 <% if user_signed_in? %>
-  <%= link_to orders_path, class: "drawer-link" do %>
-   <paper-item>
-     <iron-icon icon="maps:local-shipping"></iron-icon>
-     Orders
-   </paper-item>
-  <% end %>
-
   <%= link_to user_subscriptions_path(current_user), class: "drawer-link" do %>
    <paper-item>
      <svg class="svg-icon" style="width:24px;height:24px" viewBox="0 0 24 24">
@@ -41,17 +34,5 @@
      </svg>
     Subscriptions
    </paper-item>
-  <% end %>
-
-  <hr>
-
-  <% if current_user.try(:admin?) %>
-    <%= link_to users_path, class: "drawer-link" do %>
-     <paper-item>
-       <iron-icon icon="icons:supervisor-account"></iron-icon>
-       Users
-     </paper-item>
-    <% end %>
-    <hr>
   <% end %>
 <% end %>

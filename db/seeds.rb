@@ -8,3 +8,12 @@
     remote_image_url: Faker::LoremPixel.image
   )
 end
+
+50.times do
+  User.create(
+    name: Faker::StarWars.character,
+    email: Faker::Internet.email,
+    password: (password = SecureRandom.hex),
+    password_confirmation: password
+  )
+end

@@ -8,11 +8,9 @@ Rails.application.routes.draw do
   resources :addresses, except: :show
   resources :credit_cards, except: %i(show edit update)
 
-  resources :users, only: [:index] do
+  resources :users, only: %i(index update) do
     resources :subscriptions, only: %i(index new create)
   end
-
-  put "users/:id", to: "users#admin", as: "admin"
 
   devise_for :users, controllers: { registrations: "registrations" }
 
