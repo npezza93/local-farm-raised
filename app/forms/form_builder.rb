@@ -14,18 +14,16 @@ class FormBuilder < ActionView::Helpers::FormBuilder
       options[:class]   = "#{options[:class]} mdc-textfield__input"
       container_classes = "mdc-textfield #{error_class} #{full_width}"
 
-      content_tag(:div) do
-        content_tag(:div, class: container_classes) do
-          super(name, options) + text_field_label(name, options)
-        end + help_text(options) + error_msg(name)
-      end
+      content_tag(:div, class: container_classes) do
+        super(name, options) + text_field_label(name, options)
+      end + help_text(options) + error_msg(name)
     end
   end
 
   def text_area(method, options = {})
     label_text = options[:label] || method.to_s.titleize
     text_area_container_classes =
-      "mdc-textfield mdc-textfield--multiline mdc-textfield--fullwidth"
+      "mt-3 mdc-textfield mdc-textfield--multiline mdc-textfield--fullwidth"
     options[:class] = "#{options[:class]} mdc-textfield__input"
 
     content_tag(:div, class: text_area_container_classes) do
@@ -46,11 +44,11 @@ class FormBuilder < ActionView::Helpers::FormBuilder
     end + label("#{name}_#{value}", label_text)
   end
 
-  def submit(value = nil, options = {})
+  def submit(value = nil, options = {}, &block)
     options[:class] = "#{options[:class]} mdc-button"
     options[:type] = "submit"
 
-    content_tag(:button, value || submit_default_value, options)
+    content_tag(:button, value || submit_default_value, options, &block)
   end
 
   def multiple_course_select(method, selected: nil)

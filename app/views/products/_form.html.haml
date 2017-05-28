@@ -1,0 +1,10 @@
+= form_for product, builder: FormBuilder do |f|
+  .layout.vertical.center.w-100
+    = f.text_field :title, full_width: true, required: true
+    = f.number_field :price, full_width: true, required: true
+    = f.text_area :description, full_width: true, required: true, rows: 4
+    .layout.vertical.center.center-justified.mt-5.mb-3
+      = f.file_field :image
+      .mt-2
+      = f.text_field :remote_image_url,  full_width: true, label: "or an image url"
+    = f.submit

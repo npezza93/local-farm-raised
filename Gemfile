@@ -6,13 +6,13 @@ ruby "2.4.1"
 
 gem "figaro"
 gem "haml"
+gem "kaminari"
 gem "pg"
 gem "pry-rails"
 gem "puma"
 gem "rails"
 gem "sprockets", "~> 4.0.0.beta4"
 gem "turbolinks"
-gem "will_paginate"
 
 # Style Gems
 gem "babel-transpiler"
@@ -36,16 +36,16 @@ group :development do
 end
 
 group :test do
-  gem "faker"
   gem "mocha"
-  gem "numbers_and_words"
   gem "simplecov", require: false
   gem "vcr"
   gem "webmock"
 end
 
 group :development, :test do
+  gem "faker"
   gem "haml_lint"
+  gem "numbers_and_words"
   gem "rubocop"
 end
 

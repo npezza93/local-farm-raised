@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class UsersController < ApplicationController
-  before_action :auth_user, except: [:settings]
+  before_action :auth_admin, except: [:settings]
   before_action :set_user, only: [:admin]
 
   def index

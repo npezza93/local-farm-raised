@@ -2,10 +2,10 @@
 
 class ProductsController < ApplicationController
   before_action :set_product, only: %i(show edit update destroy)
-  before_action :auth_user, except: %i(index show)
+  before_action :auth_admin, except: %i(index show)
 
   def index
-    @products = Product.search(params[:search]).page(params[:page]).per_page(10)
+    @products = Product.page(params[:page]).per(10)
   end
 
   def show

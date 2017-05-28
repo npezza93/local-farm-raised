@@ -1,0 +1,16 @@
+.product-container
+  = image_tag @product.image_url, class: "layout center-justified vertical w-100"
+  .container
+    %h1.center-text= @product.title
+    %p.center-text= number_to_currency @product.price
+    %p= @product.description
+    = form_for @line_item, remote: true, builder: FormBuilder do |f|
+      = f.hidden_field :product_id, value: @product.id
+      .layout.horizontal.center-center.w-100.mt-5
+        = f.submit do
+          .layout.horizontal.center
+            %i.material-icons.mr-1 add_shopping_cart
+            Add to Cart
+
+- if current_user&.admin?
+  = fab edit_product_path(@product), "edit"

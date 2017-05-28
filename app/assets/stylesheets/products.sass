@@ -1,0 +1,44 @@
+.product-container
+  box-sizing: border-box
+  width: auto
+  margin: auto
+  max-width: 1000px
+  display: flex
+  flex-direction: row
+  align-items: center
+  @media (max-width: 900px)
+    flex-direction: column
+  img
+    object-fit: cover
+    max-height: 400px
+
+.product-tile
+  position: relative
+  display: flex
+  flex-direction: vertical
+  align-items: center
+  max-width: 450px
+  height: 250px
+  width: 100%
+  img
+    object-fit: cover
+    height: 100%
+  .product-overlay
+    position: absolute
+    top: 0
+    left: 0
+    right: 0
+    bottom: 0
+    background: rgba(255, 255, 255, 0.8)
+    color: #fff
+    opacity: 0
+    transition: opacity .3s ease-out
+    &:hover
+      opacity: 10
+    .product-cost
+      color: #333
+      font-size: 18px
+    .product-title
+      color: #333
+      font-weight: 800
+      font-size: 24px

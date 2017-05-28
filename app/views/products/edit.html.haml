@@ -1,0 +1,9 @@
+.form-container.layout.vertical.center
+  %h2 Edit Product
+
+  = render "form", product: @product
+
+  - if current_user&.admin?
+    = link_to "delete", product_path(@product), method: :delete,
+        class: "mt-4 delete-action mdc-button mdc-button--compact mdc-card__action",
+        data: { confirm: "Are you sure?" }
