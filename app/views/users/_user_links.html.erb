@@ -1,10 +1,3 @@
-<%= link_to store_path, class: "drawer-link" do %>
- <paper-item>
-   <i class="material-icons">store</i>
-   Store
- </paper-item>
-<% end %>
-
 <%= link_to posts_path, class: "drawer-link" do %>
  <paper-item>
    <svg class="svg-icon" viewBox="0 0 24 24">
@@ -34,31 +27,10 @@
 <hr>
 
 <% if user_signed_in? %>
-  <%= link_to edit_user_registration_path, class: "drawer-link" do %>
-   <paper-item>
-     <i class="material-icons">face</i>
-     Profile
-   </paper-item>
-  <% end %>
-
   <%= link_to orders_path, class: "drawer-link" do %>
    <paper-item>
      <iron-icon icon="maps:local-shipping"></iron-icon>
      Orders
-   </paper-item>
-  <% end %>
-
-  <%= link_to credit_cards_path, class: "drawer-link" do %>
-   <paper-item>
-     <iron-icon icon="icons:credit-card"></iron-icon>
-     Wallet
-   </paper-item>
-  <% end %>
-
-  <%= link_to addresses_path, class: "drawer-link" do %>
-   <paper-item>
-     <iron-icon icon="maps:place"></iron-icon>
-     Address Book
    </paper-item>
   <% end %>
 
@@ -81,28 +53,5 @@
      </paper-item>
     <% end %>
     <hr>
-  <% end %>
-
-  <%= link_to destroy_user_session_path, method: :delete, class: "drawer-link" do %>
-   <paper-item>
-     <svg class="svg-icon" viewBox="0 0 24 24">
-       <path fill="#757575" d="M17,17.25V14H10V10H17V6.75L22.25,12L17,17.25M13,2A2,2 0 0,1 15,4V8H13V4H4V20H13V16H15V20A2,2 0 0,1 13,22H4A2,2 0 0,1 2,20V4A2,2 0 0,1 4,2H13Z" />
-     </svg>
-     Logout
-   </paper-item>
-  <% end %>
-<% else %>
-  <%= link_to new_user_session_path, class: "drawer-link" do %>
-   <paper-item>
-     <i class="material-icons">exit_to_app</i>
-     Login
-   </paper-item>
-  <% end %>
-
-  <%= link_to new_user_registration_path, class: "drawer-link" do %>
-   <paper-item>
-     <i class="material-icons">person_add</i>
-     Sign Up
-   </paper-item>
   <% end %>
 <% end %>

@@ -3,14 +3,17 @@
   %head
     %title Local Farm Raised
     = favicon_link_tag "logo.png"
-    = stylesheet_link_tag "https://fonts.googleapis.com/icon?family=Material+Icons", "application", media: "all", "data-turbolinks-track" => true
-    = javascript_include_tag "https://js.stripe.com/v3/", "application", "data-turbolinks-track" => true
-    %link{ href: "https://fonts.googleapis.com/css?family=Raleway:600|Open+Sans:400,300,100,800", rel: "stylesheet", type: "text/css"}/
+    = stylesheet_link_tag "https://fonts.googleapis.com/icon?family=Material+Icons",
+        "application", media: "all", "data-turbolinks-track" => true
+    = javascript_include_tag "https://js.stripe.com/v3/", "application",
+        "data-turbolinks-track" => true
+    %link{ href: "https://fonts.googleapis.com/css?family=Raleway:600|Open+Sans:400,300,100,800",
+           rel: "stylesheet", type: "text/css" }/
     = csrf_meta_tags
-    %meta{ content: Rails.configuration.stripe[:publishable_key], name: "stripe-key"}/
-    %meta{ content: "width=device-width, initial-scale=1.0, maximum-scale=1.0", name: "viewport"}/
-    %meta{ content: "yes", name: "mobile-web-app-capable"}/
-    %meta{ content: "yes", name: "apple-mobile-web-app-capable"}/
+    %meta{ content: Rails.configuration.stripe[:publishable_key], name: "stripe-key" }/
+    %meta{ content: "width=device-width, initial-scale=1.0, maximum-scale=1.0", name: "viewport" }/
+    %meta{ content: "yes", name: "mobile-web-app-capable" }/
+    %meta{ content: "yes", name: "apple-mobile-web-app-capable" }/
   %body
     = snackbar_notice(notice || alert)
 

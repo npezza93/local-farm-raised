@@ -37,14 +37,6 @@ class Order < ApplicationRecord
     line_items.to_a.sum(&:total_price)
   end
 
-  def self.search(search)
-    if search && search != ""
-      where("id LIKE ?", "%#{search.to_i}%")
-    else
-      all
-    end
-  end
-
   def save_with_payment
     if valid?
       customer = Stripe::Customer.retrieve(user.stripe_customer_token)

@@ -1,9 +1,8 @@
 # frozen_string_literal: true
 
 class OrdersController < ApplicationController
+  before_action :auth_user
   before_action :set_order, only: %i(show destroy)
-  before_action :sign_in_if_not, only: :new
-  before_action :authenticate_user
 
   def index
     @orders =
@@ -11,7 +10,7 @@ class OrdersController < ApplicationController
         Order
       else
         current_user.orders
-      end.search(params[:search]).page(params[:page]).per_page(30)
+      end.page(params[:page]).per(30)
   end
 
   def show
@@ -63,15 +62,5 @@ class OrdersController < ApplicationController
 
   def order_update_params
     params.require(:order).permit(:address_id, :user_id)
-  end
-
-  def sign_in_if_not
-    redirect_to new_user_session_url unless user_signed_in?
-  end
-
-  def authenticate_user
-    return if user_signed_in?
-
-    redirect_to root_url, notice: "You're not authorized to view this page"
   end
 end

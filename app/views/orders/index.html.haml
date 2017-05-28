@@ -1,0 +1,18 @@
+.layout.vertical.outside-container
+  %h2 Orders
+  .layout.horizontal.center-justified
+    %table.mdl-data-table.mdl-js-data-table.mdl-shadow--2dp
+      %thead
+        %tr
+          %th Order Number
+          %th Name
+          %th Order date
+      %tbody
+        - @orders.each do |order|
+          %tr
+            %td= link_to (sprintf '%07d', order.id), order, class: "order-id-link"
+            %td.mdl-data-table__cell--non-numeric
+              = order.address.first_name
+              = order.address.last_name
+            %td= order.created_at.in_time_zone("Eastern Time (US & Canada)").strftime("%-m/%-d/%Y %l:%M %P")
+  = paginate @orders

@@ -5,4 +5,6 @@
       class: "mdc-tab #{'mdc-tab--active' if active_tab == :addresses}"
   = link_to "Wallet", credit_cards_path,
       class: "mdc-tab #{'mdc-tab--active' if active_tab == :wallet}"
+  = link_to "Orders", orders_path,
+      class: "mdc-tab #{'mdc-tab--active' if active_tab == :orders}"
   %span.mdc-tab-bar__indicator

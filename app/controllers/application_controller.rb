@@ -21,6 +21,12 @@ class ApplicationController < ActionController::Base
   def auth_admin
     return if current_user&.admin?
 
-    redirect_to store_url, notice: "You are not authorized to view this page"
+    redirect_to store_path, notice: "You are not authorized to view this page"
+  end
+
+  def auth_user
+    return if user_signed_in?
+
+    redirect_to store_path, notice: "You're not authorized to view this page"
   end
 end

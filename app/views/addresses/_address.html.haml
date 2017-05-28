@@ -2,10 +2,12 @@
   %div= address.name
   %div= address.street_address1
   %div= address.street_address2
-  %div= "#{address.city}, #{address.state} #{address.zipcode}"
+  %div #{address.city}, #{address.state} #{address.zipcode}
   - if address.street_address2.blank?
     %br
 
   .layout.horizontal.around-justified
-    = link_to "Edit", edit_address_path(address), id: "submit-order", class: "mr-1"
-    = link_to "Remove", address_path(address), method: :delete, data: { confirm: "Are you sure?" }, id: "submit-order", class: "ml-1"
+    = link_to "Edit", edit_address_path(address),
+        id: "submit-order", class: "mr-1"
+    = link_to "Remove", address_path(address), method: :delete,
+        data: { confirm: "Are you sure?" }, id: "submit-order", class: "ml-1"
