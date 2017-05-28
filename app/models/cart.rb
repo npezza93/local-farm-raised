@@ -19,6 +19,17 @@ class Cart < ApplicationRecord
       create(session_id: session.id)
   end
 
+  def add_product(product_id)
+    line_item_scope = line_items.where(product_id: product_id)
+
+    if line_item_scope.empty?
+      line_item_scope.create
+    else
+      line_item_scope.first.update(quantity: line_item_scope.first.quantity + 1)
+      line_item_scope.first
+    end
+  end
+
   def total_price
     line_items.to_a.sum(&:total_price)
   end

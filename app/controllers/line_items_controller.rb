@@ -1,26 +1,21 @@
 # frozen_string_literal: true
 
 class LineItemsController < ApplicationController
-  before_action :set_line_item, only: %i(update destroy)
+  before_action :set_line_item, only: :update
 
   def create
-    @line_item = current_cart.line_items.create(line_item_params)
+    @line_item = current_cart.add_product(product_id)
 
     redirect_to store_path,
                 notice: "#{@line_item.product.title} added to your cart"
   end
 
   def update
-    return detroy if quantity.zero? || quantity.negative?
-
-    respond_to do |format|
+    if quantity.zero? || quantity.negative?
+      @line_item.destroy
+    else
       @line_item.update(quantity: quantity)
-      format.js
     end
-  end
-
-  def destroy
-    @line_item.destroy
 
     respond_to do |format|
       format.js
@@ -33,11 +28,11 @@ class LineItemsController < ApplicationController
     @line_item = LineItem.find(params[:id])
   end
 
-  def line_item_params
-    params.require(:line_item).permit(:product_id, :quantity)
+  def quantity
+    params.dig(:line_item, :quantity).to_i
   end
 
-  def quantity
-    line_item_params.dig(:quantity).to_i
+  def product_id
+    params.dig(:line_item, :product_id)
   end
 end

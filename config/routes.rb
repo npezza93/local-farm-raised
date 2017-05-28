@@ -17,8 +17,8 @@ Rails.application.routes.draw do
   devise_for :users, controllers: { registrations: "registrations" }
 
   resources :orders, except: %i(edit update)
-  resources :line_items, only: %i(create update destroy)
-  resources :carts, only: %i(show create destroy)
+  resources :line_items, only: %i(create update)
+  resource :cart, only: :show
 
   resources :products
 

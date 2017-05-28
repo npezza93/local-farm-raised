@@ -1,0 +1,20 @@
+%li.mdc-list-item.line-item.mb-3{ data: { id: line_item.id } }
+  = image_tag line_item.product.image_url(:thumb),
+      class: "mdc-list-item__start-detail product-img"
+  %span.mdc-list-item__text
+    = line_item.product.title
+    %span.mdc-list-item__text__secondary
+      = number_to_currency(line_item.product.price)
+  .flex
+  .layout.horizontal.center.mr-1
+    = line_item.quantity
+    .layout.vertical.center-center.mx-1.line-item-chevrons
+      = form_for line_item, remote: true, builder: FormBuilder do |f|
+        = f.hidden_field :quantity, value: line_item.quantity + 1
+        %button{ type: :submit }
+          %i.material-icons keyboard_arrow_up
+      .flex
+      = form_for line_item, remote: true, builder: FormBuilder do |f|
+        = f.hidden_field :quantity, value: line_item.quantity - 1
+        %button{ type: :submit }
+          %i.material-icons keyboard_arrow_down

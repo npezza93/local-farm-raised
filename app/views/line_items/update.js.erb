@@ -1,10 +1,11 @@
-$("#cart-peek").html("<%= j render @cart %><% if !@cart.line_items.empty? %><div class='layout horizontal center-justified' style='margin-top:40px;'><div class='submit-container3'><%= j button_to 'Checkout', new_order_path, method: :get %></div></div><% end %>");
-$("#small-cart-link").html("<button class='mdl-button mdl-js-button mdl-button--icon'><i class='material-icons'>shopping_cart</i></button>(<%= @cart.count_items %>)");
+<% if @line_item.persisted? %>
+  $("li[data-id='<%= @line_item.id %>']").replaceWith("<%= j render @line_item %>");
+<% else %>
+  $("li[data-id='<%= @line_item.id %>']").remove();
+<% end %>
 
-$("#order-summary").html("<%= j render @cart %>");
+$(".grand-total").text("<%= number_to_currency(current_cart.total_price * 1.06) %>");
 
-<% if @cart.line_items.empty? %>
-  if (document.location.pathname == '/orders/new') {
-    document.location.pathname = '/store';
-  }
+<% if current_cart.line_items.size.zero? %>
+  $(".cart").replaceWith("<%= j render current_cart %>");
 <% end %>

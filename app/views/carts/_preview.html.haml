@@ -1,9 +1,5 @@
-= link_to "#cart-peek", class: "cart-peek-link mr-6 layout" do
+= link_to "#!", class: "cart-peek-link mr-6 layout" do
   %i.material-icons shopping_cart
   = current_cart.count_items
-#cart-peek
-  -# = render @cart
-  -# - if !@cart.line_items.empty?
-  -#   .layout.horizontal.center-justified{:style => "margin-top:40px;"}
-  -#     .submit-container2{:style => "margin:0;"}
-  -#       = button_to "Checkout", new_order_path, method: :get
+.cart-peek.hidden.cart.layout.vertical.center.mdc-elevation--z4
+  = render current_cart
