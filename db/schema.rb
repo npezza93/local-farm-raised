@@ -55,12 +55,11 @@ ActiveRecord::Schema.define(version: 20170527104410) do
   create_table "line_items", force: :cascade do |t|
     t.integer "quantity", default: 1
     t.bigint "product_id"
-    t.bigint "cart_id"
-    t.bigint "order_id"
+    t.string "orderable_type"
+    t.bigint "orderable_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["cart_id"], name: "index_line_items_on_cart_id"
-    t.index ["order_id"], name: "index_line_items_on_order_id"
+    t.index ["orderable_type", "orderable_id"], name: "index_line_items_on_orderable_type_and_orderable_id"
     t.index ["product_id"], name: "index_line_items_on_product_id"
   end
 

@@ -7,7 +7,10 @@ class ApplicationController < ActionController::Base
 
   def current_cart
     @current_cart ||= Cart.find_or_create_by_session(session)
-    session[:cart_id] ||= @current_cart.id
+
+    unless session[:cart_id] == @current_cart.id
+      session[:cart_id] = @current_cart.id
+    end
 
     @current_cart
   end

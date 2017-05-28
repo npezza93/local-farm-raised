@@ -12,22 +12,11 @@
 #
 
 class Cart < ApplicationRecord
-  has_many :line_items, dependent: :destroy
+  has_many :line_items, dependent: :destroy, as: :orderable
 
   def self.find_or_create_by_session(session)
     find_by(session_id: session.id, id: session[:cart_id]) ||
       create(session_id: session.id)
-  end
-
-  def add_product(product_id, quantity)
-    current_item = line_items.find_by(product_id: product_id)
-    if current_item
-      current_item.quantity += quantity.to_i
-    else
-      current_item =
-        line_items.build(product_id: product_id, quantity: quantity)
-    end
-    current_item
   end
 
   def total_price

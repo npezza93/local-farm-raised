@@ -4,19 +4,18 @@
 #
 # Table name: line_items
 #
-#  id         :integer          not null, primary key
-#  product_id :integer
-#  cart_id    :integer
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  quantity   :integer          default(1)
-#  order_id   :integer
+#  id             :integer          not null, primary key
+#  quantity       :integer          default(1)
+#  product_id     :integer
+#  orderable_type :string
+#  orderable_id   :integer
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
 #
 
 class LineItem < ApplicationRecord
   belongs_to :product
-  belongs_to :cart
-  belongs_to :order
+  belongs_to :orderable, polymorphic: true
 
   validates :quantity, numericality: { greater_than_or_equal_to: 1 }
 
