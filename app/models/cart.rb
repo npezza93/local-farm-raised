@@ -12,16 +12,10 @@
 
 class Cart < ApplicationRecord
   has_many :line_items, dependent: :destroy, as: :orderable
-  belongs_to :user, optional: true
 
   def self.find_or_create_by_session(session)
-    user_id = session["warden.user.user.key"]&.flatten&.compact&.first
-
-    find_by(
-      session_id: session.id,
-      id: session[:cart_id],
-      user_id: user_id
-    ) || create(session_id: session.id, user_id: user_id)
+    find_by(session_id: session.id, id: session[:cart_id]) ||
+      create(session_id: session.id)
   end
 
   def add_product(product_id)
