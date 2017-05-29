@@ -8,13 +8,14 @@
   .flex
   .layout.horizontal.center.mr-1
     = line_item.quantity
-    .layout.vertical.center-center.mx-1.line-item-chevrons
-      = form_for line_item, remote: true, builder: FormBuilder do |f|
-        = f.hidden_field :quantity, value: line_item.quantity + 1
-        %button{ type: :submit }
-          %i.material-icons keyboard_arrow_up
-      .flex
-      = form_for line_item, remote: true, builder: FormBuilder do |f|
-        = f.hidden_field :quantity, value: line_item.quantity - 1
-        %button{ type: :submit }
-          %i.material-icons keyboard_arrow_down
+    - unless local_assigns[:hide_quantity_forms]
+      .layout.vertical.center-center.mx-1.line-item-chevrons
+        = form_for line_item, remote: true, builder: FormBuilder do |f|
+          = f.hidden_field :quantity, value: line_item.quantity + 1
+          %button{ type: :submit }
+            %i.material-icons keyboard_arrow_up
+        .flex
+        = form_for line_item, remote: true, builder: FormBuilder do |f|
+          = f.hidden_field :quantity, value: line_item.quantity - 1
+          %button{ type: :submit }
+            %i.material-icons keyboard_arrow_down

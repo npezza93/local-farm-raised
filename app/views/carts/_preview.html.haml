@@ -1,7 +1,4 @@
-= link_to "#!", class: "cart-peek-link mr-6 layout" do
+= link_to cart_path, class: "mr-6 layout white-text", remote: true do
   %i.material-icons shopping_cart
   = current_cart.count_items
 .cart-peek.hidden.cart.layout.vertical.center.mdc-elevation--z4
-  = render "carts/cart", cart: current_cart
-  - if current_cart.line_items.present?
-    = link_to "Checkout", new_order_path, class: "large-round-btn"

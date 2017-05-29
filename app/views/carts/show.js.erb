@@ -1,0 +1,5 @@
+$(".cart-peek").html("<%= j render 'carts/cart', cart: current_cart %>");
+<% if current_cart.line_items.present? %>
+  $(".cart-peek").append("<%= j link_to 'Checkout', new_order_path, class: 'large-round-btn' %>");
+<% end %>
+$(".cart-peek").toggleClass("hidden");
