@@ -23,17 +23,15 @@ class OrdersController < ApplicationController
   end
 
   def create
-    @order = Order.new(order_params)
-    @order.add_line_items_from_cart(@cart)
+    @order = current_user.orders.new(order_params)
 
-      if @order.save_with_payment
-        Cart.destroy(session[:cart_id])
-        session[:cart_id] = nil
+    if @order.save_with_payment(current_cart)
+      session[:cart_id] = nil
 
-        redirect_to store_url, notice: "Your order has been placed."
-      else
-        render :new
-      end
+      redirect_to store_url, notice: "Your order has been placed"
+    else
+      render :new
+    end
   end
 
   def destroy
@@ -52,11 +50,7 @@ class OrdersController < ApplicationController
   end
 
   def order_params
-    params.require(:order).permit(:credit_card_id, :address_id, :user_id)
-  end
-
-  def order_update_params
-    params.require(:order).permit(:address_id, :user_id)
+    params.require(:order).permit(:credit_card_id, :address_id)
   end
 
   def check_cart

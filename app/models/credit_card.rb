@@ -50,6 +50,11 @@ class CreditCard < ApplicationRecord
     self.class::GRADIENTS[brand.parameterize]
   end
 
+  def set_as_default
+    user.stripe_customer.default_source = stripe_customer_card_token
+    user.stripe_customer
+  end
+
   private
 
   def save_to_stripe(stripe_card_token)

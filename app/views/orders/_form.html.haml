@@ -1,0 +1,33 @@
+= form_for order, builder: FormBuilder do |f|
+  = f.hidden_field :user_id, value: current_user.id
+  #order-form-shipping
+    %p Shipping
+    .layout.vertical.center-justified
+      - current_user.addresses.each do |address|
+        = f.collection_radio_buttons :address_id, current_user.addresses, :id, :name do |b|
+          = b.label do
+            .layout.horizontal.center
+              = b.radio_button
+              .layout.vertical.ml-2
+                %b= b.object.name
+                %div
+                  = b.object.street_address1
+                  - if b.object.street_address2
+                    , #{b.object.street_address2}
+                %div #{b.object.city}, #{b.object.state} #{b.object.zipcode}
+    .layout.horizontal.center-justified
+      = link_to "Add Address", new_address_path, class: "large-round-btn"
+
+  #order-form-billing
+    %p Billing
+    .layout.vertical
+      = f.collection_radio_buttons :credit_card_id, current_user.credit_cards, :id, :last4 do |b|
+        = b.label do
+          .layout.horizontal.center
+            = b.radio_button
+            .ml-2
+              #{b.object.brand} ending in #{b.object.last4}
+      .layout.horizontal.center-justified
+        = link_to "Add Credit Card", new_credit_card_path, class: "large-round-btn"
+  - if !(current_user.credit_cards.empty? || current_user.addresses.empty?)
+    = f.submit "Place Order", id: "submit-order", class: "layout horizontal center-justified"

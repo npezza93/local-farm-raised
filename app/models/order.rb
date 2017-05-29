@@ -16,18 +16,10 @@
 #
 
 class Order < ApplicationRecord
-  has_many :line_items, dependent: :destroy
+  has_many :line_items, as: :orderable, dependent: :destroy
   belongs_to :address
   belongs_to :user
   belongs_to :credit_card
-  validates_presence_of :credit_card_id, :address_id
-
-  def add_line_items_from_cart(cart)
-    cart.line_items.each do |item|
-      item.cart_id = nil
-      line_items << item
-    end
-  end
 
   def count_items
     line_items.to_a.sum(&:quantity).to_s
@@ -37,23 +29,17 @@ class Order < ApplicationRecord
     line_items.to_a.sum(&:total_price)
   end
 
-  def save_with_payment
-    if valid?
-      customer = Stripe::Customer.retrieve(user.stripe_customer_token)
-      customer.default_source = credit_card.stripe_customer_card_token
-      customer.save
+  def save_with_payment(cart)
+    return false if invalid?
 
-      charge = Stripe::Charge.create(
-        amount: ((total_price * 1.06) * 100).to_i, description: user.email,
-        currency: "usd", customer: user.stripe_customer_token
-      )
+    credit_card.set_as_default
+
+    save_to_stripe(cart) do |charge|
       self.stripe_charge_token = charge.id
-      save!
+      save
+      cart.line_items.update_all(orderable_type: "Order", orderable_id: id)
+      cart.destroy
     end
-    rescue Stripe::InvalidRequestError => e
-      logger.error "Stripe error while creating charge: #{e.message}"
-      errors.add :base, "There was a problem with your credit card."
-      false
   end
 
   def cancel_order
@@ -69,5 +55,20 @@ class Order < ApplicationRecord
       logger.error "Stripe error while refunding charge: #{e.message}"
       errors.add :base, "Charge has already been refunded."
       false
+  end
+
+  private
+
+  def save_to_stripe(cart)
+    charge = Stripe::Charge.create(
+      amount: ((cart.total_price * 1.06) * 100.0).to_i,
+      currency: "usd",
+      description: user.email, customer: user.stripe_customer_token
+    )
+    yield(charge)
+  rescue Stripe::InvalidRequestError => e
+    logger.error "Stripe error: #{e.message}"
+    errors.add :base, "There was a problem with your credit card."
+    false
   end
 end
