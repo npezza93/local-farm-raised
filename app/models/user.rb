@@ -6,7 +6,7 @@
 #
 #  id                     :integer          not null, primary key
 #  reset_password_token   :string
-#  stripe_customer_token  :string
+#  customer_id            :string
 #  name                   :string
 #  email                  :string
 #  encrypted_password     :string

@@ -4,15 +4,16 @@
 #
 # Table name: orders
 #
-#  id                  :integer          not null, primary key
-#  created_at          :datetime         not null
-#  updated_at          :datetime         not null
-#  refund              :boolean          default(FALSE)
-#  refund_token        :string
-#  address_id          :integer
-#  user_id             :integer
-#  credit_card_id      :integer
-#  stripe_charge_token :string
+#  id             :integer          not null, primary key
+#  refund_token   :string
+#  charge_id      :string
+#  order_id       :string
+#  refund         :boolean          default(FALSE)
+#  user_id        :integer
+#  credit_card_id :integer
+#  address_id     :integer
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
 #
 
 class Order < ApplicationRecord
