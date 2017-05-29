@@ -1,6 +1,6 @@
 = render "layouts/account_tabs", active_tab: :settings
 .container.layout.vertical.center
-  %h2 Change Settings
+  %h2 Settings
   = form_for resource, as: resource_name, url: registration_path(resource_name),
       builder: FormBuilder, html: { method: :put } do |f|
     .layout.vertical.center.w-100

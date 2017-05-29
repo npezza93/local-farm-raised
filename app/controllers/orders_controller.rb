@@ -3,6 +3,7 @@
 class OrdersController < ApplicationController
   before_action :auth_user
   before_action :set_order, only: %i(show destroy)
+  before_action :check_cart, only: :new
 
   def index
     @orders =
@@ -17,13 +18,7 @@ class OrdersController < ApplicationController
   end
 
   def new
-    if @cart.line_items.empty?
-      redirect_to store_url, notice: "Your cart is empty"
-      return
-    end
-    @credit_cards = Stripe::Customer.retrieve(
-      current_user.stripe_customer_token
-    ).sources.all(object: "card")
+    @credit_cards = current_user.credit_cards
     @order = Order.new
   end
 
@@ -62,5 +57,11 @@ class OrdersController < ApplicationController
 
   def order_update_params
     params.require(:order).permit(:address_id, :user_id)
+  end
+
+  def check_cart
+    return if current_cart.line_items.present?
+
+    redirect_to store_url, notice: "Your cart is empty"
   end
 end
