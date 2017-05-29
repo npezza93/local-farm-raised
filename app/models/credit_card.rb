@@ -31,18 +31,20 @@ class CreditCard < ApplicationRecord
   def save_card(stripe_card_token)
     return unless valid?
 
-    save_to_stripe(stripe_card_token) do |card|
+    save_to_stripe do
+      card = user.customer.sources.create(source: stripe_card_token)
+
       self.stripe_customer_card_token = card.id
-      self.last4 = card.last4
-      self.exp_month = card.exp_month
-      self.exp_year = card.exp_year
-      self.brand = card.brand
+      self.last4                      = card.last4
+      self.exp_month                  = card.exp_month
+      self.exp_year                   = card.exp_year
+      self.brand                      = card.brand
       save
     end
   end
 
   def destroy
-    user.stripe_customer.sources.retrieve(stripe_customer_card_token).delete
+    user.customer.sources.retrieve(stripe_customer_card_token).delete
     super
   end
 
@@ -51,19 +53,7 @@ class CreditCard < ApplicationRecord
   end
 
   def set_as_default
-    user.stripe_customer.default_source = stripe_customer_card_token
-    user.stripe_customer
-  end
-
-  private
-
-  def save_to_stripe(stripe_card_token)
-    customer = Stripe::Customer.retrieve(user.stripe_customer_token)
-    card     = customer.sources.create(source: stripe_card_token)
-    yield(card)
-  rescue Stripe::InvalidRequestError => e
-    logger.error "Stripe error while creating card: #{e.message}"
-    errors.add :base, "There was a problem with your credit card."
-    false
+    user.customer.default_source = stripe_customer_card_token
+    user.customer
   end
 end
