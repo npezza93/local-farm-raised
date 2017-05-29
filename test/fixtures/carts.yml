@@ -9,4 +9,4 @@
 #
 
 one:
-  user: one
+  session_id: <%= SecureRandom.hex %>
