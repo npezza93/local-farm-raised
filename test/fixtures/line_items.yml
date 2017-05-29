@@ -14,3 +14,7 @@
 one:
   orderable: one (Cart)
   product: one
+
+two:
+  orderable: one (Order)
+  product: two

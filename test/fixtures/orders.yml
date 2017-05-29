@@ -13,4 +13,7 @@
 #  stripe_charge_token :string
 #
 
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+one:
+  address: one
+  credit_card: one
+  stripe_charge_token: ch_1AOf9BGUzBox4K0LZMwwXmn8

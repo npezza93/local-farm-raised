@@ -22,16 +22,17 @@ class CreditCardsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  # test "should create credit_card" do
-  #   assert_difference("CreditCard.count") do
-  #     post :create, credit_card: { stripe_card_token:
-  #  @credit_card.stripe_customer_card_token, user_id: @credit_card.user_id,
-  # last4: @credit_card.last4, brand: @credit_card.brand,
-  # exp_month: @credit_card.exp_month, exp_year: @credit_card.exp_year }
-  #   end
-  #
-  #   assert_redirected_to credit_card_path(assigns(:credit_card))
-  # end
+  test "should create credit_card" do
+    VCR.use_cassette("create_credit_card") do
+      assert_difference("CreditCard.count") do
+        post credit_cards_path, params: {
+          stripe_card_token: "tok_1AOfZJGUzBox4K0LnL3ffsBU"
+        }
+      end
+    end
+
+    assert_redirected_to credit_cards_path
+  end
 
   test "should destroy credit_card" do
     assert_difference("CreditCard.count", -1) do

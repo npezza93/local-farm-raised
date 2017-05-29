@@ -22,34 +22,43 @@ class OrdersControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to store_path
   end
 
-  # test "should get new" do
-  #   get :new
-  #   assert_response :success
-  # end
-  #
-  # test "should create order" do
-  #   assert_difference("Order.count") do
-  #     post :create, order: { city: @order.city, eamil: @order.eamil, first_name: @order.first_name, last_name: @order.last_name, phone_number: @order.phone_number, street_address1: @order.street_address1, street_address2: @order.street_address2, zipcode: @order.zipcode }
-  #   end
-  #
-  #   assert_redirected_to order_path(assigns(:order))
-  # end
-  #
-  # test "should show order" do
-  #   get :show, id: @order
-  #   assert_response :success
-  # end
-  #
-  # test "should get edit" do
-  #   get :edit, id: @order
-  #   assert_response :success
-  # end
-  #
-  # test "should update order" do
-  #   patch :update, id: @order, order: { city: @order.city, eamil: @order.eamil, first_name: @order.first_name, last_name: @order.last_name, phone_number: @order.phone_number, street_address1: @order.street_address1, street_address2: @order.street_address2, zipcode: @order.zipcode }
-  #   assert_redirected_to order_path(assigns(:order))
-  # end
-  #
+  test "should get new" do
+    Cart.stubs(find_or_create_by_session: carts(:one))
+
+    get new_order_path
+
+    assert_response :success
+  end
+
+  test "redirected to store if the cart is empty" do
+    get new_order_path
+
+    assert_redirected_to store_url
+  end
+
+  test "should create order" do
+    Cart.stubs(find_or_create_by_session: carts(:one))
+
+    VCR.use_cassette("charge") do
+      assert_difference("Order.count") do
+        assert_difference("Cart.count", -1) do
+          post orders_path, params: { order: {
+            address_id: addresses(:one).id,
+            credit_card_id: credit_cards(:one).id
+          } }
+        end
+      end
+    end
+
+    assert_redirected_to store_path
+  end
+
+  test "should show order" do
+    get order_path(orders(:one))
+
+    assert_response :success
+  end
+
   # test "should destroy order" do
   #   assert_difference("Order.count", -1) do
   #     delete :destroy, id: @order

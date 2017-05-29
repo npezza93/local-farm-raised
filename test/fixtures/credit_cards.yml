@@ -13,8 +13,6 @@
 #  brand                      :string
 #
 
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
 one:
   user: one
   stripe_customer_card_token: card_1ANtFdGUzBox4K0LPWj8aa0N

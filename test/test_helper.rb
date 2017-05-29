@@ -1,7 +1,11 @@
 # frozen_string_literal: true
 
 require "simplecov"
-SimpleCov.start "rails"
+SimpleCov.start "rails" do
+  add_filter "channels"
+  add_filter "jobs"
+  add_filter "mailers"
+end
 ENV["RAILS_ENV"] ||= "test"
 require File.expand_path("../../config/environment", __FILE__)
 require "rails/test_help"
