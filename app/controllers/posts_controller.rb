@@ -4,7 +4,7 @@ class PostsController < ApplicationController
   before_action :set_post, only: %i(show edit update destroy)
 
   def index
-    @posts = Post.search(params[:search]).page(params[:page]).per_page(10)
+    @posts = Post.page(params[:page]).per(10)
   end
 
   def show

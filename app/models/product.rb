@@ -24,14 +24,6 @@ class Product < ApplicationRecord
 
   before_destroy :ensure_not_referenced_by_any_line_items
 
-  def self.search(search)
-    if search.present?
-      where("title LIKE ?", "%#{search}%")
-    else
-      all
-    end
-  end
-
   private
 
   def ensure_not_referenced_by_any_line_items

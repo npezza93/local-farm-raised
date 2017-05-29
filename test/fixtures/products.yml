@@ -11,14 +11,10 @@
 #  updated_at  :datetime         not null
 #
 
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
-one:
-  title: MyString
-  description: MyText
-  price: 9.99
-
-two:
-  title: MyString
-  description: MyText
-  price: 9.99
+<% 50.times do |i| %>
+  "<%= i.to_words.underscore %>":
+    title: <%= Faker::Food.ingredient %>
+    price: <%= (1..50).to_a.sample * i %>
+    description: <%= Faker::Lorem.paragraphs(6).join %>
+    image: test.png
+<% end %>

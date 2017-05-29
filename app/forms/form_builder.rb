@@ -31,43 +31,11 @@ class FormBuilder < ActionView::Helpers::FormBuilder
     end
   end
 
-  def radio_button(name, value, options = {})
-    label_text = options.delete(:label)
-    options[:class] = "#{options[:class]} mdc-radio__native-control"
-
-    content_tag(:div, class: "mdc-radio") do
-      super(name, value, options) +
-        content_tag(:div, class: "mdc-radio__background") do
-          content_tag(:div, nil, class: "mdc-radio__outer-circle") +
-          content_tag(:div, nil, class: "mdc-radio__inner-circle")
-        end
-    end + label("#{name}_#{value}", label_text)
-  end
-
   def submit(value = nil, options = {}, &block)
     options[:class] = "#{options[:class]} mdc-button"
     options[:type] = "submit"
 
     content_tag(:button, value || submit_default_value, options, &block)
-  end
-
-  def multiple_course_select(method, selected: nil)
-    select(
-      method, [], {}, class: "course-select", multiple: true,
-                      data: { selected: selected }
-    )
-  end
-
-  def switch_field(method, options = {}, checked_val = "1", unchecked_val = "0")
-    options[:class] = "#{options[:class]} mdc-switch__native-control"
-    content_tag(:div, class: "layout vertical center-center mt-3") do
-      content_tag(:div, class: "mdc-switch") do
-        check_box(method, options, checked_val, unchecked_val) +
-        content_tag(:div, class: "mdc-switch__background") do
-          content_tag(:div, nil, class: "mdc-switch__knob")
-        end
-      end + label(method, options[:label], class: "mt-1 mb-2 mdc-switch-label")
-    end
   end
 
   private

@@ -4,7 +4,7 @@ class RecipesController < ApplicationController
   before_action :set_recipe, only: %i(show edit update destroy)
 
   def index
-    @recipes = Recipe.search(params[:search]).page(params[:page]).per_page(10)
+    @recipes = Recipe.page(params[:page]).per(10)
   end
 
   def show

@@ -28,3 +28,8 @@ one:
 two:
   name: person2
   email: person2@email.com
+
+admin:
+  name: admin
+  email: admin@email.com
+  admin: true

@@ -17,12 +17,6 @@
 #
 
 require "test_helper"
-require "vcr"
-
-VCR.configure do |c|
-  c.cassette_library_dir = "test/vcr_cassettes"
-  c.hook_into :webmock
-end
 
 class UserTest < ActiveSupport::TestCase
   test "creates customer in stripe" do

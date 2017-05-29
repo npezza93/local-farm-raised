@@ -2,11 +2,6 @@
 
 require "test_helper"
 
-VCR.configure do |c|
-  c.cassette_library_dir = "test/vcr_cassettes"
-  c.hook_into :webmock
-end
-
 class CreditCardsControllerTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
 
