@@ -27,6 +27,6 @@ class ApplicationController < ActionController::Base
   def auth_user
     return if user_signed_in?
 
-    redirect_to store_path, notice: "You're not authorized to view this page"
+    redirect_to store_path, notice: "Please create an account or log in"
   end
 end
