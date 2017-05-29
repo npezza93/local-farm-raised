@@ -15,7 +15,7 @@ class CreditCardsController < ApplicationController
     @credit_card = current_user.credit_cards.new
 
     if @credit_card.save_card(params[:stripe_card_token])
-      redirect_to credit_cards_path,
+      redirect_to post_create_redirect_path,
                   notice: "Successfully added card to your wallet"
     else
       render :new
@@ -34,4 +34,11 @@ class CreditCardsController < ApplicationController
   def set_credit_card
     @credit_card = current_user.credit_cards.find(params[:id])
   end
+
+  def post_create_redirect_path
+    return credit_cards_path unless params[:referrer] == new_order_url
+
+    new_order_path
+  end
+
 end

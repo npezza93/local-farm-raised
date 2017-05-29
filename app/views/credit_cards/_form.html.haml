@@ -1,4 +1,6 @@
 = form_for @credit_card, builder: FormBuilder do |f|
+  = hidden_field_tag :referrer, request.referrer
+
   #card-element
   #card-errors{ role: :alert }
   .layout.horizontal.center-justified.mt-4
