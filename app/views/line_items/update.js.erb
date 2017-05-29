@@ -4,7 +4,7 @@
   $("li[data-id='<%= @line_item.id %>']").remove();
 <% end %>
 
-$(".grand-total").text("<%= number_to_currency(current_cart.total_price * 1.06) %>");
+$(".grand-total").text("<%= number_to_currency(current_cart.total_price) %>");
 
 <% if current_cart.line_items.size.zero? %>
   $(".cart").replaceWith("<%= j render current_cart %>");

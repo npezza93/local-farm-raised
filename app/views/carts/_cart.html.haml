@@ -1,7 +1,7 @@
 - if cart.line_items.present?
   %ul.mdc-list.mdc-list--avatar-list.form-container.w-100.line-items
     = render cart.line_items
-  .grand-total= number_to_currency(cart.total_price * 1.06)
+  .grand-total= number_to_currency(cart.total_price)
 - else
   .layout.horizontal.center-justified.mt-3
     %h3.black-text Your shopping cart is currently empty
