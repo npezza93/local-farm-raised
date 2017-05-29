@@ -2,5 +2,8 @@
 .container
   %h2 Address Book
   .layout.horizontal.center-justified.wrap
-    = render partial: "addresses/address", collection: @addresses, cached: true
+    - if @addresses.blank?
+      %h3 No addresses
+    - else
+      = render partial: "addresses/address", collection: @addresses, cached: true
 = fab new_address_path

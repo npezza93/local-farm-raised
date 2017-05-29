@@ -1,4 +1,6 @@
 = form_for address, builder: FormBuilder do |f|
+  = hidden_field_tag :referrer, request.referrer
+
   .layout.horizontal
     = f.text_field :first_name, required: true
     = f.text_field :last_name, required: true
