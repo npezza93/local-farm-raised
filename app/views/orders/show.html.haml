@@ -1,0 +1,19 @@
+.container.layout.vertical.center
+  %h2 Order ##{(sprintf '%07d', @order.id)}
+  .layout.horizontal.center-justified.wrap
+    %paper-material#order-shipping-container
+      %p Shipping
+      %div
+        = @order.address.first_name
+        = @order.address.last_name
+      %div
+        = @order.address.street_address1
+      - if @order.address.street_address2
+        %div
+          = @order.address.street_address2
+      %div
+        = @order.address.city + ", " + @order.address.state + " " + @order.address.zipcode
+    = render @order
+  .layout.horizontal.center-justified.w-100.mb-3
+    = link_to "Cancel", @order, method: :delete,
+        data: { confirm: "Are you sure?" }, class: "large-round-btn"

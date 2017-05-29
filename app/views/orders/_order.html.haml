@@ -1,0 +1,7 @@
+.order.w-100.layout.vertical.center
+  %ul.mdc-list.mdc-list--avatar-list.form-container.w-100.line-items
+    = render partial: "line_items/line_item",
+        collection: @order.line_items, cached: true,
+        locals: { hide_quantity_forms: true }
+
+  .grand-total= number_to_currency(@order.total_price)
