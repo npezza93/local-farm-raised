@@ -19,20 +19,24 @@
 class User < ApplicationRecord
   devise :database_authenticatable, :registerable, :recoverable, :validatable
 
-  after_create :create_stripe_customer
-
   has_many :addresses
   has_many :credit_cards
   has_many :orders
   has_one  :subscription
 
-  def stripe_customer
-    @stripe_customer ||= Stripe::Customer.retrieve(stripe_customer_token)
+  after_create :generate_customer_id
+
+  def customer
+    @customer ||= Stripe::Customer.retrieve(customer_id)
   end
 
-  def create_stripe_customer
-    customer = Stripe::Customer.create(email: email)
-    self.stripe_customer_token = customer.id
-    save
+  private
+
+  def generate_customer_id
+    save_to_stripe do
+      self.customer_id =
+        Stripe::Customer.create(email: email, description: name).id
+      save
+    end
   end
 end
