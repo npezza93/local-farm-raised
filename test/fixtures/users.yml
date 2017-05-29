@@ -4,7 +4,7 @@
 #
 #  id                     :integer          not null, primary key
 #  reset_password_token   :string
-#  stripe_customer_token  :string
+#  customer_id            :string
 #  name                   :string
 #  email                  :string
 #  encrypted_password     :string
@@ -17,7 +17,7 @@
 one:
   name: person1
   email: person1@email.com
-  stripe_customer_token: cus_AjLajTwZ9BXOAb
+  customer_id: cus_AjLajTwZ9BXOAb
 
 two:
   name: person2
@@ -31,4 +31,4 @@ admin:
 three:
   name: person3
   email: person3@email.com
-  stripe_customer_token: cus_AjZUqGVvqYs2p9
+  customer_id: cus_AjZUqGVvqYs2p9

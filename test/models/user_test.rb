@@ -6,7 +6,7 @@
 #
 #  id                     :integer          not null, primary key
 #  reset_password_token   :string
-#  stripe_customer_token  :string
+#  customer_id            :string
 #  name                   :string
 #  email                  :string
 #  encrypted_password     :string
@@ -22,7 +22,7 @@ class UserTest < ActiveSupport::TestCase
   test "creates customer in stripe" do
     @user = users(:one)
     VCR.use_cassette "create_customer" do
-      assert @user.create_stripe_customer
+      assert @user.send :generate_customer_id
     end
   end
 end

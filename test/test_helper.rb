@@ -19,7 +19,6 @@ VCR.configure do |c|
   c.hook_into :webmock
 end
 
-
 class ActiveSupport::TestCase
   fixtures :all
 end

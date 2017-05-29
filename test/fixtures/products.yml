@@ -6,6 +6,8 @@
 #  title       :string
 #  image       :string
 #  description :text
+#  product_id  :string
+#  sku_id      :string
 #  price       :decimal(8, 2)
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
