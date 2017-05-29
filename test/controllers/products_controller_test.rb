@@ -60,7 +60,9 @@ class ProductsControllerTest < ActionDispatch::IntegrationTest
     VCR.turn_off!
     WebMock.allow_net_connect!
 
-    patch product_path(@product), params: { product: @params }
+    patch product_path(@product), params: {
+      product: @params.merge(title: SecureRandom.hex)
+    }
 
     assert_redirected_to product_path(@product)
 
