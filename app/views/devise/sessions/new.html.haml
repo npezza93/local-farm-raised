@@ -1,7 +1,7 @@
 .container.layout.vertical.center
   %h2 Log in
   = form_for resource, as: resource_name, url: session_path(resource_name),
-      builder: FormBuilder do |f|
+      builder: FormBuilder, validation: false do |f|
     .layout.vertical.center.w-100
       = f.email_field :email, autofocus: true, required: true
       = f.password_field :password, required: true

@@ -1,5 +1,8 @@
 %li.mdc-list-item{ id: user.id }
-  = user.email
+  %span.mdc-list-item__text
+    = user.name
+    %span.mdc-list-item__text__secondary= user.email
   = link_to user_path(user, page: params[:page]),
-      class: "mdc-list-item__end-detail material-icons", method: :put do
+      class: "mdc-list-item__end-detail material-icons black-text",
+      method: :put do
     = user.admin? ? "lock_open" : "lock_outline"

@@ -14,9 +14,11 @@ class FormBuilder < ActionView::Helpers::FormBuilder
       options[:class]   = "#{options[:class]} mdc-textfield__input"
       container_classes = "mdc-textfield #{error_class} #{full_width}"
 
-      content_tag(:div, class: container_classes) do
-        super(name, options) + text_field_label(name, options)
-      end + help_text(options) + error_msg(name)
+      content_tag(:div, class: "w-100") do
+        content_tag(:div, class: container_classes) do
+          super(name, options) + text_field_label(name, options)
+        end + help_text(options) + error_msg(name)
+      end
     end
   end
 

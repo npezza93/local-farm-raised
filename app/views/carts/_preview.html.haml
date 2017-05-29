@@ -2,4 +2,4 @@
   %i.material-icons shopping_cart
   = current_cart.count_items
 .cart-peek.hidden.cart.layout.vertical.center.mdc-elevation--z4
-  = render current_cart
+  = render "carts/cart", cart: current_cart
