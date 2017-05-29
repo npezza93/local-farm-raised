@@ -6,6 +6,8 @@ class CreateProducts < ActiveRecord::Migration[5.1]
       t.string :title
       t.string :image
       t.text :description
+      t.string :product_id
+      t.string :sku_id
       t.decimal :price, precision: 8, scale: 2
 
       t.timestamps

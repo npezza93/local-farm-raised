@@ -5,7 +5,7 @@
     title: Faker::Food.ingredient,
     price: (1..50).to_a.sample * i,
     description: Faker::Lorem.paragraphs(6).join,
-    remote_image_url: Faker::LoremPixel.image
+    remote_image_url: Faker::LoremPixel.image("1920x1080", false, "food")
   )
 end
 

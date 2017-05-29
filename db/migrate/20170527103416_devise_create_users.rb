@@ -3,7 +3,7 @@
 class DeviseCreateUsers < ActiveRecord::Migration[5.1]
   def change
     create_table(:users) do |t|
-      %i(reset_password_token stripe_customer_token name email
+      %i(reset_password_token customer_id name email
          encrypted_password).each do |field|
         t.string field
       end

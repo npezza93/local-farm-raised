@@ -3,7 +3,7 @@
 class CreateOrders < ActiveRecord::Migration[5.1]
   def change
     create_table :orders do |t|
-      %i(refund_token stripe_charge_token).each do |field|
+      %i(refund_token charge_id order_id).each do |field|
         t.string field
       end
       t.boolean :refund, default: false

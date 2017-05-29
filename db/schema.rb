@@ -33,11 +33,9 @@ ActiveRecord::Schema.define(version: 20170527104410) do
 
   create_table "carts", force: :cascade do |t|
     t.string "session_id"
-    t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["session_id"], name: "index_carts_on_session_id"
-    t.index ["user_id"], name: "index_carts_on_user_id"
   end
 
   create_table "credit_cards", force: :cascade do |t|
@@ -65,7 +63,8 @@ ActiveRecord::Schema.define(version: 20170527104410) do
 
   create_table "orders", force: :cascade do |t|
     t.string "refund_token"
-    t.string "stripe_charge_token"
+    t.string "charge_id"
+    t.string "order_id"
     t.boolean "refund", default: false
     t.bigint "user_id"
     t.bigint "credit_card_id"
@@ -95,6 +94,8 @@ ActiveRecord::Schema.define(version: 20170527104410) do
     t.string "title"
     t.string "image"
     t.text "description"
+    t.string "product_id"
+    t.string "sku_id"
     t.decimal "price", precision: 8, scale: 2
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -118,7 +119,7 @@ ActiveRecord::Schema.define(version: 20170527104410) do
 
   create_table "users", force: :cascade do |t|
     t.string "reset_password_token"
-    t.string "stripe_customer_token"
+    t.string "customer_id"
     t.string "name"
     t.string "email"
     t.string "encrypted_password"
