@@ -35,11 +35,22 @@ class Address < ApplicationRecord
   validates :state, inclusion: { in: US_STATES }
 
   def name
-    first_name + " " + last_name
+    "#{first_name} #{last_name}"
   end
 
   def archive
     self.archived = true
     save
+  end
+
+  def as_json
+    {
+      name: name,
+      address: {
+        line1: street_address1, line2: street_address2,
+        city: city, state: state, postal_code: zipcode,
+        country: "US",
+      }
+    }
   end
 end

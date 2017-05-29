@@ -33,13 +33,12 @@ class Order < ApplicationRecord
   def save_with_payment(cart)
     return false if invalid?
 
-    credit_card.set_as_default
-
-    save_to_stripe(cart) do |charge|
-      self.stripe_charge_token = charge.id
+    save_to_stripe do
+      credit_card.set_as_default
+      self.order_id  = (@order = generate_order(cart)).id
+      self.charge_id = @order.pay(customer: user.customer_id).charge
       save
-      cart.line_items.update_all(orderable_type: "Order", orderable_id: id)
-      cart.destroy
+      cart.move_to_order(self)
     end
   end
 
@@ -58,18 +57,28 @@ class Order < ApplicationRecord
       false
   end
 
+  def order
+    return if order_id.blank?
+
+    @order ||= Stripe::Order.retrieve(order_id)
+  end
+
+  def charge
+    return if charge_id.blank?
+
+    @charge ||= Stripe::Charge.retrieve(charge_id)
+  end
+
   private
 
-  def save_to_stripe(cart)
-    charge = Stripe::Charge.create(
-      amount: ((cart.total_price * 1.06) * 100.0).to_i,
-      currency: "usd",
-      description: user.email, customer: user.stripe_customer_token
+  def generate_order(cart)
+    return order if order.present?
+
+    Stripe::Order.create(
+      currency: :usd,
+      items: cart.as_json,
+      shipping: address.as_json,
+      email: user.email
     )
-    yield(charge)
-  rescue Stripe::InvalidRequestError => e
-    logger.error "Stripe error: #{e.message}"
-    errors.add :base, "There was a problem with your credit card."
-    false
   end
 end

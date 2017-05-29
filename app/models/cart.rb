@@ -36,4 +36,19 @@ class Cart < ApplicationRecord
   def count_items
     line_items.to_a.sum(&:quantity).to_s
   end
+
+  def as_json
+    line_items.map do |line_item|
+      {
+        type: :sku,
+        parent: line_item.product.sku_id,
+        quantity: line_item.quantity
+      }
+    end
+  end
+
+  def move_to_order(order)
+    line_items.update_all(orderable_type: "Order", orderable_id: order.id)
+    reload.destroy
+  end
 end

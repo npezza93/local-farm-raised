@@ -57,5 +57,5 @@ Rails.application.configure do
 
   config.action_mailer.delivery_method = :letter_opener
   Rails.application.default_url_options[:host] = "http://localhost:3000"
-  ActionMailer::Base.asset_host = "http://localhost:3000"
+  config.asset_host = "http://localhost:3000"
 end
