@@ -62,10 +62,12 @@ ActiveRecord::Schema.define(version: 20170527104410) do
   end
 
   create_table "orders", force: :cascade do |t|
-    t.string "refund_token"
+    t.string "refund_id"
     t.string "charge_id"
     t.string "order_id"
-    t.boolean "refund", default: false
+    t.string "shipping_carrier"
+    t.string "shipping_tracking_number"
+    t.string "status", default: "created"
     t.bigint "user_id"
     t.bigint "credit_card_id"
     t.bigint "address_id"

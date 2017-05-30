@@ -3,15 +3,23 @@
 class CreateOrders < ActiveRecord::Migration[5.1]
   def change
     create_table :orders do |t|
-      %i(refund_token charge_id order_id).each do |field|
-        t.string field
+      string_fields.each { |field| t.string field }
+      t.string :status, default: :created
+      references.each do |reference|
+        t.references reference, index: true
       end
-      t.boolean :refund, default: false
-      t.references :user, index: true
-      t.references :credit_card, index: true
-      t.references :address, index: true
 
       t.timestamps null: false
     end
+  end
+
+  private
+
+  def string_fields
+    %i(refund_id charge_id order_id shipping_carrier shipping_tracking_number)
+  end
+
+  def references
+    %i(user credit_card address)
   end
 end

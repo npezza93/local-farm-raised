@@ -2,16 +2,18 @@
 #
 # Table name: orders
 #
-#  id             :integer          not null, primary key
-#  refund_token   :string
-#  charge_id      :string
-#  order_id       :string
-#  refund         :boolean          default(FALSE)
-#  user_id        :integer
-#  credit_card_id :integer
-#  address_id     :integer
-#  created_at     :datetime         not null
-#  updated_at     :datetime         not null
+#  id                       :integer          not null, primary key
+#  refund_id                :string
+#  charge_id                :string
+#  order_id                 :string
+#  shipping_carrier         :string
+#  shipping_tracking_number :string
+#  status                   :string           default("created")
+#  user_id                  :integer
+#  credit_card_id           :integer
+#  address_id               :integer
+#  created_at               :datetime         not null
+#  updated_at               :datetime         not null
 #
 
 one:
