@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-50.times do |i|
+25.times do |i|
   Product.create(
     title: Faker::Food.ingredient,
     price: (1..50).to_a.sample * i,
@@ -10,7 +10,7 @@
   puts "Created product ##{i}"
 end
 
-50.times do |i|
+25.times do |i|
   User.create(
     name: Faker::StarWars.character,
     email: Faker::Internet.email,
