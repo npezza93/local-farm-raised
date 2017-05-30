@@ -15,5 +15,8 @@
         = @order.address.city + ", " + @order.address.state + " " + @order.address.zipcode
     = render @order
   .layout.horizontal.center-justified.w-100.mb-3
-    = link_to "Cancel", @order, method: :delete,
-        data: { confirm: "Are you sure?" }, class: "large-round-btn"
+    - if current_user.admin? && @order.paid?
+      = link_to "Mark Fulfilled", edit_order_path(@order), class: "large-round-btn"
+    - elsif !current_user.admin? && @order.paid?
+      = link_to "Cancel", @order, method: :delete,
+          data: { confirm: "Are you sure?" }, class: "large-round-btn"

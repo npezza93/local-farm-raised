@@ -32,6 +32,18 @@ class Order < ApplicationRecord
     line_items.to_a.sum(&:total_price)
   end
 
+  def paid?
+    status == "paid"
+  end
+
+  def fulfilled?
+    status == "fulfilled"
+  end
+
+  def created?
+    status == "created"
+  end
+
   def save_with_payment(cart)
     return false if invalid?
 
@@ -39,24 +51,33 @@ class Order < ApplicationRecord
       credit_card.set_as_default
       self.order_id  = (@order = generate_order(cart)).id
       self.charge_id = @order.pay(customer: user.customer_id).charge
+      self.status    = :paid
       save
       cart.move_to_order(self)
     end
   end
 
-  def cancel_order
-    if valid?
-      refund = Stripe::Refund.create(
-        charge: stripe_charge_token, reason: :requested_by_customer
-      )
-      self.refund_token = refund.id
-      self.refund = true
-      save!
+  def fulfill(params)
+    return false if refund.present?
+
+    save_to_stripe do
+      self.attributes = params.merge(status: :fulfilled)
+      order.shipping.carrier         = shipping_carrier
+      order.shipping.tracking_number = shipping_tracking_number
+      order.status                   = "fulfilled"
+      order.save
+      save
     end
-    rescue Stripe::InvalidRequestError => e
-      logger.error "Stripe error while refunding charge: #{e.message}"
-      errors.add :base, "Charge has already been refunded."
-      false
+  end
+
+  def cancel_order
+    return false unless paid?
+
+    save_to_stripe do
+      self.refund_id = order.return_order({}).refund
+      self.status = "cancelled"
+      save
+    end
   end
 
   def order
@@ -69,6 +90,12 @@ class Order < ApplicationRecord
     return if charge_id.blank?
 
     @charge ||= Stripe::Charge.retrieve(charge_id)
+  end
+
+  def refund
+    return if refund_id.blank?
+
+    @refund ||= Stripe::Refund.retrieve(refund_id)
   end
 
   private

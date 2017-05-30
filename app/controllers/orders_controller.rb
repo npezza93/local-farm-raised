@@ -2,7 +2,8 @@
 
 class OrdersController < ApplicationController
   before_action :auth_user
-  before_action :set_order, only: %i(show destroy)
+  before_action :auth_admin, only: %i(edit update)
+  before_action :set_order, only: %i(edit update show destroy)
   before_action :check_cart, only: :new
 
   def index
@@ -34,13 +35,26 @@ class OrdersController < ApplicationController
     end
   end
 
-  def destroy
-    if @order.cancel_order
-      redirect_to orders_url,
-                  notice: "Order was successfully canceled and refunded."
+  def edit
+  end
+
+  def update
+    if @order.fulfill(fulfillment_params)
+      redirect_to @order, notice: "Order fulfilled"
     else
-      redirect_to order_url(@order), notice: "Charge has already been refunded."
+      render :edit
     end
+  end
+
+  def destroy
+    notice =
+      if @order.cancel_order
+        "Order was successfully canceled and refunded"
+      else
+        "Order cancellation failed"
+      end
+
+    redirect_to @order, notice: notice
   end
 
   private
@@ -51,6 +65,10 @@ class OrdersController < ApplicationController
 
   def order_params
     params.require(:order).permit(:credit_card_id, :address_id)
+  end
+
+  def fulfillment_params
+    params.require(:order).permit(:shipping_carrier, :shipping_tracking_number)
   end
 
   def check_cart

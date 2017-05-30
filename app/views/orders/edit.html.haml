@@ -1,0 +1,7 @@
+.form-container.layout.vertical.center
+  %h2 Shipping Information
+  = form_for @order, builder: FormBuilder do |f|
+    = f.text_field :shipping_carrier, label: "Carrier"
+    = f.text_field :shipping_tracking_number, label: "Tracking Number"
+    .mt-2
+    = f.submit "Mark fulfilled"

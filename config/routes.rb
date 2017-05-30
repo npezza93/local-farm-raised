@@ -14,13 +14,13 @@ Rails.application.routes.draw do
 
   devise_for :users, controllers: { registrations: "registrations" }
 
-  resources :orders, except: %i(edit update)
+  resources :orders
   resources :line_items, only: %i(create update)
   resource :cart, only: :show
 
   resources :products
 
-  get "store", to: "products#index"
+  get :store, to: "products#index"
 
   root "products#index"
 end
