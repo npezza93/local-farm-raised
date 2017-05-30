@@ -7,5 +7,7 @@
       = f.password_field :password, required: true
       .mt-2= f.submit "Log in"
   .layout.vertical.center
+    = link_to "sign up", new_user_registration_path,
+        class: "mt-3 mdc-button"
     = link_to "FORGOT YOUR PASSWORD?", new_password_path(resource_name),
         class: "mt-6 forgot-password-link"
