@@ -31,10 +31,14 @@ class Product < ApplicationRecord
   after_create :generate_stripe_ids
 
   def sku
+    return if sku_id.blank?
+
     @sku ||= Stripe::SKU.retrieve(sku_id)
   end
 
   def product
+    return if product_id.blank?
+
     @product ||= Stripe::Product.retrieve(product_id)
   end
 
@@ -56,6 +60,8 @@ class Product < ApplicationRecord
   end
 
   def generate_product_id
+    return product.id if product.present?
+
     Stripe::Product.create(
       name: title, description: description, url: product_url(self),
       images: [image_url]
@@ -63,6 +69,8 @@ class Product < ApplicationRecord
   end
 
   def generate_sku_id
+    return sku.id if sku.present?
+
     Stripe::SKU.create(
       product: product_id, price: (price * 100).to_i, currency: :usd,
       inventory: { type: :infinite }

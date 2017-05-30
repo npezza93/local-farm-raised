@@ -27,12 +27,16 @@ class User < ApplicationRecord
   after_create :generate_customer_id
 
   def customer
+    return if customer_id.blank?
+
     @customer ||= Stripe::Customer.retrieve(customer_id)
   end
 
   private
 
   def generate_customer_id
+    return customer.id if customer.present?
+
     save_to_stripe do
       self.customer_id =
         Stripe::Customer.create(email: email, description: name).id
