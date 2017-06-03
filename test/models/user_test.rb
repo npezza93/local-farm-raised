@@ -20,9 +20,13 @@ require "test_helper"
 
 class UserTest < ActiveSupport::TestCase
   test "creates customer in stripe" do
-    @user = users(:one)
     VCR.use_cassette "create_customer" do
-      assert @user.send :generate_customer_id
+      assert User.create(
+        name: "name",
+        email: "email",
+        password: "password",
+        password_confirmation: "password"
+      )
     end
   end
 end
