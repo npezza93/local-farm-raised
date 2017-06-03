@@ -26,7 +26,6 @@ gem "carrierwave"
 gem "devise"
 gem "mini_magick"
 gem "stripe"
-gem "wysiwyg-rails"
 
 group :development do
   gem "annotate"
