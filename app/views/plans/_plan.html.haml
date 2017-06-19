@@ -1,0 +1,9 @@
+%li.mdc-list-item
+  %span.mdc-list-item__text
+    = plan.name
+    %span.mdc-list-item__text__secondary= number_to_currency(plan.amount/100.0)
+  .flex
+  = link_to plan_path(plan.id), method: :delete,
+      data: { confirm: "Are you sure?" },
+      class: "mdc-list-item__end-detail material-icons" do
+    delete

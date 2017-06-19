@@ -1,0 +1,6 @@
+= form_for plan, builder: FormBuilder do |f|
+  .mb-4= f.text_field :amount, full_width: true, required: true
+  .my-4= f.text_field :name, full_width: true, required: true
+  .my-4= f.text_field :id,full_width: true, required: true
+  .layout.vertical.center.mt-4
+    = f.submit

@@ -12,6 +12,8 @@ class Plan
 
   def initialize(attributes = {})
     attributes.each do |name, value|
+      next unless respond_to?("#{name}=")
+
       send("#{name}=", value)
     end
   end
@@ -20,14 +22,28 @@ class Plan
     false
   end
 
-  def save_plan
+  class << self
+    def all
+      Stripe::Plan.all.map do |plan|
+        new(plan.as_json)
+      end
+    end
+
+    def find(id)
+      new(Stripe::Plan.retrieve(id).as_json)
+    end
+  end
+
+  def save
+    return false if invalid?
+
     Stripe::Plan.create(
-      amount: amount.to_i,
-      interval: "month",
-      interval_count: 1,
-      name: name,
-      currency: "usd",
-      id: id
+      amount: amount.to_i, id: id, name: name,
+      interval: "month", interval_count: 1, currency: "usd"
     )
+  end
+
+  def destroy
+    Stripe::Plan.retrieve(id).delete
   end
 end

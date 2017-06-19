@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  resources :plans, only: %i(index new create destroy)
-  resources :recipes
-  resources :posts
+  resources :plans, except: %i(show edit update)
 
   resources :addresses, except: :show
   resources :credit_cards, except: %i(show edit update)

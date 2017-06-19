@@ -1,0 +1,5 @@
+= link_to product, class: "product-tile m-1" do
+  = image_tag product.image_url(:thumb), class: "w-100"
+  .layout.vertical.center-justified.product-overlay
+    .mb-1.layout.vertical.center.product-title= product.title
+    .layout.vertical.center.product-cost= number_to_currency(product.price)

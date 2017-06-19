@@ -1,0 +1,12 @@
+= render "layouts/account_tabs", active_tab: :plans
+
+.form-container.w-100
+  %h2 Subscription Plans
+  .layout.horizontal.center-justified.wrap
+    - if @plans.blank?
+      %h3 No plans
+    - else
+      %ul.mdc-list.mdc-list--two-line.w-100
+        = render partial: "plan", collection: @plans, cached: true
+
+= fab new_plan_path

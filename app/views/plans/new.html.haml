@@ -1,0 +1,5 @@
+= render "layouts/account_tabs", active_tab: :plans
+
+.form-container.layout.vertical
+  %h2 Create Plan
+  = render "form", plan: @plan, url: plans_path, method: :post

@@ -1,10 +1,11 @@
 # frozen_string_literal: true
 
 class PlansController < ApplicationController
-  before_action :set_plan, only: [:destroy]
+  before_action :auth_admin
+  before_action :set_plan, only: :destroy
 
   def index
-    @plans = Stripe::Plan.all
+    @plans = Plan.all
   end
 
   def new
@@ -14,16 +15,15 @@ class PlansController < ApplicationController
   def create
     @plan = Plan.new(plan_params)
 
-    if @plan.valid?
-      @plan.save_plan
-      redirect_to plans_url, notice: "Plan was successfully created."
+    if @plan.save
+      redirect_to plans_path, notice: "Plan was successfully created."
     else
       render :new
     end
   end
 
   def destroy
-    @plan.delete
+    @plan.destroy
 
     redirect_to plans_url, notice: "Plan was successfully destroyed."
   end
@@ -31,12 +31,10 @@ class PlansController < ApplicationController
   private
 
   def set_plan
-    @plan = Stripe::Plan.retrieve(params[:id])
+    @plan = Plan.find(params[:id])
   end
 
   def plan_params
-    params.require(:plan).permit(
-      :amount, :interval, :interval_count, :name, :currency, :id
-    )
+    params.require(:plan).permit(:amount, :name, :id)
   end
 end
